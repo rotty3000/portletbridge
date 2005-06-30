@@ -1,0 +1,47 @@
+
+current url:
+
+http://host.com/root/
+
+relative
+
+test --> http://host.com/root/test
+test/test.gif --> http://host.com/root/test/test.gif
+../test --> http://host.com/root/../test
+
+absolute
+
+/test --> http://host.com/test
+/test/test.gif --> http://host.com/test/test.gif
+
+full
+
+http://otherhost.com/ --> http://otherhost.com/
+
+--- base url issue to be resolved ---
+
+done.
+
+other rewriting rules:
+
+forms
+	get's to posts
+
+urls
+	a,form,area --> rewrite to portlet
+	link,img,input,embed,xml,script --> rewrite to servlet
+
+frames
+	blow up
+
+stylesheets
+	consider dropping styles
+	consider adding styles
+
+html/head/body
+	consider dropping as standard
+
+titles
+	ponder this (i.e. should the portlet title be the title of the underlying page?)
+	no for now.
+

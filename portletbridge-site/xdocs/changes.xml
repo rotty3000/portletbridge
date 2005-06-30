@@ -1,0 +1,27 @@
+<document>
+  <properties>
+    <title>Changes</title>
+    <author email="dkfn@users.sourceforge.net">dkfn</author>
+  </properties>
+  <body>
+
+    <release version="0.2" date="TBD">
+
+      <action dev="dkfn" type="update">
+        Support for non HTTP urls
+      </action>              
+      <action dev="dkfn" type="update">
+        Fixed PortletURLRewriter "../" urls
+      </action>              
+      <action dev="dkfn" type="update">
+        Title set from downstream title
+      </action>              
+      <action dev="dkfn" type="update">
+        More Javadocs
+      </action>              
+
+    </release>
+
+  </body>
+
+</document>

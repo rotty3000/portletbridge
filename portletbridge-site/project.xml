@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+  <!-- the version of maven's project object model -->
+  <pomVersion>3</pomVersion>
+  
+  <!-- a unique name for this project -->
+  <groupId>portletbridge</groupId>
+  <id>portletbridge-site</id>
+  
+  <!-- a short but descriptive name for the project -->
+  <name>PortletBridge</name>
+  
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-dev -->
+  <currentVersion>0.2-SNAPSHOT</currentVersion>
+  
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+    <name>Grape Design Limited</name>
+    <url>http://www.portletbridge.org</url>
+    <!--logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo-->
+  </organization>
+  
+  <!-- the year the project started -->
+  <inceptionYear>2005</inceptionYear>
+  <package>org.portletbridge</package>
+  <logo></logo>
+  <description>
+	The Portlet Bridge project is intended to allow regular web sites be 
+	hosted as portlets.
+  </description>
+  <!-- a short description of what the project does -->
+  <shortDescription>
+    PortletBridge
+  </shortDescription>
+
+  <url>http://www.portletbridge.org</url>
+  <!--issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl-->
+  <siteAddress>www.portletbridge.org</siteAddress>
+  <siteDirectory>/Users/jamie</siteDirectory>
+  <distributionDirectory>
+    http://www.portletbridge.org/distributions
+  </distributionDirectory>
+  <!--repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</connection>
+    <developerConnection>scm:cvs:ext:${maven.sourceforge.username}@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.groupId}/${pom.artifactId}/</url>
+  </repository-->
+  
+  <versions>
+    <version>
+      <id>0.1</id>
+      <name>0.1</name>
+    </version>
+  </versions>
+  
+  <!-- any mailing lists for the project -->
+  <mailingLists/>
+    
+  <!-- who the developers are for the project -->
+  <developers>
+   <developer>
+      <name>Jamie McCrindle</name>
+      <id>dkfn</id>
+      <email>dkfn@users.sourceforge.net</email>
+      <organization>Grape Design Limited</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies>
+    <dependency>
+      <id>dom4j</id>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <id>log4j</id>
+      <version>1.2.8</version>
+      <properties>
+      	<war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>xml-apis</id>
+      <version>2.0.2</version>
+    </dependency>
+  </dependencies>
+  
+  <!-- build information for the project -->
+  <build>
+    <nagEmailAddress>dkfn@users.sourceforge.net</nagEmailAddress>
+    <!--sourceDirectory>${basedir}/src/main</sourceDirectory-->
+  </build>
+
+  <reports>
+    <!--report>maven-junit-report-plugin</report-->
+    <!--report>maven-checkstyle-plugin</report-->
+    <!--report>maven-linkcheck-plugin</report-->
+    <!--report>maven-jdepend-plugin</report-->
+    <!--report>maven-changelog-plugin</report-->
+    <!--report>maven-tasklist-plugin</report-->
+
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-changes-plugin</report>
+  </reports>
+
+</project>
+
