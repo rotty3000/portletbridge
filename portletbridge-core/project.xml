@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project>
+  <!-- the version of maven's project object model -->
+
+  <pomVersion>3</pomVersion>
+  <!-- a unique name for this project -->
+
+  <groupId>portletbridge</groupId>
+  <id>portletbridge-core</id>
+  <!-- a short but descriptive name for the project -->
+
+  <name>Portlet Bridge Core</name>
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-SNAPSHOT -->
+
+  <currentVersion>0.1</currentVersion>
+  <!-- details about the organization that 'owns' the project -->
+
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+    <name>Grape Design Limited</name>
+    <url>http://www.portletbridge.org</url>
+    <!--logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo-->
+  </organization>
+
+  <!-- the year the project started -->
+  <inceptionYear>2002</inceptionYear>
+  <package>org.portletbridge</package>
+  <logo></logo>
+  <description>
+	The Portlet Bridge project is intended to allow regular web sites be 
+	hosted as portlets.
+  </description>
+  <!-- a short description of what the project does -->
+
+  <shortDescription>PortletBridge</shortDescription>
+  <!-- the project home page -->
+
+  <url>http://www.portletbridge.org</url>
+  <!--issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl-->
+  <siteAddress>www.portletbridge.org</siteAddress>
+  <siteDirectory>/Users/jamie</siteDirectory>
+  <distributionDirectory>
+    http://www.portletbridge.org/distributions
+  </distributionDirectory>
+  <!--repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</connection>
+    <developerConnection>scm:cvs:ext:${maven.sourceforge.username}@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.groupId}/${pom.artifactId}/</url>
+  </repository-->
+  
+  <!-- any mailing lists for the project -->
+  <mailingLists/>
+
+  <!-- who the developers are for the project -->
+  <developers>
+   <developer>
+      <name>Jamie McCrindle</name>
+      <id>dkfn</id>
+      <email>dkfn@users.sourceforge.net</email>
+      <organization>Grape Design Limited</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies>
+    <dependency>
+      <id>portlet-api</id>
+      <version>1.0</version>
+    </dependency>
+  	<dependency>
+  	  <groupId>commons-httpclient</groupId>
+  	  <artifactId>commons-httpclient</artifactId>
+  	  <version>3.0-rc2</version>
+  	</dependency>
+  	<dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>0.9.4</version>
+    </dependency>
+    <dependency>
+      <groupId>local</groupId>
+      <artifactId>tagsoup</artifactId>
+      <version>1.0rc2</version>
+    </dependency>
+    <dependency>
+      <groupId>local</groupId>
+      <artifactId>hotsax</artifactId>
+      <version>0.1.2c</version>
+    </dependency>
+    <dependency>
+      <groupId>local</groupId>
+      <artifactId>htmlparser</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>local</groupId>
+      <artifactId>htmllexer</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <version>1.3.4</version>
+    </dependency>
+  	<dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+  	<dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.6.1</version>
+    </dependency>
+  	<dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+    <dependency>
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
+  </dependencies>
+  <!-- build information for the project -->
+
+  <build>
+    <nagEmailAddress>turbine-maven-dev@jakarta.apache.org</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/*IntegrationTest.java</exclude>
+      </excludes>
+    </unitTest>
+    <resources>
+      <resource>
+        <directory>src/conf</directory>
+        <includes>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+  <reports>
+    <!--report>maven-junit-report-plugin</report-->
+    <!--report>maven-checkstyle-plugin</report-->
+    <!--report>maven-linkcheck-plugin</report-->
+    <!--report>maven-jdepend-plugin</report-->
+    <!--report>maven-changelog-plugin</report-->
+    <!--report>maven-tasklist-plugin</report-->
+
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-changes-plugin</report>
+  </reports>
+
+</project>
