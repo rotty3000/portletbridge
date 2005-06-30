@@ -1,0 +1,80 @@
+body, td, select, input, li{
+  font-family: Trebuchet MS, Helvetica, sans-serif;
+  font-size: 13px;
+
+}
+a {
+  text-decoration: none;
+}
+a:link {
+  color:#7D8999;
+}
+a:visited  {
+  color:#7D8999;
+}
+a:active, a:hover {
+  color:#99927D;
+}
+a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:active, a.externalLink:hover {
+  background: url(../images/external.png) right center no-repeat;
+  padding-right: 15px;
+}
+a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWindow:hover {
+  background: url(../images/newwindow.png) right center no-repeat;
+  padding-right: 18px;
+}
+h2 {
+  padding: 4px 4px 4px 6px;
+  color: black;
+  font-weight:900;
+  font-size: x-large;
+}
+h3 {
+  padding: 4px 4px 4px 6px;
+  color: black;
+  font-weight: normal;
+  font-size: large;
+}
+p {
+  line-height: 1.3em;
+  font-size: small;
+}
+#breadcrumbs {
+  border-bottom: 1px solid white;
+  background-color: #E6E1BC;
+}
+#leftColumn {
+  margin: 10px 0 0 5px;
+}
+#navcolumn h5 {
+  font-size: small;
+  padding: 4px 4px 4px 4px;
+  font-weight: bold;
+}
+
+#navcolumn h5, h3, h2 {
+  background-color: #BCCEE5;
+}
+
+table.bodyTable th {
+  color: white;
+  background-color: #949494;
+  text-align: left;
+  font-weight: bold;
+}
+
+table.bodyTable th, table.bodyTable td {
+  font-size: 1em;
+}
+
+table.bodyTable tr.a {
+  background-color: #F9F9F9;
+}
+
+table.bodyTable tr.b {
+  background-color: #F9F9F9;
+}
+
+.source {
+  border: 1px solid #F1F1F1;
+}

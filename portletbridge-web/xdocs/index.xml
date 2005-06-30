@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<document>
+
+ <properties>
+  <title>PorletBridge Web</title>
+ </properties>
+
+<body>
+
+<section name="PortletBridge Web">
+<p>
+The PortletBridge Web project produces a .war file that can be used to proxy and
+rewrite HTML.
+</p>
+<subsection name="Configuration">
+<p>
+There are various configuration options you can set when deploying the war file. These
+are done through context parameters. Most servlet contains have a way to configure context
+params without having to change the contents of the war file. This is what they would
+look like in tomcat:
+<source>
+<![CDATA[
+<Context path="/portletbridge" reloadable="true" 
+        docBase="/dev/portletbridge/portletbridge-web/target/portletbridge-web"
+        debug="0" privileged="false">
+
+  <Parameter name="portletbridge.configProxyEnabled" value="true" override="false"/>
+  <Parameter name="portletbridge.configProxyHost" value="---" override="false"/>
+  <Parameter name="portletbridge.configProxyPort" value="---" override="false"/>
+  <Parameter name="portletbridge.configProxyAuthentication" value="ntlm" override="false"/>
+  <Parameter name="portletbridge.configProxyAuthenticationUsername" value="---" override="false"/>
+  <Parameter name="portletbridge.configProxyAuthenticationPassword" value="---" override="false"/>
+  <Parameter name="portletbridge.configProxyAuthenticationHost" value="---" override="false"/>
+  <Parameter name="portletbridge.configProxyAuthenticationDomain" value="---" override="false"/>
+  <Parameter name="portletbridge.configConnectionTimeout" value="5000" override="false"/>
+  <Parameter name="portletbridge.configConnectionMaxTotal" value="100" override="false"/>
+  <Parameter name="portletbridge.configConnectionMaxPerHost" value="20" override="false"/>
+
+</Context>
+]]>
+</source>
+</p>
+</subsection>
+</section>
+<section name="Requirements">
+<p>
+Portlet Bridge requires Java 1.4 or above.
+</p>
+</section>
+</body>
+</document>
