@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html>
+<head>
+<title>
+Hello World!
+</title>
+<base href="xxx/index.html">
+<script>
+ <!--// test -->
+</script>
+</head>
+<body>
+	<h1>Blah</h1>
+	<a href="/pages/test1.html">test1</a>
+	<a href="test2.html?blah=blah&jsessionid=234234234">test1</a>
+	<a href="/test2.html">test1</a>
+	<img src="/test2.gif"/>
+	<img src="http://www.bluesnews.com/test2.gif"/>
+	<table class="mytable">
+		<tr>
+			<td class="mytd">test</td>
+			<td class="mytd">test</td>
+		</tr>
+	</table>
+	<form>
+		<input type="text"/>
+	</form>
+	<form method="get" action="/formpost.do">
+		<input type="text"/>
+	</form>
+</body>
+</html>

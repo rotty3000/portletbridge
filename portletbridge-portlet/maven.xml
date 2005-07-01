@@ -1,0 +1,27 @@
+<project default="war" 
+		 xmlns:j="jelly:core" 
+		 xmlns:u="jelly:util"
+		 xmlns:maven="jelly:maven"
+         xmlns:ant="jelly:ant">
+
+  <goal name="dev">
+    <j:set var="maven.war.webxml" value="${basedir}/src/conf/web-dev.xml"/>
+    <attainGoal name="war:webapp"/>
+  </goal>
+
+  <postGoal name="xdoc:register-reports"> 
+    <attainGoal name="maven-linkcheck-plugin:deregister"/> 
+    <attainGoal name="maven-checkstyle-plugin:deregister"/> 
+  </postGoal>
+
+  <postGoal name="xdoc">
+    <attainGoal name="portletbridge:copystyles"/>
+  </postGoal>
+
+  <goal name="portletbridge:copystyles"> 
+    <copy todir="${maven.docs.dest}\style" overwrite="true">
+      <fileset dir="${maven.docs.src}\style"/>
+    </copy>
+  </goal>
+
+</project>

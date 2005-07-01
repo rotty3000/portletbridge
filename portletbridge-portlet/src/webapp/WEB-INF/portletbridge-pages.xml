@@ -1,0 +1,13 @@
+<pages>
+    <portal-name>default</portal-name>
+    <page>
+        <page-name>portletbridge</page-name>
+        <window>
+            <window-name>PortletBridgePortletWindow</window-name>
+            <instance-ref>portletbridge.PortletBridgePortlet.PortletBridgePortletInstance</instance-ref>
+            <default>true</default>
+            <region>center</region>
+            <height>0</height>
+        </window>
+    </page>
+</pages>

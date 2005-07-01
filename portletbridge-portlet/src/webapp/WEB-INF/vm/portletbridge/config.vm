@@ -1,0 +1,70 @@
+<form action="$portlet.createActionUrl(null, 'config', null, null)" method="post">
+<table>
+<tr>
+	<td>Initial URL</td>
+	<td><input type="text" name="initUrl" value="$portlet.getPreferenceValue('initUrl', null)"/></td>
+</tr>
+<tr>
+	<td>Stylesheet</td>
+	<td><input type="text" name="stylesheet" value="$portlet.getPreferenceValue('stylesheet', null)"/></td>
+</tr>
+<tr>
+	<td>Authentication Type</td>
+	<td>
+	    #set($authentication = $portlet.getPreferenceValue('authentication', null))
+	    <select name="authentication">
+	    	<option #if($authentication == 'none')selected#end value="none">None</option>
+	    	<option #if($authentication == 'basic')selected#end value="basic">Basic</option>
+	    	<option #if($authentication == 'ntlm')selected#end value="ntlm">NTLM</option>
+	    </select>
+	</td>
+</tr>
+<tr>
+	<td>Username</td>
+	<td><input type="text" name="authenticationUsername" value="$portlet.getPreferenceValue('authenticationUsername', null)"/></td>
+</tr>
+<tr>
+	<td>Password</td>
+	<td><input type="text" name="authenticationPassword" value="$portlet.getPreferenceValue('authenticationPassword', null)"/></td>
+</tr>
+<tr>
+	<td>Host (for ntlm)</td>
+	<td><input type="text" name="authenticationHost" value="$portlet.getPreferenceValue('authenticationHost', null)"/></td>
+</tr>
+<tr>
+	<td>Domain (for ntml)</td>
+	<td><input type="text" name="authenticationDomain" value="$portlet.getPreferenceValue('authenticationDomain', null)"/></td>
+</tr>
+<tr>
+	<td>Proxy Authentication Type</td>
+	<td>
+    #set($proxyAuthentication = $portlet.getPreferenceValue('proxyAuthentication', null))
+    <select name="proxyAuthentication">
+     	<option #if($proxyAuthentication == 'none')selected#end value="none">None</option>
+    	<option #if($proxyAuthentication == 'basic')selected#end value="basic">Basic</option>
+    	<option #if($proxyAuthentication == 'ntlm')selected#end value="ntlm">NTLM</option>
+    </select>
+    </td>
+</tr>
+<tr>
+	<td>Proxy Username</td>
+	<td><input type="text" name="proxyAuthenticationUsername" value="$portlet.getPreferenceValue('proxyAuthenticationUsername', null)"/></td>
+</tr>
+<tr>
+	<td>Proxy Password</td>
+	<td><input type="text" name="proxyAuthenticationPassword" value="$portlet.getPreferenceValue('proxyAuthenticationPassword', null)"/></td>
+</tr>
+<tr>
+	<td>Proxy Host (for ntlm)</td>
+	<td><input type="text" name="proxyAuthenticationHost" value="$portlet.getPreferenceValue('proxyAuthenticationHost', null)"/></td>
+</tr>
+<tr>
+	<td>Proxy Domain (for ntlm)</td>
+	<td><input type="text" name="proxyAuthenticationDomain" value="$portlet.getPreferenceValue('proxyAuthenticationDomain', null)"/></td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit"/></td>
+</tr>
+
+</table>
+</form>

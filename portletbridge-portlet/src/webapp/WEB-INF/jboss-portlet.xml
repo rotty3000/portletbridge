@@ -1,0 +1,6 @@
+<portlet-app>
+   <portlet>
+      <portlet-name>PortletBridgePortlet</portlet-name>
+      <security></security>
+   </portlet>
+</portlet-app>

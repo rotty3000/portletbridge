@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<instances>
+   <instance>
+      <instance-name>PortletBridgePortletInstance</instance-name>
+      <component-ref>PortletBridgePortlet</component-ref>
+      <preferences>
+         <preference>
+            <name>initUrl</name>
+            <value>http://slashdot.org</value>
+            <read-only>true</read-only>
+         </preference>
+      </preferences>
+   </instance>
+</instances>
