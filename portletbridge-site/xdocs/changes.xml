@@ -8,6 +8,9 @@
     <release version="0.2" date="TBD">
 
       <action dev="dkfn" type="update">
+        XSL stylesheets from any URL
+      </action>              
+      <action dev="dkfn" type="update">
         Support for non HTTP urls
       </action>              
       <action dev="dkfn" type="update">
