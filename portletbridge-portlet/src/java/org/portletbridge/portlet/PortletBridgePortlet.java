@@ -18,6 +18,8 @@ package org.portletbridge.portlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -357,6 +359,9 @@ public class PortletBridgePortlet implements Portlet {
                 String substring = stylesheet.substring(10);
                 resourceAsStream = this.getClass().getResourceAsStream(
                         substring);
+            } else {
+                URL url = new URL(stylesheet);
+                resourceAsStream = url.openStream();
             }
             if (resourceAsStream == null) {
                 throw new ResourceException("error.stylesheet.notfound",
@@ -365,6 +370,10 @@ public class PortletBridgePortlet implements Portlet {
             result = factory.newTemplates(new StreamSource(resourceAsStream));
         } catch (TransformerConfigurationException e) {
             throw new ResourceException("error.transformer", e.getMessage(), e);
+        } catch (MalformedURLException e) {
+            throw new ResourceException("error.stylesheet.url", e.getMessage(), e);
+        } catch (IOException e) {
+            throw new ResourceException("error.stylesheet.url", e.getMessage(), e);
         }
         return result;
     }

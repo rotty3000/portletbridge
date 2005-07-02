@@ -26,7 +26,12 @@ import org.apache.commons.httpclient.HttpState;
  */
 public class SerializeableHttpState extends HttpState implements Serializable {
 
-    /**
+	/**
+	 * serial version id 
+	 */
+	private static final long serialVersionUID = 5846580317381333555L;
+
+	/**
      * Default Constructor
      */
     public SerializeableHttpState() {

@@ -143,7 +143,6 @@ public class CommonsProxyTransport implements ProxyTransport, ResourceTransport 
             }
             hostConfiguration.setHost(method.getURI());
             client.executeMethod(hostConfiguration, method, browser.getState());
-            final byte[] responseBody = method.getResponseBody();
             final String contentType = method.getResponseHeader("Content-Type").getValue();
             HttpResult result = new HttpResult() {
                 public String getContentType() {
