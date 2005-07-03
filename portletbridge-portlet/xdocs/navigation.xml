@@ -25,6 +25,7 @@
   <body>
     <links>
       <item name="PortletBridge"  href="http://www.portletbridge.org"/>
+      <item name="Sourceforge"  href="http://www.sourceforge.net/projects/portletbridge"/>
     </links>
     <menu name="Project">
           <item name="Overview" href="index.html"/>
