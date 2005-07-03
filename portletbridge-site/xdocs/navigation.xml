@@ -24,7 +24,7 @@
 
   <body>
     <links>
-      <!--item name="Sourceforge"  href="http://www.sourceforge.net/projects/jdiagnose"/-->
+      <item name="Sourceforge"  href="http://www.sourceforge.net/projects/portletbridge"/>
     </links>
     <menu name="Project">
           <item name="Overview" href="index.html"/>

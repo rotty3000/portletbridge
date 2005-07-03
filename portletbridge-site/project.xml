@@ -19,7 +19,7 @@
   <organization>
     <name>Grape Design Limited</name>
     <url>http://www.portletbridge.org</url>
-    <!--logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo-->
+    <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo>
   </organization>
   
   <!-- the year the project started -->
@@ -36,17 +36,17 @@
   </shortDescription>
 
   <url>http://www.portletbridge.org</url>
-  <!--issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl-->
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
   <siteAddress>www.portletbridge.org</siteAddress>
   <siteDirectory>/Users/jamie</siteDirectory>
   <distributionDirectory>
     http://www.portletbridge.org/distributions
   </distributionDirectory>
-  <!--repository>
+  <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</connection>
     <developerConnection>scm:cvs:ext:${maven.sourceforge.username}@cvs.sourceforge.net:/cvsroot/${pom.groupId}:${pom.artifactId}</developerConnection>
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.groupId}/${pom.artifactId}/</url>
-  </repository-->
+  </repository>
   
   <versions>
     <version>
