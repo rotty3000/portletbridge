@@ -28,7 +28,7 @@
 <section name="PortletBridge Portlet">
 <p>
 The PortletBridge Portlet project creates a JSR-168 Portlet that can proxy and rewrite
-content from a downstream site. Currently, the portlet supports:
+content from a downstream web site. Currently, the portlet supports:
 <ul>
 <li>Getting content from a downstream site</li>
 <li>Proxy configuration (including NTLM and Basic authentication)</li>
@@ -45,7 +45,13 @@ The portlet currently does not support:
 <li>Links to binary files</li>
 <li>Help, Edit or Config portlet modes</li>
 <li>Tested support of other portal frameworks</li>
+<li>Moving javascript and css links out of the head</li>
+<li>Rewriting CSS urls</li>
 </ul>
+</p>
+<p>
+The size of the PortletBridge portlet is due to the inclusion of the Xalan and Xerces
+jars for rewriting the content from the downstream site.
 </p>
 </section>
 <section name="Portlet Configuration">
