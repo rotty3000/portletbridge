@@ -26,18 +26,16 @@ public class DefaultBridgeRequest implements Serializable, BridgeRequest {
     private String portletId = null;
     private String pageUrl = null;
     private URI url = null;
-    private String method = null;
     
     public DefaultBridgeRequest() {
         
     }
     
-    public DefaultBridgeRequest(String portletId, String pageUrl, URI url, String method) {
+    public DefaultBridgeRequest(String portletId, String pageUrl, URI url) {
         super();
         this.portletId = portletId;
         this.pageUrl = pageUrl;
         this.url = url;
-        this.method = method;
     }
 
     public String getPageUrl() {
@@ -64,10 +62,5 @@ public class DefaultBridgeRequest implements Serializable, BridgeRequest {
     public PortletBridgeContent dequeueContent() {
         return null;
     }
-    public String getMethod() {
-        return method;
-    }
-    public void setMethod(String method) {
-        this.method = method;
-    }
+
 }

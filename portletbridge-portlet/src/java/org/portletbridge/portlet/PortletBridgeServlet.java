@@ -129,7 +129,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // TODO: think about cleaning this up if we don't get back to the render
                                     bridgeRequest
                                             .enqueueContent(new PortletBridgeContent(
-                                                    url, content));
+                                                    url, "get", content));
                                     // redirect
                                     // TODO: worry about this... adding the id at the end
                                     response.sendRedirect(bridgeRequest

@@ -23,7 +23,6 @@ import java.net.URI;
 public interface BridgeRequest {
     String getPageUrl();
     String getPortletId();
-    String getMethod();
     URI getUrl();
     void enqueueContent(PortletBridgeContent content);
     PortletBridgeContent dequeueContent();

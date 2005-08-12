@@ -24,15 +24,13 @@ public class PortletBridgeContent {
     
     private URI url = null;
     private String content = null;
+    private String method;
 
-    public PortletBridgeContent(URI url, String content) {
+    public PortletBridgeContent(URI url, String method, String content) {
         super();
         this.url = url;
+        this.method = method;
         this.content = content;
-    }
-
-    public PortletBridgeContent() {
-        super();
     }
 
     public String getContent() {
