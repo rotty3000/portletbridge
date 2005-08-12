@@ -13,25 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.portletbridge.portlet;
+package org.portletbridge.portlet.old;
 
+import java.io.IOException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import javax.portlet.PortletException;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
-import org.portletbridge.mock.MockHttpClientTemplate;
+import junit.framework.TestCase;
+
 import org.portletbridge.mock.MockPortletConfig;
 import org.portletbridge.mock.MockPortletPreferences;
 import org.portletbridge.mock.MockPortletSession;
+import org.portletbridge.mock.MockProxyTransport;
 import org.portletbridge.mock.MockRenderRequest;
 import org.portletbridge.mock.MockRenderResponse;
-
-import junit.framework.TestCase;
+import org.portletbridge.portlet.old.PortletBridgePortlet;
 
 /**
- * @author JMcCrindle
+ * @author jmccrindle
  */
 public class PortletBridgePortletTest extends TestCase {
 
@@ -57,25 +60,29 @@ public class PortletBridgePortletTest extends TestCase {
         super(name);
     }
 
-    public void testInit() throws Exception {
+    public void testInit() throws PortletException {
         PortletBridgePortlet portlet = new PortletBridgePortlet();
         ResourceBundle bundle = PropertyResourceBundle.getBundle("org.portletbridge.portlet.PortletBridgePortlet");
         MockPortletConfig mockPortletConfig = new MockPortletConfig();
         mockPortletConfig.setupResourceBundle(bundle);
-        mockPortletConfig.setupInitParam("mementoSessionKey", "mementoSessionKey");
+        mockPortletConfig.setupInitParam("proxyBrowserSessionKey", "proxyBrowserSessionKey");
         mockPortletConfig.setupInitParam("parserClassName", "org.cyberneko.html.parsers.SAXParser");
         mockPortletConfig.setupInitParam("servletName", "pbhs");
         portlet.init(mockPortletConfig);
     }
 
-    public void testRender() throws Exception {
-        PortletBridgePortlet portlet = new PortletBridgePortlet();
+    public void testProcessAction() {
+    }
+
+    public void testRenderViewNormal() throws IOException, PortletException {
         ResourceBundle bundle = PropertyResourceBundle.getBundle("org.portletbridge.portlet.PortletBridgePortlet");
+        PortletBridgePortlet portlet = new PortletBridgePortlet();
         MockPortletConfig mockPortletConfig = new MockPortletConfig();
-        mockPortletConfig.setupResourceBundle(bundle);
-        mockPortletConfig.setupInitParam("mementoSessionKey", "mementoSessionKey");
+        mockPortletConfig.setupInitParam("proxyBrowserSessionKey", "proxyBrowserSessionKey");
+        mockPortletConfig.setupInitParam("methodRequestKey", "methodRequestKey");
         mockPortletConfig.setupInitParam("parserClassName", "org.cyberneko.html.parsers.SAXParser");
         mockPortletConfig.setupInitParam("servletName", "pbhs");
+        mockPortletConfig.setupResourceBundle(bundle);
         portlet.init(mockPortletConfig);
         MockRenderRequest mockRenderRequest = new MockRenderRequest();
         mockRenderRequest.setupWindowState(WindowState.NORMAL);
@@ -83,11 +90,19 @@ public class PortletBridgePortletTest extends TestCase {
         mockRenderRequest.setupPortletSession(new MockPortletSession());
         MockPortletPreferences mockPortletPreferences = new MockPortletPreferences();
         mockPortletPreferences.setValue("initUrl", "http://asksid:8080/");
-        mockPortletPreferences.setValue("stylesheet", "classpath:/org/portletbridge/xsl/default.xsl");
+        mockPortletPreferences.setValue("stylesheet", "classpath:/org/portletbridge/xsl/portletbridge.xsl");
         mockRenderRequest.setupPortletPreferences(mockPortletPreferences);
+        MockProxyTransport proxyTransport = new MockProxyTransport();
+        proxyTransport.setupContents("<html><head><title>atitle</title></head><body>test</body></html>");
+        portlet.setProxyTransport(proxyTransport);
         MockRenderResponse mockRenderResponse = new MockRenderResponse();
-        portlet.setHttpClientTemplate(new MockHttpClientTemplate());
         portlet.render(mockRenderRequest, mockRenderResponse);
+        assertEquals("text/html", mockRenderResponse.getContentType());
+        assertEquals("test", mockRenderResponse.retrieveContent());
+        assertEquals("atitle", mockRenderResponse.retrieveTitle());
+    }
+
+    public void testCreateState() {
     }
 
 }

@@ -25,10 +25,10 @@ limitations under the License.
 
 	<servlet>
 	  <servlet-name>pbhs</servlet-name>
-	  <servlet-class>org.portletbridge.portlet.PortletBridgetServlet</servlet-class>
+	  <servlet-class>org.portletbridge.portlet.PortletBridgeServlet</servlet-class>
 	  <init-param>
-	      <param-name>proxyBrowserSessionKey</param-name>
-	      <param-value>proxyBrowserSessionKey</param-value>
+	      <param-name>mementoSessionKey</param-name>
+	      <param-value>mementoSessionKey</param-value>
 	  </init-param>
 	 <load-on-startup>1</load-on-startup>
 	</servlet>

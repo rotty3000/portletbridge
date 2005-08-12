@@ -29,8 +29,8 @@ limitations under the License.
         <portlet-class>org.portletbridge.portlet.PortletBridgePortlet</portlet-class>
 
         <init-param>
-			<name>proxyBrowserSessionKey</name>
-			<value>proxyBrowserSessionKey</value>
+			<name>mementoSessionKey</name>
+			<value>mementoSessionKey</value>
 		</init-param>
 		        
         <init-param>
@@ -64,6 +64,11 @@ limitations under the License.
 	    <portlet-preferences>   
             <preference>
 				<name>initUrl</name>
+				<value></value>
+				<read-only>true</read-only>
+			</preference>
+            <preference>
+				<name>scope</name>
 				<value></value>
 				<read-only>true</read-only>
 			</preference>
@@ -129,7 +134,7 @@ limitations under the License.
 			</preference>
     	    <preference>
 				<name>stylesheet</name>
-				<value>classpath:/org/portletbridge/xsl/portletbridge.xsl</value>
+				<value>classpath:/org/portletbridge/xsl/default.xsl</value>
 				<read-only>true</read-only>
 			</preference>
 		        

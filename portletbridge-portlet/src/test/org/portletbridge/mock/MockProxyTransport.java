@@ -22,10 +22,10 @@ import java.util.Map;
 import javax.portlet.PortletPreferences;
 
 import org.portletbridge.PortletBridgeException;
-import org.portletbridge.portlet.CommonsProxyBrowser;
-import org.portletbridge.portlet.HttpResult;
-import org.portletbridge.portlet.ProxyBrowser;
-import org.portletbridge.portlet.ProxyTransport;
+import org.portletbridge.portlet.old.CommonsProxyBrowser;
+import org.portletbridge.portlet.old.HttpResult;
+import org.portletbridge.portlet.old.ProxyBrowser;
+import org.portletbridge.portlet.old.ProxyTransport;
 
 /**
  * @author jmccrindle
@@ -49,7 +49,7 @@ public class MockProxyTransport implements ProxyTransport {
     }
 
     /* (non-Javadoc)
-     * @see org.portletbridge.portlet.ProxyTransport#get(org.portletbridge.portlet.ProxyBrowser, java.lang.String)
+     * @see org.portletbridge.portlet.ProxyTransport#get(org.portletbridge.portlet.PortletBridgeMemento, java.lang.String)
      */
     public HttpResult get(ProxyBrowser proxyBrowser, final String url) throws PortletBridgeException {
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(contents.getBytes());
@@ -69,7 +69,7 @@ public class MockProxyTransport implements ProxyTransport {
     }
 
     /* (non-Javadoc)
-     * @see org.portletbridge.portlet.ProxyTransport#post(org.portletbridge.portlet.ProxyBrowser, java.lang.String, java.util.Map)
+     * @see org.portletbridge.portlet.ProxyTransport#post(org.portletbridge.portlet.PortletBridgeMemento, java.lang.String, java.util.Map)
      */
     public HttpResult post(ProxyBrowser proxyBrowser, String url, Map parameters) throws PortletBridgeException {
         // TODO Auto-generated method stub

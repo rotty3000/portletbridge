@@ -1,0 +1,6 @@
+in ProxyService.doGet
+- why get the query string, parse it and then convert from UTF-8 to ISO-8859-1
+- why isn't the query string stored in the url in the session (for portlet render fetches)
+
+in ProxyService.fetch
+- why use aHttpServletResponse.sendError(HttpServletResponse.SC_FOUND); instead of response.sendRedirect
