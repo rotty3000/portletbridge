@@ -15,10 +15,15 @@
  */
 package org.portletbridge.portlet;
 
+import java.net.URI;
+
+import javax.portlet.RenderResponse;
+
 /**
  * @author jmccrindle
  */
 public interface PortletBridgeMemento {
     BridgeRequest getBridgeRequest(String id);
+    BridgeRequest createBridgeRequest(RenderResponse response, URI url);
     PerPortletMemento getPerPortletMemento(String portletId);
 }

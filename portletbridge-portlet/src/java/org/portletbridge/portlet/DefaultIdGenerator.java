@@ -15,26 +15,28 @@
  */
 package org.portletbridge.portlet;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import junit.framework.TestCase;
 
 /**
- * @author JMcCrindle
+ * Default Id Generator. Generates numbers counting up from 0.
+ * 
+ * @author jmccrindle
  */
-public class RandomTest extends TestCase {
-    public void testClash() throws Exception {
-        Random random = new Random();
-        Set set = new HashSet();
-        for(int i = 0; i < 10000; i++) {
-            String hex = Integer.toHexString(random.nextInt());
-            if(set.contains(hex)) {
-                System.out.println(i);
-            } else {
-                set.add(hex);
-            }
-        }
+public class DefaultIdGenerator implements IdGenerator {
+
+    private static int counter = 0;
+    
+    /**
+     * Default Constructor
+     */
+    public DefaultIdGenerator() {
+        super();
     }
+
+    /**
+     * @return the next integer
+     */
+    public synchronized String nextId() {
+        return String.valueOf(counter++);
+    }
+
 }

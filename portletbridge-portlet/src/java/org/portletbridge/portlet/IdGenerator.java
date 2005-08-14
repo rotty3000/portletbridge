@@ -15,26 +15,12 @@
  */
 package org.portletbridge.portlet;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import junit.framework.TestCase;
-
 /**
- * @author JMcCrindle
+ * @author jmccrindle
  */
-public class RandomTest extends TestCase {
-    public void testClash() throws Exception {
-        Random random = new Random();
-        Set set = new HashSet();
-        for(int i = 0; i < 10000; i++) {
-            String hex = Integer.toHexString(random.nextInt());
-            if(set.contains(hex)) {
-                System.out.println(i);
-            } else {
-                set.add(hex);
-            }
-        }
-    }
+public interface IdGenerator {
+    /**
+     * @return a unique identifier for portlet instances. must not be null.
+     */
+    String nextId();
 }

@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.GenericPortlet;
 import javax.portlet.Portlet;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
@@ -45,9 +46,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 /**
  * @author JMcCrindle
  */
-public class PortletBridgePortlet implements Portlet {
-
-    private PortletConfig config = null;
+public class PortletBridgePortlet extends GenericPortlet {
 
     private String mementoSessionKey = null;
 
@@ -59,22 +58,22 @@ public class PortletBridgePortlet implements Portlet {
         super();
     }
 
-    public void init(PortletConfig config) throws PortletException {
-        this.config = config;
+    public void init() throws PortletException {
+        PortletConfig config = this.getPortletConfig();
         ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
-        mementoSessionKey = this.config.getInitParameter("mementoSessionKey");
+        mementoSessionKey = config.getInitParameter("mementoSessionKey");
         if (mementoSessionKey == null) {
             throw new PortletException(resourceBundle
                     .getString("error.mementoSessionKey"));
         }
         // get the servlet name
-        String servletName = this.config.getInitParameter("servletName");
+        String servletName = config.getInitParameter("servletName");
         if (servletName == null) {
             throw new PortletException(resourceBundle
                     .getString("error.servletName"));
         }
         // get parserClassName
-        String parserClassName = this.config.getInitParameter("parserClassName");
+        String parserClassName = config.getInitParameter("parserClassName");
         if (parserClassName == null) {
             throw new PortletException(resourceBundle
                     .getString("error.parserClassName"));
@@ -99,10 +98,10 @@ public class PortletBridgePortlet implements Portlet {
         // noop
     }
 
-    public void render(final RenderRequest request,
+    public void doView(final RenderRequest request,
             final RenderResponse response) throws PortletException, IOException {
-        // TODO Auto-generated method stub
-        ResourceBundle resourceBundle = config.getResourceBundle(request
+
+        ResourceBundle resourceBundle = getPortletConfig().getResourceBundle(request
                 .getLocale());
         
         response.setContentType("text/html");
@@ -123,9 +122,6 @@ public class PortletBridgePortlet implements Portlet {
                     .getPerPortletMemento(portletId);
             perPortletMemento.setPreferences(preferences);
             String urlId = request.getParameter("id");
-
-            URI currentUrl = null;
-            Reader in = null;
 
             if (urlId == null) {
                 // this is the default start page for the portlet so go and
@@ -185,6 +181,7 @@ public class PortletBridgePortlet implements Portlet {
 
 
     public void destroy() {
+        super.destroy();
     }
 
     public void setHttpClientTemplate(HttpClientTemplate httpClientTemplate) {

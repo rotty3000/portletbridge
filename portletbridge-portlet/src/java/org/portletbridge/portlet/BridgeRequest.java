@@ -21,6 +21,7 @@ import java.net.URI;
  * @author JMcCrindle
  */
 public interface BridgeRequest {
+    String getId();
     String getPageUrl();
     String getPortletId();
     URI getUrl();

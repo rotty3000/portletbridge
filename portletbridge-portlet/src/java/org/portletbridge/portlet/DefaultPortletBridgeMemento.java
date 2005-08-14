@@ -15,8 +15,12 @@
  */
 package org.portletbridge.portlet;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.portlet.PortletURL;
+import javax.portlet.RenderResponse;
 
 /**
  * @author JMcCrindle
@@ -25,6 +29,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
 
     private Map requests = new HashMap();
     private Map mementos = new HashMap();
+    private IdGenerator idGenerator = new DefaultIdGenerator();
     
     public DefaultPortletBridgeMemento() {
         super();
@@ -46,6 +51,15 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
             memento = new DefaultPerPortletMemento();
         }
         return memento;
+    }
+
+    public BridgeRequest createBridgeRequest(RenderResponse response, URI url) {
+        String id = idGenerator.nextId();
+        PortletURL pageUrl = response.createRenderURL();
+        pageUrl.setParameter("id", id);
+        DefaultBridgeRequest bridgeRequest = new DefaultBridgeRequest(id, pageUrl.toString(), response.getNamespace(), url);
+        requests.put(id, bridgeRequest);
+        return bridgeRequest;
     }
 
 }

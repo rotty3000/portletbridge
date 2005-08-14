@@ -17,6 +17,8 @@ package org.portletbridge.portlet;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.portlet.PortletPreferences;
 
@@ -84,7 +86,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
     public void setPreferences(PortletPreferences preferences)
             throws ResourceException {
         String initUrlPreference = preferences.getValue("initUrl", null);
-        if (initUrlPreference == null) {
+        if (initUrlPreference == null || initUrlPreference.trim().length() == 0) {
             throw new ResourceException("error.initurl",
                     "preference not defined");
         }
@@ -164,10 +166,12 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
         String[] scopePreference = preferences.getValues("scope", null);
         if (scopePreference != null) {
             try {
-                scope = new URI[scopePreference.length];
+                List scopeList = new ArrayList();
                 for (int i = 0; i < scopePreference.length; i++) {
                     String scopePreferenceValue = scopePreference[i];
-                    scope[i] = new URI(scopePreferenceValue);
+                    if(scopePreferenceValue != null && scopePreferenceValue.trim().length() > 0) {
+                        scopeList.add(new URI(scopePreferenceValue));
+                    }
                 }
             } catch (URISyntaxException e) {
                 throw new ResourceException("error.scope", e.getMessage(), e);

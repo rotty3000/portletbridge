@@ -17,6 +17,7 @@ package org.portletbridge.portlet;
 
 import java.net.URI;
 
+import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -34,10 +35,10 @@ public class PortletFunctions {
     private final String servletName;
 
     private final PortletBridgeMemento memento;
-
-    private final PerPortletMemento perPortletMemento;
     
     private final URI[] scope;
+
+    private final PerPortletMemento perPortletMemento;
 
     public PortletFunctions(PortletBridgeMemento memento,
             PerPortletMemento perPortletMemento, String servletName,
@@ -65,7 +66,7 @@ public class PortletFunctions {
         URI url = currentUrl.resolve(link.trim());
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
-                !!!!String id = proxy.getUrlId(request, response, url.toString());
+                BridgeRequest bridgeRequest = memento.createBridgeRequest(response, url);
                 String name = url.getPath();
                 int lastIndex = name.lastIndexOf('/');
                 if (lastIndex != -1) {
@@ -77,7 +78,7 @@ public class PortletFunctions {
                 }
                 if (name.startsWith("/"))
                     name = name.substring(1);
-                name = '/' + servletName + '/' + id + "/" + name;
+                name = '/' + servletName + '/' + bridgeRequest.getId() + "/" + name;
                 return name;
             } else {
                 return url.toString();
@@ -105,6 +106,34 @@ public class PortletFunctions {
 
     public String script(String link) {
         return link;
+    }
+
+    public URI getCurrentUrl() {
+        return currentUrl;
+    }
+
+    public PortletBridgeMemento getMemento() {
+        return memento;
+    }
+
+    public PerPortletMemento getPerPortletMemento() {
+        return perPortletMemento;
+    }
+
+    public RenderRequest getRequest() {
+        return request;
+    }
+
+    public RenderResponse getResponse() {
+        return response;
+    }
+
+    public URI[] getScope() {
+        return scope;
+    }
+
+    public String getServletName() {
+        return servletName;
     }
 
 }

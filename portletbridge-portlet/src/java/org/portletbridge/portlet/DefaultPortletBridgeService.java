@@ -15,17 +15,14 @@
  */
 package org.portletbridge.portlet;
 
-import org.apache.commons.httpclient.HttpClient;
 
 /**
  * @author jmccrindle
  */
 public class DefaultPortletBridgeService implements PortletBridgeService {
 
-    private HttpClient client = null;
-    
     /**
-     * 
+     * Default Constructor
      */
     public DefaultPortletBridgeService() {
         super();
@@ -36,8 +33,9 @@ public class DefaultPortletBridgeService implements PortletBridgeService {
      */
     public String getIdFromRequestUri(String requestUri) {
         int lastIndexOfSlash = requestUri.lastIndexOf('/');
-        if(lastIndexOfSlash >= 0) {
-            return requestUri.substring(lastIndexOfSlash + 1);
+        int secondLastIndexOfSlash = requestUri.lastIndexOf('/', lastIndexOfSlash);
+        if(lastIndexOfSlash >= 0 && secondLastIndexOfSlash >= 0) {
+            return requestUri.substring(secondLastIndexOfSlash + 1, lastIndexOfSlash - 1);
         }
         return null;
     }

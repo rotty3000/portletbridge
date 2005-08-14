@@ -23,16 +23,22 @@ import java.net.URI;
  */
 public class DefaultBridgeRequest implements Serializable, BridgeRequest {
     
+    private static final long serialVersionUID = -2897995240044433094L;
+    
+    private String id = null;
     private String portletId = null;
     private String pageUrl = null;
     private URI url = null;
+    private Object contentLock = new Object();
+    private PortletBridgeContent content = null;
     
     public DefaultBridgeRequest() {
         
     }
     
-    public DefaultBridgeRequest(String portletId, String pageUrl, URI url) {
+    public DefaultBridgeRequest(String id, String portletId, String pageUrl, URI url) {
         super();
+        this.id = id;
         this.portletId = portletId;
         this.pageUrl = pageUrl;
         this.url = url;
@@ -57,10 +63,21 @@ public class DefaultBridgeRequest implements Serializable, BridgeRequest {
         this.url = url;
     }
     public void enqueueContent(PortletBridgeContent content) {
-        
+        synchronized(contentLock) {
+            this.content = content;
+        }
     }
     public PortletBridgeContent dequeueContent() {
-        return null;
+        synchronized(contentLock) {
+            PortletBridgeContent result = this.content;
+            this.content = null;
+            return result;
+        }
     }
+
+    public String getId() {
+        return id;
+    }
+
 
 }
