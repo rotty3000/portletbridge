@@ -86,7 +86,7 @@ public class PortletBridgePortletTest extends TestCase {
         mockPortletPreferences.setValue("stylesheet", "classpath:/org/portletbridge/xsl/default.xsl");
         mockRenderRequest.setupPortletPreferences(mockPortletPreferences);
         MockRenderResponse mockRenderResponse = new MockRenderResponse();
-        portlet.setHttpClientTemplate(new MockHttpClientTemplate());
+        // portlet.setHttpClientTemplate(new MockHttpClientTemplate());
         portlet.render(mockRenderRequest, mockRenderResponse);
     }
 

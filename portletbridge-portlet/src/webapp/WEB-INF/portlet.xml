@@ -37,6 +37,16 @@ limitations under the License.
 			<name>parserClassName</name>
 			<value>org.cyberneko.html.parsers.SAXParser</value>
 		</init-param>
+
+        <init-param>
+			<name>editStylesheet</name>
+			<value>classpath:/org/portletbridge/xsl/pages/edit.xsl</value>
+		</init-param>
+		        
+        <init-param>
+			<name>helpStylesheet</name>
+			<value>classpath:/org/portletbridge/xsl/pages/help.xsl</value>
+		</init-param>
 		        
         <init-param>
 			<name>servletName</name>

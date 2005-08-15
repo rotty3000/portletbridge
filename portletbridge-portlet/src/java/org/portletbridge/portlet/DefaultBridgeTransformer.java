@@ -46,17 +46,19 @@ import org.xml.sax.XMLReader;
 /**
  * @author JMcCrindle
  */
-public class DefaultPortletBridgeTransformer implements
-        PortletBridgeTransformer {
+public class DefaultBridgeTransformer implements
+        BridgeTransformer {
 
     private Map templatesCache = Collections.synchronizedMap(new HashMap());
+    private TemplateFactory templateFactory = null;
     private XMLReader parser;
     private String servletName;
 
     /**
      * 
      */
-    public DefaultPortletBridgeTransformer(XMLReader parser, String servletName) {
+    public DefaultBridgeTransformer(TemplateFactory templateFactory, XMLReader parser, String servletName) {
+        this.templateFactory = templateFactory;
         this.parser = parser;
         this.servletName = servletName;
     }
@@ -83,7 +85,7 @@ public class DefaultPortletBridgeTransformer implements
             String stylesheet = preferences.getValue("stylesheet", null);
             Templates templates = (Templates) templatesCache.get(stylesheet);
             if (templates == null) {
-                templates = getTemplates(stylesheet);
+                templates = templateFactory.getTemplates(stylesheet);
             }
             SerializerFactory factory = SerializerFactory
                     .getSerializerFactory("html");
@@ -116,45 +118,7 @@ public class DefaultPortletBridgeTransformer implements
 
     }
 
-    /**
-     * Creates compiled templates for a particular stylesheet for performance.
-     * 
-     * @param stylesheet
-     *            the stylesheet to compile
-     * @return @throws
-     *         ResourceException if the stylesheet could not be found.
-     * @throws TransformerFactoryConfigurationError
-     *             if there was a problem finding a suitable transformer
-     *             factory.
-     */
-    protected Templates getTemplates(String stylesheet)
-            throws ResourceException, TransformerFactoryConfigurationError {
-        if (stylesheet == null) {
-            throw new ResourceException("error.stylesheet");
-        }
-        Templates result = null;
-        TransformerFactory factory = TransformerFactory.newInstance();
-        try {
-            URL resourceUrl = null;
-            if (stylesheet.startsWith("classpath:")) {
-                String substring = stylesheet.substring(10);
-                resourceUrl= this.getClass().getResource(
-                        substring);
-            } else {
-                resourceUrl = new URL(stylesheet);
-            }
-            if (resourceUrl == null) {
-                throw new ResourceException("error.stylesheet.notfound",
-                        stylesheet);
-            }
-            result = factory.newTemplates(new StreamSource(resourceUrl.toExternalForm()));
-        } catch (TransformerConfigurationException e) {
-            throw new ResourceException("error.transformer", e.getMessage(), e);
-        } catch (MalformedURLException e) {
-            throw new ResourceException("error.stylesheet.url", e.getMessage(),
-                    e);
-        }
-        return result;
+    public void setTemplateFactory(TemplateFactory templateFactory) {
+        this.templateFactory = templateFactory;
     }
-
 }

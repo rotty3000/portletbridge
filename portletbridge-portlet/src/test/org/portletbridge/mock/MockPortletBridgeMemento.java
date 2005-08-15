@@ -15,10 +15,14 @@
  */
 package org.portletbridge.mock;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.portlet.RenderResponse;
+
 import org.portletbridge.portlet.BridgeRequest;
+import org.portletbridge.portlet.DefaultBridgeRequest;
 import org.portletbridge.portlet.PerPortletMemento;
 import org.portletbridge.portlet.PortletBridgeMemento;
 
@@ -57,6 +61,13 @@ public class MockPortletBridgeMemento implements PortletBridgeMemento {
      */
     public PerPortletMemento getPerPortletMemento(String portletId) {
         return (PerPortletMemento) mementos.get(portletId);
+    }
+
+    /* (non-Javadoc)
+     * @see org.portletbridge.portlet.PortletBridgeMemento#createBridgeRequest(javax.portlet.RenderResponse, java.net.URI)
+     */
+    public BridgeRequest createBridgeRequest(RenderResponse response, URI url) {
+        return new DefaultBridgeRequest();
     }
 
 

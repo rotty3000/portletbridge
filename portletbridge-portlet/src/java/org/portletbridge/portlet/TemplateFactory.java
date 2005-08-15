@@ -15,19 +15,17 @@
  */
 package org.portletbridge.portlet;
 
-import java.io.Reader;
-import java.net.URI;
-
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.portletbridge.ResourceException;
 
 /**
  * @author JMcCrindle
  */
-public interface PortletBridgeTransformer {
-    void transform(PortletBridgeMemento memento, PerPortletMemento perPortletMemento, URI currentUrl,
-            RenderRequest request, RenderResponse response,
-            Reader in) throws ResourceException;
+public interface TemplateFactory {
+
+    Templates getTemplates(String stylesheet)
+        throws ResourceException, TransformerFactoryConfigurationError;
+
 }
