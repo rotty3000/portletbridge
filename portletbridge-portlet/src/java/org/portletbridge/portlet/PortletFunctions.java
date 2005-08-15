@@ -17,7 +17,6 @@ package org.portletbridge.portlet;
 
 import java.net.URI;
 
-import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
