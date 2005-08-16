@@ -78,7 +78,7 @@ limitations under the License.
 			</preference>
             <preference>
 				<name>scope</name>
-				<value></value>
+				<value>.*</value>
 			</preference>
             <preference>
 				<name>authentication</name>
