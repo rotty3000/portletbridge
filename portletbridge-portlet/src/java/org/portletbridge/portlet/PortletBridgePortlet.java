@@ -182,6 +182,16 @@ public class PortletBridgePortlet extends GenericPortlet {
     }
     
     /* (non-Javadoc)
+     * @see javax.portlet.GenericPortlet#doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
+     */
+    protected void doHelp(RenderRequest request, RenderResponse response)
+            throws PortletException, IOException {
+        if(helpPortlet != null) {
+            helpPortlet.render(request, response);
+        }
+    }
+    
+    /* (non-Javadoc)
      * @see javax.portlet.GenericPortlet#processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
      */
     public void processAction(ActionRequest request, ActionResponse response)
