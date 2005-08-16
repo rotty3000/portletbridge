@@ -21,14 +21,13 @@ import java.util.ResourceBundle;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
-import org.portletbridge.mock.MockHttpClientTemplate;
+import junit.framework.TestCase;
+
 import org.portletbridge.mock.MockPortletConfig;
 import org.portletbridge.mock.MockPortletPreferences;
 import org.portletbridge.mock.MockPortletSession;
 import org.portletbridge.mock.MockRenderRequest;
 import org.portletbridge.mock.MockRenderResponse;
-
-import junit.framework.TestCase;
 
 /**
  * @author JMcCrindle

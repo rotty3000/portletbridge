@@ -16,7 +16,6 @@
 package org.portletbridge.portlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.URI;
 import java.util.Collections;
@@ -27,21 +26,20 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
 
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.Serializer;
-import org.apache.xml.serialize.SerializerFactory;
 import org.portletbridge.ResourceException;
-import org.portletbridge.xsl.XslFilter;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 /**
  * @author JMcCrindle
  */
-public class DefaultBridgeTransformer implements
+public class AltBridgeTransformer implements
         BridgeTransformer {
 
     private Map templatesCache = Collections.synchronizedMap(new HashMap());
@@ -52,7 +50,7 @@ public class DefaultBridgeTransformer implements
     /**
      * 
      */
-    public DefaultBridgeTransformer(TemplateFactory templateFactory, XMLReader parser, String servletName) {
+    public AltBridgeTransformer(TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.templateFactory = templateFactory;
         this.parser = parser;
         this.servletName = servletName;
@@ -82,32 +80,18 @@ public class DefaultBridgeTransformer implements
             if (templates == null) {
                 templates = templateFactory.getTemplates(stylesheet);
             }
-            SerializerFactory factory = SerializerFactory
-                    .getSerializerFactory("html");
-            OutputFormat outputFormat = new OutputFormat();
-            outputFormat.setPreserveSpace(true);
-            outputFormat.setOmitDocumentType(true);
-            outputFormat.setOmitXMLDeclaration(true);
-            Serializer writer = factory.makeSerializer(outputFormat);
-            PrintWriter responseWriter = response.getWriter();
-            writer.setOutputCharStream(responseWriter);
-            XslFilter filter = new XslFilter(templates);
-            Map context = new HashMap();
-            context.put("bridge", new BridgeFunctions(memento, perPortletMemento, servletName,
+            Transformer transformer = templates.newTransformer();
+            transformer.setParameter("bridge", new BridgeFunctions(memento, perPortletMemento, servletName,
                     currentUrl, request, response));
-            filter.setContext(context);
-            filter.setParent(parser);
-            filter.setContentHandler(writer.asContentHandler());
-            InputSource inputSource = new InputSource(in);
-            filter.parse(inputSource);
+            transformer.transform(new SAXSource(parser, new InputSource(in)), new StreamResult(response.getWriter()));
         } catch (TransformerConfigurationException e) {
             throw new ResourceException("error.transformer", e
                     .getLocalizedMessage(), e);
-        } catch (SAXException e) {
-            throw new ResourceException("error.filter.sax", e
-                    .getLocalizedMessage(), e);
         } catch (IOException e) {
             throw new ResourceException("error.filter.io", e
+                    .getLocalizedMessage(), e);
+        } catch (TransformerException e) {
+            throw new ResourceException("error.transformer", e
                     .getLocalizedMessage(), e);
         }
 

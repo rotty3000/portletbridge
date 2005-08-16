@@ -123,10 +123,10 @@ public class PortletBridgePortlet extends GenericPortlet {
                     .getString("error.parserClassName"));
         }
         // setup parser
-        DefaultBridgeTransformer transformer = null;
+        BridgeTransformer transformer = null;
         try {
             XMLReader parser = XMLReaderFactory.createXMLReader(parserClassName);
-            transformer = new DefaultBridgeTransformer(templateFactory, parser, servletName);
+            transformer = new AltBridgeTransformer(templateFactory, parser, servletName);
         } catch (SAXNotRecognizedException e) {
             throw new PortletException(e);
         } catch (SAXNotSupportedException e) {

@@ -16,6 +16,7 @@
 package org.portletbridge.mock;
 
 import java.net.URI;
+import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
 
@@ -47,7 +48,7 @@ public class MockPerPortletMemento implements PerPortletMemento {
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.PerPortletMemento#getScope()
      */
-    public URI[] getScope() {
+    public Pattern getScope() {
         // TODO Auto-generated method stub
         return null;
     }

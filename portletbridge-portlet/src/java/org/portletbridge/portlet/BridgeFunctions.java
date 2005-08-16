@@ -16,6 +16,7 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.portlet.RenderRequest;
@@ -35,10 +36,19 @@ public class BridgeFunctions {
     private final String servletName;
 
     private final PortletBridgeMemento memento;
-    
+
     private final Pattern scope;
 
     private final PerPortletMemento perPortletMemento;
+
+    private Pattern urlPattern = Pattern
+            .compile("(url\\((?:'|\")?)(.*?)((?:'|\")?\\))");
+
+    private Pattern importPattern = Pattern
+            .compile("(@import\\s+(?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
+
+    private Pattern windowOpenPattern = Pattern
+        .compile("(open\\(')([^']*)(')|(open\\(\")([^\"]*)(\")");;
 
     public BridgeFunctions(PortletBridgeMemento memento,
             PerPortletMemento perPortletMemento, String servletName,
@@ -66,7 +76,8 @@ public class BridgeFunctions {
         URI url = currentUrl.resolve(link.trim());
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
-                BridgeRequest bridgeRequest = memento.createBridgeRequest(response, url);
+                BridgeRequest bridgeRequest = memento.createBridgeRequest(
+                        response, url);
                 String name = url.getPath();
                 int lastIndex = name.lastIndexOf('/');
                 if (lastIndex != -1) {
@@ -78,7 +89,8 @@ public class BridgeFunctions {
                 }
                 if (name.startsWith("/"))
                     name = name.substring(1);
-                name = request.getContextPath() + '/' + servletName + '/' + bridgeRequest.getId() + "/" + name;
+                name = request.getContextPath() + '/' + servletName + '/'
+                        + bridgeRequest.getId() + "/" + name;
                 return name;
             } else {
                 return url.toString();
@@ -88,16 +100,81 @@ public class BridgeFunctions {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.portletbridge.StyleSheetRewriter#rewrite(java.lang.String)
+     */
+    public StringBuffer rewriteUrls(StringBuffer css) {
+        if (css == null)
+            return null;
+        Matcher matcher = urlPattern.matcher(css);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            String before = matcher.group(1);
+            String url = matcher.group(2);
+            String after = matcher.group(3);
+            matcher.appendReplacement(sb, before + rewrite(url, true) + after);
+        }
+        matcher.appendTail(sb);
+        return sb;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.portletbridge.StyleSheetRewriter#rewrite(java.lang.String)
+     */
+    public StringBuffer rewriteImports(StringBuffer css) {
+        if (css == null)
+            return null;
+        Matcher matcher = importPattern.matcher(css);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            String before = matcher.group(1);
+            String url = matcher.group(2);
+            String after = matcher.groupCount() == 3 ? matcher.group(3) : "";
+            matcher.appendReplacement(sb, before + rewrite(url, true) + after);
+        }
+        matcher.appendTail(sb);
+        return sb;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.portletbridge.StyleSheetRewriter#rewrite(java.lang.String)
+     */
+    public String style(String css) {
+        return rewriteUrls(rewriteImports(new StringBuffer(css))).toString();
+    }
+
     private boolean shouldRewrite(URI uri) {
         return scope.matcher(uri.toString()).matches();
     }
 
-    public String style(String link) {
-        return link;
-    }
+    public String script(String script) {
+        try {
+            Matcher matcher = windowOpenPattern.matcher(script);
+            String result = "";
+            int idx = 0;
 
-    public String script(String link) {
-        return link;
+            while (matcher.find()) {
+                // Check which of the two cases matched
+                String url;
+                int group = matcher.start(2) == -1 ? 5 : 2;
+                result += script.substring(idx, matcher.start(group));
+                url = matcher.group(group);
+                result += link(url);
+                idx = matcher.end(group);
+                idx = matcher.end(group);
+            }
+            result += script.substring(idx);
+
+            return result;
+        } catch (Exception e) {
+            return script;
+        }
     }
 
     public URI getCurrentUrl() {
