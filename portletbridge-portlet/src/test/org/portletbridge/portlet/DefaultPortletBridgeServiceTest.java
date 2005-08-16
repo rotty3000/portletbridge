@@ -46,8 +46,15 @@ public class DefaultPortletBridgeServiceTest extends TestCase {
 
     public void testGetIdFromRequestUri() {
         DefaultPortletBridgeService service = new DefaultPortletBridgeService();
-        String idFromRequestUri = service.getIdFromRequestUri("http://localhost:8080/portletbridge-portlet/pbhs/23/awards.shtml");
+        String idFromRequestUri = service.getIdFromRequestUri("/portletbridge-portlet", "/portletbridge-portlet/pbhs/23/awards.shtml");
         assertEquals("23", idFromRequestUri);
+        idFromRequestUri = service.getIdFromRequestUri("/portletbridge-portlet", "/portletbridge-portlet/pbhs/23/test/");
+        assertEquals("23", idFromRequestUri);
+        idFromRequestUri = service.getIdFromRequestUri("/portletbridge-portlet", "/portletbridge-portlet/pbhs/23//");
+        assertEquals("23", idFromRequestUri);
+        idFromRequestUri = service.getIdFromRequestUri("/portletbridge-portlet", "/portletbridge-portlet/pbhs/23/");
+        assertEquals("23", idFromRequestUri);
+        idFromRequestUri = service.getIdFromRequestUri("/portletbridge-portlet", "/portletbridge-portlet/pbhs/");
     }
 
 }

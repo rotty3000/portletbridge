@@ -46,7 +46,7 @@ public class BridgeFunctions {
             .compile("(url\\((?:'|\")?)(.*?)((?:'|\")?\\))");
 
     private Pattern importPattern = Pattern
-            .compile("(@import\\s+(?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
+            .compile("(@import\\s+[^url](?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
 
     private Pattern windowOpenPattern = Pattern
         .compile("(open\\(')([^']*)(')|(open\\(\")([^\"]*)(\")");;
@@ -74,7 +74,8 @@ public class BridgeFunctions {
     }
 
     private String rewrite(String link, boolean checkScope) {
-        URI url = currentUrl.resolve(link.trim());
+        String trim = link.trim();
+        URI url = currentUrl.resolve(trim);
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
                 BridgeRequest bridgeRequest = memento.createBridgeRequest(

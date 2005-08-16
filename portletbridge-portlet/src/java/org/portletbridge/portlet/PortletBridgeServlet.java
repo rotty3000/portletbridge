@@ -71,7 +71,7 @@ public class PortletBridgeServlet extends HttpServlet {
             final HttpServletResponse response) throws ServletException,
             IOException {
         // get the id
-        final String id = portletBridgeService.getIdFromRequestUri(request
+        final String id = portletBridgeService.getIdFromRequestUri(request.getContextPath(), request
                 .getRequestURI());
         // look up the data associated with that id from the session
         HttpSession session = request.getSession();

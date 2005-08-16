@@ -30,6 +30,7 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.WindowState;
 
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.portletbridge.ResourceException;
@@ -56,6 +57,11 @@ public class BridgeViewPortlet extends GenericPortlet {
 
         ResourceBundle resourceBundle = getPortletConfig().getResourceBundle(request
                 .getLocale());
+        
+        // noop if window is minimised
+        if(request.getWindowState().equals(WindowState.MINIMIZED)) {
+            return;
+        }
         
         response.setContentType("text/html");
         

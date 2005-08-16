@@ -15,6 +15,7 @@
  */
 package org.portletbridge.portlet;
 
+import java.net.URI;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -36,5 +37,14 @@ public class RandomTest extends TestCase {
                 set.add(hex);
             }
         }
+    }
+    
+    public void testSubstring() throws Exception {
+        String blah = "blah";
+        assertEquals("ah", blah.substring(2));
+    }
+    
+    public void testUri() throws Exception {
+        URI uri = new URI("test");
     }
 }

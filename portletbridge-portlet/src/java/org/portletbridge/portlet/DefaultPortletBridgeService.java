@@ -16,6 +16,7 @@
 package org.portletbridge.portlet;
 
 
+
 /**
  * @author jmccrindle
  */
@@ -31,11 +32,12 @@ public class DefaultPortletBridgeService implements PortletBridgeService {
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.PortletBridgeService#getIdFromRequestUri(java.lang.String)
      */
-    public String getIdFromRequestUri(String requestUri) {
-        int lastIndexOfSlash = requestUri.lastIndexOf('/');
-        int secondLastIndexOfSlash = requestUri.lastIndexOf('/', lastIndexOfSlash - 1);
-        if(lastIndexOfSlash >= 0 && secondLastIndexOfSlash >= 0) {
-            return requestUri.substring(secondLastIndexOfSlash + 1, lastIndexOfSlash);
+    public String getIdFromRequestUri(String contextPath, String requestUri) {
+        String path = requestUri.substring(contextPath.length() - 1);
+        int secondIndexOfSlash = path.indexOf('/', 2);
+        int thirdIndexOfSlash = path.indexOf('/', secondIndexOfSlash + 1);
+        if(secondIndexOfSlash >= 0 && thirdIndexOfSlash >= 0) {
+            return path.substring(secondIndexOfSlash + 1, thirdIndexOfSlash);
         }
         return null;
     }

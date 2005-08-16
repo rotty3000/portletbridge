@@ -20,5 +20,5 @@ package org.portletbridge.portlet;
  * @author jmccrindle
  */
 public interface PortletBridgeService {
-    String getIdFromRequestUri(String requestUri);
+    String getIdFromRequestUri(String contextPath, String requestUri);
 }
