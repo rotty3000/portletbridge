@@ -74,7 +74,7 @@ limitations under the License.
 	    <portlet-preferences>   
             <preference>
 				<name>initUrl</name>
-				<value>http://www.slashdot.org</value>
+				<value></value>
 			</preference>
             <preference>
 				<name>scope</name>
