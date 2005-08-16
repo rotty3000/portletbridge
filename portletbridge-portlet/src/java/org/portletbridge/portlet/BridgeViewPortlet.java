@@ -67,7 +67,7 @@ public class BridgeViewPortlet extends GenericPortlet {
                             PortletSession.APPLICATION_SCOPE);
             if (tempMemento == null) {
                 tempMemento = new DefaultPortletBridgeMemento();
-                session.setAttribute(mementoSessionKey, tempMemento);
+                session.setAttribute(mementoSessionKey, tempMemento, PortletSession.APPLICATION_SCOPE);
             }
             final PortletBridgeMemento memento = tempMemento;
             final PerPortletMemento perPortletMemento = memento

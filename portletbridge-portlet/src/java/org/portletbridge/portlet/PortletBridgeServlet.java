@@ -141,6 +141,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // stylesheets and
                                     // javascript
                                     // TODO: javascript and css rewriting
+                                    response.setContentType(method.getResponseHeader("Content-Type").toExternalForm());
                                     ResourceUtil.copy(method
                                             .getResponseBodyAsStream(),
                                             response.getOutputStream(), 4096);

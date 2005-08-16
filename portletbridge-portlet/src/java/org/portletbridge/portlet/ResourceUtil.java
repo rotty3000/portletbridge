@@ -15,7 +15,6 @@
  */
 package org.portletbridge.portlet;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,7 +32,7 @@ public class ResourceUtil {
 
     public static void copy(InputStream inputStream, OutputStream outputStream,
             int bufSize) throws IOException {
-        BufferedInputStream in = new BufferedInputStream(inputStream, bufSize);
+        InputStream in = inputStream;
         BufferedOutputStream out = new BufferedOutputStream(outputStream,
                 bufSize);
         try {

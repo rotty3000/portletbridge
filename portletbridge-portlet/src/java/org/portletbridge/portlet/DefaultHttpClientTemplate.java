@@ -20,6 +20,7 @@ import java.net.URI;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.portletbridge.ResourceException;
 
@@ -28,13 +29,13 @@ import org.portletbridge.ResourceException;
  */
 public class DefaultHttpClientTemplate implements HttpClientTemplate {
     
-    private HttpClient httpClient = new HttpClient();
+    private HttpClient httpClient = null;
 
     /**
      * 
      */
     public DefaultHttpClientTemplate() {
-        super();
+        httpClient = new HttpClient(new MultiThreadedHttpConnectionManager());
     }
 
     /* (non-Javadoc)

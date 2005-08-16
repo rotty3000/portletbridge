@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:portlet="java:org.portletbridge.portlet.PortletFunctions"
-   extension-element-prefixes="portlet">
+   xmlns:bridge="java:org.portletbridge.portlet.BridgeFunctions"
+   extension-element-prefixes="bridge">
 
    <xsl:output method="html"
       encoding="UTF-8"
@@ -10,7 +10,7 @@
       standalone="no"
       omit-xml-declaration="yes"/>
 
-   <xsl:param name="portlet"/>
+   <xsl:param name="bridge"/>
 
    <!-- Fetch some info from head, and all of body -->
    <xsl:template match="/HTML">
@@ -31,27 +31,27 @@
    <!-- Rewrite links -->
    <xsl:template match="A/@href">
       <xsl:attribute name="href">
-         <xsl:value-of select="portlet:link($portlet, .)"/>
+         <xsl:value-of select="bridge:link($bridge, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <xsl:template match="A/@onclick">
       <xsl:attribute name="onclick">
-         <xsl:value-of select="portlet:script($portlet, .)"/>
+         <xsl:value-of select="bridge:script($bridge, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <!-- Rewrite image references -->
    <xsl:template match="IMG/@src">
       <xsl:attribute name="src">
-         <xsl:value-of select="portlet:link($portlet, .)"/>
+         <xsl:value-of select="bridge:link($bridge, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <!-- Rewrite imagemap references -->
    <xsl:template match="MAP/AREA/@href">
       <xsl:attribute name="href">
-         <xsl:value-of select="portlet:link($portlet, .)"/>
+         <xsl:value-of select="bridge:link($bridge, .)"/>
       </xsl:attribute>
    </xsl:template>
 
@@ -60,7 +60,7 @@
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
 
-         <xsl:value-of select="portlet:style($portlet, .)"/>
+         <xsl:value-of select="bridge:style($bridge, .)"/>
       </xsl:copy>
    </xsl:template>
 
@@ -69,25 +69,25 @@
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
          <xsl:attribute name="src">
-            <xsl:value-of select="portlet:link($portlet, @src)"/>
+            <xsl:value-of select="bridge:link($bridge, @src)"/>
          </xsl:attribute>
       </xsl:copy>
    </xsl:template>
 
    <xsl:template match="/HTML/HEAD/SCRIPT/text()">
-      <xsl:value-of select="portlet:script($portlet, .)"/>
+      <xsl:value-of select="bridge:script($bridge, .)"/>
    </xsl:template>
 
    <!-- Convert link tags in head to style tags -->
    <xsl:template match="/HTML/HEAD/LINK">
       <style type="text/css">@import "
-         <xsl:value-of select="portlet:link($portlet, @href)"/>";
+         <xsl:value-of select="bridge:link($bridge, @href)"/>";
       </style>
    </xsl:template>
 
    <xsl:template match="FORM/@action">
       <xsl:attribute name="action">
-         <xsl:value-of select="portlet:link($portlet, .)"/>
+         <xsl:value-of select="bridge:link($bridge, .)"/>
       </xsl:attribute>
    </xsl:template>
 

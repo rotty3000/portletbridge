@@ -17,9 +17,14 @@ package org.portletbridge.portlet;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.xml.transform.Templates;
@@ -54,8 +59,7 @@ public class BridgeEditPortlet extends GenericPortlet {
         response.setContentType("text/html");
         try {
             Transformer transformer = templates.newTransformer();
-            transformer.setParameter("request", request);
-            transformer.setParameter("response", response);
+            transformer.setParameter("portlet", new PortletFunctions(request, response));
             transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
         } catch (TransformerConfigurationException e) {
             throw new PortletException(e);
@@ -64,6 +68,29 @@ public class BridgeEditPortlet extends GenericPortlet {
         } catch (IOException e) {
             throw new PortletException(e);
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see javax.portlet.GenericPortlet#processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
+     */
+    public void processAction(ActionRequest request, ActionResponse response)
+            throws PortletException, IOException {
+        PortletPreferences preferences = request.getPreferences();
+        String initUrlParameter = request.getParameter("initUrl");
+        if(initUrlParameter != null && initUrlParameter.trim().length() > 0) {
+            try {
+                URI initUrl = new URI(initUrlParameter);
+                preferences.setValue("initUrl", initUrlParameter);
+            } catch (URISyntaxException e) {
+                // TODO: validation
+                throw new PortletException(e);
+            }
+        }
+        String scopeParameter = request.getParameter("scope");
+        if(scopeParameter != null && initUrlParameter.trim().length() > 0) {
+            preferences.setValue("scope", scopeParameter);
+        }
+        preferences.store();
     }
 
     public void setTemplates(Templates templates) {

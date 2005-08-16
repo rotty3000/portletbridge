@@ -16,6 +16,7 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
+import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
 
@@ -26,6 +27,6 @@ import org.portletbridge.ResourceException;
  */
 public interface PerPortletMemento extends HttpClientState {
     void setPreferences(PortletPreferences preferences) throws ResourceException;
-    URI[] getScope();
+    Pattern getScope();
     URI getInitUrl();
 }

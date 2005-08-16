@@ -75,77 +75,62 @@ limitations under the License.
             <preference>
 				<name>initUrl</name>
 				<value>http://www.slashdot.org</value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>scope</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>authentication</name>
 				<value>none</value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>authenticationUsername</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>authenticationPassword</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>authenticationHost</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>authenticationDomain</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyHost</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyPort</name>
 				<value>80</value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyAuthentication</name>
 				<value>none</value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyAuthenticationUsername</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyAuthenticationPassword</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyAuthenticationHost</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
             <preference>
 				<name>proxyAuthenticationDomain</name>
 				<value></value>
-				<read-only>true</read-only>
 			</preference>
     	    <preference>
 				<name>stylesheet</name>
 				<value>classpath:/org/portletbridge/xsl/default.xsl</value>
-				<read-only>true</read-only>
 			</preference>
 		        
             <preferences-validator>org.portletbridge.portlet.PortletBridgePortletValidator</preferences-validator>

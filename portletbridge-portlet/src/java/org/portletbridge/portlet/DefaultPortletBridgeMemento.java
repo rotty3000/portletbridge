@@ -29,6 +29,8 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
 
     private Map requests = new HashMap();
     private Map mementos = new HashMap();
+    
+    // TODO: rethink this
     private IdGenerator idGenerator = new DefaultIdGenerator();
     
     public DefaultPortletBridgeMemento() {
@@ -49,6 +51,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
         PerPortletMemento memento = (PerPortletMemento) mementos.get(portletId);
         if(memento == null) {
             memento = new DefaultPerPortletMemento();
+            mementos.put(portletId, memento);
         }
         return memento;
     }
@@ -57,7 +60,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
         String id = idGenerator.nextId();
         PortletURL pageUrl = response.createRenderURL();
         pageUrl.setParameter("id", id);
-        DefaultBridgeRequest bridgeRequest = new DefaultBridgeRequest(id, pageUrl.toString(), response.getNamespace(), url);
+        DefaultBridgeRequest bridgeRequest = new DefaultBridgeRequest(id, response.getNamespace(), pageUrl.toString(), url);
         requests.put(id, bridgeRequest);
         return bridgeRequest;
     }

@@ -17,8 +17,7 @@ package org.portletbridge.portlet;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
 
@@ -42,7 +41,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
 
     private int proxyPort;
 
-    private URI[] scope;
+    private Pattern scope = Pattern.compile(".*");
 
     /**
      *  
@@ -163,21 +162,11 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
         proxyHost = preferences.getValue("proxyHost", null);
         proxyPort = Integer.parseInt(preferences.getValue("proxyPort", "80"));
 
-        String[] scopePreference = preferences.getValues("scope", null);
-        if (scopePreference != null) {
-            try {
-                List scopeList = new ArrayList();
-                for (int i = 0; i < scopePreference.length; i++) {
-                    String scopePreferenceValue = scopePreference[i];
-                    if(scopePreferenceValue != null && scopePreferenceValue.trim().length() > 0) {
-                        scopeList.add(new URI(scopePreferenceValue));
-                    }
-                }
-            } catch (URISyntaxException e) {
-                throw new ResourceException("error.scope", e.getMessage(), e);
+        String scopePreference = preferences.getValue("scope", null);
+        if(scopePreference != null) {
+            if(!scope.pattern().equals(scopePreference)) {
+                scope = Pattern.compile(scopePreference);
             }
-        } else {
-            scope = new URI[0];
         }
     }
 
@@ -186,7 +175,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
      * 
      * @see org.portletbridge.portlet.PerPortletMemento#getScope()
      */
-    public URI[] getScope() {
+    public Pattern getScope() {
         return scope;
     }
 

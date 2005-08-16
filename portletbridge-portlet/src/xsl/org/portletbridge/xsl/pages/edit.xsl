@@ -6,13 +6,33 @@
 
   <xsl:output method="xml" version="1.0" indent="yes"/>
 
-  <xsl:param name="request"/>
-  <xsl:param name="response"/>
+  <xsl:param name="portlet"/>
   
   <xsl:template match="/">
-  
-  Hello Editing World!
+
+  <form>
+    <xsl:attribute name="action"><xsl:value-of select="java:actionUrl($portlet)"/></xsl:attribute>
+    <table>
+    <tr>
+        <td>Initial URL</td>
+	  	<td>
+	  		<input type="text" name="initUrl">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'initUrl', '')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td>Scope (Regex)</td>
+	  	<td>
+	  		<input type="text" name="scope">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'scope', '.*')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+  	<tr><td colspan="2" align="right"><input type="submit"/></td></tr>
+  	</table>
+  </form>  
   
   </xsl:template>
-   
+
 </xsl:stylesheet>

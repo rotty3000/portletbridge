@@ -33,9 +33,9 @@ public class DefaultPortletBridgeService implements PortletBridgeService {
      */
     public String getIdFromRequestUri(String requestUri) {
         int lastIndexOfSlash = requestUri.lastIndexOf('/');
-        int secondLastIndexOfSlash = requestUri.lastIndexOf('/', lastIndexOfSlash);
+        int secondLastIndexOfSlash = requestUri.lastIndexOf('/', lastIndexOfSlash - 1);
         if(lastIndexOfSlash >= 0 && secondLastIndexOfSlash >= 0) {
-            return requestUri.substring(secondLastIndexOfSlash + 1, lastIndexOfSlash - 1);
+            return requestUri.substring(secondLastIndexOfSlash + 1, lastIndexOfSlash);
         }
         return null;
     }
