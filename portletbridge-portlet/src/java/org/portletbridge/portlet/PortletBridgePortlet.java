@@ -93,7 +93,25 @@ public class PortletBridgePortlet extends GenericPortlet {
     }
     
     protected BridgeHelpPortlet createHelpPortlet(TemplateFactory templateFactory) throws PortletException {
-        return new BridgeHelpPortlet();
+        PortletConfig config = this.getPortletConfig();
+        ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
+
+        // get the help stylesheet reference
+        String editStylesheet = config.getInitParameter("helpStylesheet");
+        if (editStylesheet == null) {
+            throw new PortletException(resourceBundle
+                    .getString("error.help.stylesheet"));
+        }
+
+        BridgeHelpPortlet bridgeHelpPortlet = new BridgeHelpPortlet();
+        try {
+            bridgeHelpPortlet.setTemplates(templateFactory.getTemplates(editStylesheet));
+        } catch (ResourceException e) {
+            throw new PortletException(e);
+        } catch (TransformerFactoryConfigurationError e) {
+            throw new PortletException(e);
+        }
+        return bridgeHelpPortlet;
     }
     
     /**

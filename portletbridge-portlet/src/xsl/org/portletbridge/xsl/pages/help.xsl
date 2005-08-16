@@ -6,12 +6,11 @@
 
   <xsl:output method="xml" version="1.0" indent="yes"/>
 
-  <xsl:param name="request"/>
-  <xsl:param name="response"/>
+  <xsl:param name="portlet"/>
   
   <xsl:template match="/">
   
-  Hello Help World!
+  See <a href="http://www.portletbridge.org">Portlet Bridge</a> for more information.
   
   </xsl:template>
    

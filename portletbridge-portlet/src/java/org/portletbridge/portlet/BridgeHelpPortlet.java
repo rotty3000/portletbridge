@@ -15,15 +15,51 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.IOException;
+import java.io.StringReader;
+
 import javax.portlet.GenericPortlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  * @author JMcCrindle
  */
 public class BridgeHelpPortlet extends GenericPortlet {
 
+    private Templates templates = null;
+
     public BridgeHelpPortlet() {
         super();
     }
+    
+    /* (non-Javadoc)
+     * @see javax.portlet.GenericPortlet#doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
+     */
+    protected void doHelp(RenderRequest request, RenderResponse response)
+            throws PortletException, IOException {
+        response.setContentType("text/html");
+        try {
+            Transformer transformer = templates.newTransformer();
+            transformer.setParameter("portlet", new PortletFunctions(request, response));
+            transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
+        } catch (TransformerConfigurationException e) {
+            throw new PortletException(e);
+        } catch (TransformerException e) {
+            throw new PortletException(e);
+        } catch (IOException e) {
+            throw new PortletException(e);
+        }
+    }
 
+    public void setTemplates(Templates templates) {
+        this.templates = templates;
+    }
 }
