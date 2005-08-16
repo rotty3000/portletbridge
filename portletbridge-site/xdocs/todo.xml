@@ -32,6 +32,7 @@
 <li>Use regex for scope</li>
 <li>Do edit page</li>
 <li>Do help page</li>
+<li>Make more things serializeable</li>
 <li>Work out how to do validation</li>
 <li>Upgrade to latest httpclient</li>
 <li>better id generator</li>
