@@ -24,6 +24,7 @@ import javax.portlet.RenderResponse;
 
 /**
  * @author JMcCrindle
+ * @author rickard
  */
 public class BridgeFunctions {
 

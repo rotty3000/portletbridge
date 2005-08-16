@@ -36,6 +36,7 @@ import org.portletbridge.ResourceException;
 
 /**
  * @author JMcCrindle
+ * @author rickard
  */
 public class BridgeViewPortlet extends GenericPortlet {
 

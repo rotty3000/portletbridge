@@ -38,6 +38,7 @@ import org.xml.sax.XMLReader;
 
 /**
  * @author JMcCrindle
+ * @author rickard
  */
 public class AltBridgeTransformer implements
         BridgeTransformer {

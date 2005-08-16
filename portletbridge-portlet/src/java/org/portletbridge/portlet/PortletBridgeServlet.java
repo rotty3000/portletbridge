@@ -34,6 +34,7 @@ import org.portletbridge.ResourceException;
 
 /**
  * @author jmccrindle
+ * @author rickard
  */
 public class PortletBridgeServlet extends HttpServlet {
 
