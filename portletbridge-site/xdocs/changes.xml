@@ -5,6 +5,47 @@
   </properties>
   <body>
 
+    <release version="0.3" date="17 August 2005">
+
+      <action dev="dkfn" type="update">
+        Massive rewrite using code donated by Sitevision
+      </action>              
+      <action dev="dkfn" type="update">
+        CSS rewriting
+      </action>              
+      <action dev="dkfn" type="update">
+        Support for hiding downstream urls
+      </action>              
+      <action dev="dkfn" type="update">
+        Javascript opener rewriting
+      </action>              
+      <action dev="dkfn" type="update">
+        Edit page for initUrl and scope
+      </action>              
+      <action dev="dkfn" type="update">
+        Regex scope
+      </action>              
+      <action dev="dkfn" type="update">
+        Help page
+      </action>              
+      <action dev="dkfn" type="update">
+        Back button and refresh support
+      </action>                          
+      <action dev="dkfn" type="update">
+        Proxy Authentication Support
+      </action>                          
+      <action dev="dkfn" type="update">
+        Proxy Support
+      </action>                          
+      <action dev="dkfn" type="update">
+        NTLM Proxy Support
+      </action>                          
+      <action dev="dkfn" type="update">
+        Error page
+      </action>                          
+
+    </release>
+
     <release version="0.2" date="3 July 2005">
 
       <action dev="dkfn" type="update">
