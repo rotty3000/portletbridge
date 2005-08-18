@@ -11,10 +11,11 @@
       omit-xml-declaration="yes"/>
 
   <xsl:param name="portlet"/>
+  <xsl:param name="exception"/>
   
   <xsl:template match="/">
   
-  See <a href="http://www.portletbridge.org">Portlet Bridge</a> for more information.
+  There was a problem while processing your request: <xsl:value-of select="java:getMessage($exception)"/>
   
   </xsl:template>
    

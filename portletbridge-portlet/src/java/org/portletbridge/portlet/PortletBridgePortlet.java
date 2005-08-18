@@ -16,7 +16,8 @@
 package org.portletbridge.portlet;
 
 import java.io.IOException;
-import java.util.Locale;
+import java.io.StringReader;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
@@ -28,7 +29,13 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletMode;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.portletbridge.ResourceException;
 import org.xml.sax.SAXException;
@@ -45,6 +52,7 @@ public class PortletBridgePortlet extends GenericPortlet {
     private Portlet viewPortlet = null;
     private Portlet editPortlet = null;
     private Portlet helpPortlet = null;
+    private Templates errorTemplates = null;
 
     /* (non-Javadoc)
      * @see javax.portlet.GenericPortlet#init()
@@ -54,11 +62,16 @@ public class PortletBridgePortlet extends GenericPortlet {
         
         TemplateFactory templateFactory = new DefaultTemplateFactory();
         
+        // ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
+        ResourceBundle resourceBundle = PropertyResourceBundle.getBundle("org.portletbridge.portlet.PortletBridgePortlet");
+
         // initialise portlets
-        viewPortlet = createViewPortlet(templateFactory);
-        editPortlet = createEditPortlet(templateFactory);
-        helpPortlet = createHelpPortlet(templateFactory);
-        
+        viewPortlet = createViewPortlet(resourceBundle, templateFactory);
+        editPortlet = createEditPortlet(resourceBundle, templateFactory);
+        helpPortlet = createHelpPortlet(resourceBundle, templateFactory);
+
+        createErrorTemplates(resourceBundle, templateFactory);
+
         if(viewPortlet != null) {
             viewPortlet.init(this.getPortletConfig());
         }
@@ -70,9 +83,30 @@ public class PortletBridgePortlet extends GenericPortlet {
         }
     }
 
-    protected BridgeEditPortlet createEditPortlet(TemplateFactory templateFactory) throws PortletException {
+    /**
+     * @param resourceBundle
+     * @param templateFactory
+     * @throws PortletException
+     */
+    protected void createErrorTemplates(ResourceBundle resourceBundle, TemplateFactory templateFactory) throws PortletException {
+        // get the error stylesheet reference
+        String errorStylesheet = getPortletConfig().getInitParameter("errorStylesheet");
+        if (errorStylesheet == null) {
+            throw new PortletException(resourceBundle
+                    .getString("error.error.stylesheet"));
+        }
+        
+        try {
+            errorTemplates = templateFactory.getTemplates(errorStylesheet);
+        } catch (ResourceException e) {
+            throw new PortletException(e);
+        } catch (TransformerFactoryConfigurationError e) {
+            throw new PortletException(e);
+        }
+    }
+
+    protected BridgeEditPortlet createEditPortlet(ResourceBundle resourceBundle, TemplateFactory templateFactory) throws PortletException {
         PortletConfig config = this.getPortletConfig();
-        ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
 
         // get the edit stylesheet reference
         String editStylesheet = config.getInitParameter("editStylesheet");
@@ -92,9 +126,8 @@ public class PortletBridgePortlet extends GenericPortlet {
         return bridgeEditPortlet;
     }
     
-    protected BridgeHelpPortlet createHelpPortlet(TemplateFactory templateFactory) throws PortletException {
+    protected BridgeHelpPortlet createHelpPortlet(ResourceBundle resourceBundle, TemplateFactory templateFactory) throws PortletException {
         PortletConfig config = this.getPortletConfig();
-        ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
 
         // get the help stylesheet reference
         String editStylesheet = config.getInitParameter("helpStylesheet");
@@ -118,9 +151,8 @@ public class PortletBridgePortlet extends GenericPortlet {
      * @return
      * @throws PortletException
      */
-    protected BridgeViewPortlet createViewPortlet(TemplateFactory templateFactory) throws PortletException {
+    protected BridgeViewPortlet createViewPortlet(ResourceBundle resourceBundle, TemplateFactory templateFactory) throws PortletException {
         PortletConfig config = this.getPortletConfig();
-        ResourceBundle resourceBundle = config.getResourceBundle(Locale.getDefault());
 
         // get the memento session key
         String mementoSessionKey = config.getInitParameter("mementoSessionKey");
@@ -159,6 +191,29 @@ public class PortletBridgePortlet extends GenericPortlet {
         bridgeViewPortlet.setTransformer(transformer);
         bridgeViewPortlet.setMementoSessionKey(mementoSessionKey);
         return bridgeViewPortlet;
+    }
+    
+    /* (non-Javadoc)
+     * @see javax.portlet.GenericPortlet#render(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
+     */
+    public void render(RenderRequest request, RenderResponse response)
+            throws PortletException, IOException {
+        try {
+            super.render(request, response);
+        } catch (Throwable exception) {
+            response.setContentType("text/html");
+            try {
+                Transformer transformer = errorTemplates.newTransformer();
+                transformer.setParameter("portlet", new PortletFunctions(request, response));
+                transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
+            } catch (TransformerConfigurationException e) {
+                throw new PortletException(e);
+            } catch (TransformerException e) {
+                throw new PortletException(e);
+            } catch (IOException e) {
+                throw new PortletException(e);
+            }
+        }
     }
 
     /* (non-Javadoc)

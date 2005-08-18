@@ -7,7 +7,6 @@
          <preference>
             <name>initUrl</name>
             <value>http://slashdot.org</value>
-            <read-only>true</read-only>
          </preference>
       </preferences>
    </instance>

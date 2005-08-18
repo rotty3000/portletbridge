@@ -4,32 +4,110 @@
 	xmlns:java="http://xml.apache.org/xslt/java"
     exclude-result-prefixes="java">
 
-  <xsl:output method="xml" version="1.0" indent="yes"/>
+  <xsl:output 
+      method="xml" 
+      version="1.0" 
+      indent="yes"
+      omit-xml-declaration="yes"/>
 
   <xsl:param name="portlet"/>
   
   <xsl:template match="/">
 
-  <form>
+  <form method="post">
     <xsl:attribute name="action"><xsl:value-of select="java:actionUrl($portlet)"/></xsl:attribute>
     <table>
     <tr>
-        <td>Initial URL</td>
+        <td><span class="portlet-form-field-label">Initial URL</span></td>
 	  	<td>
-	  		<input type="text" name="initUrl">
+	  		<input class="portlet-form-input-field" type="text" name="initUrl">
 	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'initUrl', '')"/></xsl:attribute>
 	  		</input>
 	  	</td>
   	</tr>
     <tr>
-        <td>Scope (Regex)</td>
+        <td><span class="portlet-form-field-label">Scope (Regex)</span></td>
 	  	<td>
-	  		<input type="text" name="scope">
+	  		<input class="portlet-form-input-field" type="text" name="scope">
 	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'scope', '.*')"/></xsl:attribute>
 	  		</input>
 	  	</td>
   	</tr>
-  	<tr><td colspan="2" align="right"><input type="submit"/></td></tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Host</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="text" name="proxyHost">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyHost', java:systemProxyHost($portlet))"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Port</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="text" name="proxyPort">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyPort', java:systemProxyPort($portlet))"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Authentication</span></td>
+	  	<td>
+	  	    <xsl:variable name="proxyAuthentication" select="java:preference($portlet, 'proxyAuthentication', 'none')"/>
+	  		<select class="portlet-form-input-field" name="proxyAuthentication">
+	  			<option value="none">
+				    <xsl:if test="$proxyAuthentication='none'">
+					  <xsl:attribute name="selected"/>
+					</xsl:if>
+	   				None
+	   			</option>
+	  			<option value="basic">
+				    <xsl:if test="$proxyAuthentication='basic'">
+					  <xsl:attribute name="selected"/>
+					</xsl:if>
+	   				Basic
+	   			</option>
+	  			<option value="ntlm">
+				    <xsl:if test="$proxyAuthentication='ntlm'">
+					  <xsl:attribute name="selected"/>
+					</xsl:if>
+	   				NTLM
+	   			</option>
+	  		</select>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Authentication Username</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="text" name="proxyAuthenticationUsername">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyAuthenticationUsername', '')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Authentication Password</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="password" name="proxyAuthenticationPassword">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyAuthenticationPassword', '')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Authentication Host</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="text" name="proxyAuthenticationHost">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyAuthenticationHost', '')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+    <tr>
+        <td><span class="portlet-form-field-label">Proxy Authentication Domain</span></td>
+	  	<td>
+	  		<input class="portlet-form-input-field" type="text" name="proxyAuthenticationDomain">
+	  		<xsl:attribute name="value"><xsl:value-of select="java:preference($portlet, 'proxyAuthenticationDomain', '')"/></xsl:attribute>
+	  		</input>
+	  	</td>
+  	</tr>
+  	<tr><td colspan="2" align="right"><input class="portlet-form-button" type="submit"/></td></tr>
   	</table>
   </form>  
   

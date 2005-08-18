@@ -25,6 +25,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletException;
 import javax.portlet.PortletPreferences;
+import javax.portlet.ReadOnlyException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.xml.transform.Templates;
@@ -60,7 +61,7 @@ public class BridgeEditPortlet extends GenericPortlet {
         try {
             Transformer transformer = templates.newTransformer();
             transformer.setParameter("portlet", new PortletFunctions(request, response));
-            transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
+            transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getWriter()));
         } catch (TransformerConfigurationException e) {
             throw new PortletException(e);
         } catch (TransformerException e) {
@@ -86,11 +87,23 @@ public class BridgeEditPortlet extends GenericPortlet {
                 throw new PortletException(e);
             }
         }
-        String scopeParameter = request.getParameter("scope");
-        if(scopeParameter != null && initUrlParameter.trim().length() > 0) {
-            preferences.setValue("scope", scopeParameter);
-        }
+        setIfNotNull(request, preferences, "scope");
+        setIfNotNull(request, preferences, "proxyHost");
+        setIfNotNull(request, preferences, "proxyPort");
+        setIfNotNull(request, preferences, "proxyAuthentication");
+        setIfNotNull(request, preferences, "proxyAuthenticationUsername");
+        setIfNotNull(request, preferences, "proxyAuthenticationPassword");
+        setIfNotNull(request, preferences, "proxyAuthenticationHost");
+        setIfNotNull(request, preferences, "proxyAuthenticationDomain");
+        
         preferences.store();
+    }
+    
+    protected void setIfNotNull(ActionRequest request, PortletPreferences preferences, String parameterName) throws ReadOnlyException {
+        String parameterValue = request.getParameter(parameterName);
+        if(parameterValue != null) {
+            preferences.setValue(parameterName, parameterValue);
+        }
     }
 
     public void setTemplates(Templates templates) {

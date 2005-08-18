@@ -51,4 +51,10 @@ public class PortletFunctions {
     public String preference(String name, String defaultValue) {
         return preferences.getValue(name, defaultValue);
     }
+    public String systemProxyHost() {
+        return System.getProperty("proxyHost");
+    }
+    public String systemProxyPort() {
+        return System.getProperty("proxyPort");
+    }
 }

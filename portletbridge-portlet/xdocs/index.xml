@@ -37,16 +37,19 @@ content from a downstream web site. Currently, the portlet supports:
 <li>Proxying of remote resources (e.g. images, flash etc.)</li>
 <li>Pluto 1.0.1 rc2</li>
 <li>JBoss Portal 2.0</li>
-<li>LifeRay Professional 3.2.0</li>
+<li>LifeRay Professional 3.6.0</li>
 <li>XSL Stylesheets packaged as part of the portlet or remote (URL based)</li>
+<li>Links to binary files</li>
+<li>Help and Edit modes</li>
+<li>Rewriting CSS urls</li>
+<li>Moving javascript and css links out of the head</li>
+<li>Hiding of downstream URLs and configurable scope</li>
+<li>Back button and refresh support</li>
 </ul>
 The portlet currently does not support:
 <ul>
-<li>Links to binary files</li>
-<li>Help, Edit or Config portlet modes</li>
 <li>Tested support of other portal frameworks</li>
-<li>Moving javascript and css links out of the head</li>
-<li>Rewriting CSS urls</li>
+<li>URL rewriting in external stylesheets and javascript</li>
 </ul>
 </p>
 <p>
@@ -69,20 +72,21 @@ Init Params:
 Preferences:
 <table>
 <tr><th>Name</th><th>Description</th><th>Readonly</th><th>Required</th></tr>
-<tr><td>initUrl</td><td>The initial url for the portlet to point to</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>authentication</td><td>What kind of authentication to use ("none", "basic", "ntlm")</td><td>Yes</td><td>No</td></tr>
-<tr><td>authenticationUsername</td><td>Username</td><td>Yes</td><td>No</td></tr>
-<tr><td>authenticationPassword</td><td>Password</td><td>Yes</td><td>No</td></tr>
-<tr><td>authenticationHost</td><td>Host (for ntlm)</td><td>Yes</td><td>No</td></tr>
-<tr><td>authenticationDomain</td><td>Domain (for ntlm)</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyHost</td><td>The Proxy Host</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyPort</td><td>The Proxy Port</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyAuthentication</td><td>Proxy Authentication ("none", "basic", "ntlm")</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyAuthenticationUsername</td><td>Proxy Username</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyAuthenticationPassword</td><td>Proxy Password</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyAuthenticationHost</td><td>Proxy Authentication Host (for ntlm)</td><td>Yes</td><td>No</td></tr>
-<tr><td>proxyAuthenticationDomain</td><td>Proxy Authentication Domain (for ntlm)</td><td>Yes</td><td>No</td></tr>
-<tr><td>stylesheet</td><td>classpath:/org/portletbridge/xsl/portletbridge.xsl</td><td>Yes</td><td>No</td></tr>
+<tr><td>initUrl</td><td>The initial url for the portlet to point to</td><td>No</td><td>Yes</td></tr>
+<tr><td>scope</td><td>A regular expression that identifies which downstream sites should be proxied and which just linked to.</td><td>No</td><td>Yes</td></tr>
+<tr><td>authentication</td><td>What kind of authentication to use ("none", "basic", "ntlm")</td><td>No</td><td>No</td></tr>
+<tr><td>authenticationUsername</td><td>Username</td><td>No</td><td>No</td></tr>
+<tr><td>authenticationPassword</td><td>Password</td><td>No</td><td>No</td></tr>
+<tr><td>authenticationHost</td><td>Host (for ntlm)</td><td>No</td><td>No</td></tr>
+<tr><td>authenticationDomain</td><td>Domain (for ntlm)</td><td>No</td><td>No</td></tr>
+<tr><td>proxyHost</td><td>The Proxy Host</td><td>No</td><td>No</td></tr>
+<tr><td>proxyPort</td><td>The Proxy Port</td><td>No</td><td>No</td></tr>
+<tr><td>proxyAuthentication</td><td>Proxy Authentication ("none", "basic", "ntlm")</td><td>No</td><td>No</td></tr>
+<tr><td>proxyAuthenticationUsername</td><td>Proxy Username</td><td>No</td><td>No</td></tr>
+<tr><td>proxyAuthenticationPassword</td><td>Proxy Password</td><td>No</td><td>No</td></tr>
+<tr><td>proxyAuthenticationHost</td><td>Proxy Authentication Host (for ntlm)</td><td>No</td><td>No</td></tr>
+<tr><td>proxyAuthenticationDomain</td><td>Proxy Authentication Domain (for ntlm)</td><td>No</td><td>No</td></tr>
+<tr><td>stylesheet</td><td>classpath:/org/portletbridge/xsl/portletbridge.xsl</td><td>No</td><td>No</td></tr>
 </table>
 </p>
 </section>
@@ -91,7 +95,12 @@ Preferences:
 Init Params:
 <table>
 <tr><th>Name</th><th>Description</th><th>Required</th></tr>
-<tr><td>proxyBrowserSessionKey</td><td>proxyBrowserSessionKey</td><td>Yes</td></tr>
+<tr><td>mementoSessionKey</td><td>The key to store portletbridge user data under</td><td>Yes</td></tr>
+<tr><td>parserClassName</td><td>The name of the parser class to use</td><td>Yes</td></tr>
+<tr><td>editStylesheet</td><td>URL to the edit stylesheet</td><td>Yes</td></tr>
+<tr><td>helpStylesheet</td><td>URL to the help stylesheet</td><td>Yes</td></tr>
+<tr><td>errorStylesheet</td><td>URL to the error stylesheet</td><td>Yes</td></tr>
+<tr><td>servletName</td><td>The name the servlet is under</td><td>Yes</td></tr>
 </table>
 </p>
 </section>

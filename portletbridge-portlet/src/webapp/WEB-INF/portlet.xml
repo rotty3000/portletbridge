@@ -49,6 +49,11 @@ limitations under the License.
 		</init-param>
 		        
         <init-param>
+			<name>errorStylesheet</name>
+			<value>classpath:/org/portletbridge/xsl/pages/error.xsl</value>
+		</init-param>
+		        
+        <init-param>
 			<name>servletName</name>
 			<value>pbhs</value>
 		</init-param>
@@ -100,14 +105,14 @@ limitations under the License.
 				<name>authenticationDomain</name>
 				<value></value>
 			</preference>
-            <preference>
+            <!--preference>
 				<name>proxyHost</name>
 				<value></value>
 			</preference>
             <preference>
 				<name>proxyPort</name>
 				<value>80</value>
-			</preference>
+			</preference-->
             <preference>
 				<name>proxyAuthentication</name>
 				<value>none</value>

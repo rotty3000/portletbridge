@@ -159,8 +159,9 @@ public class DefaultPerPortletMemento implements PerPortletMemento {
             }
         }
 
-        proxyHost = preferences.getValue("proxyHost", null);
-        proxyPort = Integer.parseInt(preferences.getValue("proxyPort", "80"));
+        proxyHost = preferences.getValue("proxyHost", System.getProperty("http.proxyHost"));
+        String proxyPortPreference = preferences.getValue("proxyPort", System.getProperty("http.proxyPort"));
+        proxyPort = Integer.parseInt(proxyPortPreference != null ? proxyPortPreference : "80");
 
         String scopePreference = preferences.getValue("scope", null);
         if(scopePreference != null) {
