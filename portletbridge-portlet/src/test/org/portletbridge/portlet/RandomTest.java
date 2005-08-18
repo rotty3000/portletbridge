@@ -16,6 +16,7 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
+import java.rmi.dgc.VMID;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -26,6 +27,7 @@ import junit.framework.TestCase;
  * @author JMcCrindle
  */
 public class RandomTest extends TestCase {
+
     public void testClash() throws Exception {
         Random random = new Random();
         Set set = new HashSet();
@@ -38,7 +40,7 @@ public class RandomTest extends TestCase {
             }
         }
     }
-    
+
     public void testSubstring() throws Exception {
         String blah = "blah";
         assertEquals("ah", blah.substring(2));
@@ -46,5 +48,9 @@ public class RandomTest extends TestCase {
     
     public void testUri() throws Exception {
         URI uri = new URI("test");
+    }
+    
+    public void testVMID() throws Exception {
+        System.out.println(new VMID().toString());
     }
 }
