@@ -110,7 +110,7 @@ Portlet Bridge requires Java 1.4 or above.
 <section name="Credits">
 <p>
 Many thanks to Rickard for writing the <a href="http://jroller.com/page/rickard/20050411">specification</a> (and challenge) that this project
-is based on.
+is based on. Even more thanks to Rickard for his donation of code to this project.
 </p>
 </section>
 </body>

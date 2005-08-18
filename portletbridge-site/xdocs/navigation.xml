@@ -28,7 +28,8 @@
     </links>
     <menu name="Project">
           <item name="Overview" href="index.html"/>
-          <item name="Todo" href="todo.html"/>
+          <item name="Changes"  href="changes-report.html"/>
+          <item name="Todo"     href="todo.html"/>
     </menu>
     <menu name="Sub Projects">
           <item name="PortletBridge - Core" href="http://www.portletbridge.org/multiproject/portletbridge-core/index.html"/>
