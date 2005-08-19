@@ -8,3 +8,6 @@ in ProxyService.doGet
 in ProxyService.fetch
 - why use aHttpServletResponse.sendError(HttpServletResponse.SC_FOUND); instead of response.sendRedirect
 
+when reusing id's
+- it looks like it'll be tough to reuse id's because the page url needs to be stored with the id because
+  of how the containers work... ug...
