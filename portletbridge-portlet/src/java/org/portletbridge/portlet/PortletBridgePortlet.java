@@ -205,6 +205,7 @@ public class PortletBridgePortlet extends GenericPortlet {
             try {
                 Transformer transformer = errorTemplates.newTransformer();
                 transformer.setParameter("portlet", new PortletFunctions(request, response));
+                transformer.setParameter("exception", exception);
                 transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
             } catch (TransformerConfigurationException e) {
                 throw new PortletException(e);

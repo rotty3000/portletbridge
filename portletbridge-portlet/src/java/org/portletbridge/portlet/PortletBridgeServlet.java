@@ -79,7 +79,7 @@ public class PortletBridgeServlet extends HttpServlet {
             throw new ServletException(resourceBundle
                     .getString("error.nosession"));
         }
-        PortletBridgeMemento memento = (PortletBridgeMemento) session
+        final PortletBridgeMemento memento = (PortletBridgeMemento) session
                 .getAttribute(mementoSessionKey);
         if (memento == null) {
             throw new ServletException(resourceBundle
@@ -98,14 +98,6 @@ public class PortletBridgeServlet extends HttpServlet {
         }
 
         // go and fetch the data from the backend as appropriate
-        // what i'm thinking here is:
-        //  - do i want to expose the httpclient directly at this point instead
-        //    of using the service
-        //    but it makes testing more difficult...
-        //  - i could abstract is a little but still expose httpclient classes
-        //    like "method" etc....
-        //    maybe that's better
-        //  - the momento should have the httpstate in it
         URI url = bridgeRequest.getUrl();
 
         try {
@@ -116,9 +108,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                 throws ResourceException, Throwable {
                             if (statusCode == HttpStatus.SC_OK) {
                                 // if it's text/html then store it and redirect
-                                // back to the
-                                // portlet
-                                // render view (portletUrl)
+                                // back to the portlet render view (portletUrl)
                                 Header responseHeader = method
                                         .getResponseHeader("Content-Type");
                                 if (responseHeader != null
@@ -128,19 +118,16 @@ public class PortletBridgeServlet extends HttpServlet {
                                             method.getResponseBodyAsStream(),
                                             method.getResponseCharSet());
                                     // TODO: think about cleaning this up if we don't get back to the render
-                                    bridgeRequest
-                                            .enqueueContent(new PortletBridgeContent(
+                                    perPortletMemento
+                                            .enqueueContent(bridgeRequest.getId(), new PortletBridgeContent(
                                                     url, "get", content));
                                     // redirect
                                     // TODO: worry about this... adding the id at the end
                                     response.sendRedirect(bridgeRequest
-                                            .getPageUrl()
-                                            + "&id=" + id);
+                                            .getPageUrl());
                                 } else {
                                     // if it's anything else then stream it
-                                    // back... consider
-                                    // stylesheets and
-                                    // javascript
+                                    // back... consider stylesheets and javascript
                                     // TODO: javascript and css rewriting
                                     response.setContentType(method.getResponseHeader("Content-Type").toExternalForm());
                                     ResourceUtil.copy(method
@@ -149,9 +136,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                 }
                             } else {
                                 // if there is a problem with the status code
-                                // then return that
-                                // error
-                                // back
+                                // then return that error back
                                 response.sendError(statusCode);
                             }
                             return null;
@@ -166,9 +151,86 @@ public class PortletBridgeServlet extends HttpServlet {
 
     }
 
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException, IOException {
+        // get the id
+        final String id = portletBridgeService.getIdFromRequestUri(request.getContextPath(), request
+                .getRequestURI());
+        // look up the data associated with that id from the session
+        HttpSession session = request.getSession();
+        if (session == null) {
+            throw new ServletException(resourceBundle
+                    .getString("error.nosession"));
+        }
+        final PortletBridgeMemento memento = (PortletBridgeMemento) session
+                .getAttribute(mementoSessionKey);
+        if (memento == null) {
+            throw new ServletException(resourceBundle
+                    .getString("error.nomemento"));
+        }
+        final BridgeRequest bridgeRequest = memento.getBridgeRequest(id);
+        if (bridgeRequest == null) {
+            throw new ServletException(resourceBundle
+                    .getString("error.nobridgerequest"));
+        }
+        final PerPortletMemento perPortletMemento = memento
+                .getPerPortletMemento(bridgeRequest.getPortletId());
+        if (perPortletMemento == null) {
+            throw new ServletException(resourceBundle
+                    .getString("error.noperportletmemento"));
+        }
 
+        // go and fetch the data from the backend as appropriate
+        URI url = bridgeRequest.getUrl();
+
+        try {
+            httpClientTemplate.doPost(url, perPortletMemento,
+                    new HttpClientCallback() {
+                        public Object doInHttpClient(URI url, int statusCode,
+                                HttpMethodBase method)
+                                throws ResourceException, Throwable {
+                            if (statusCode == HttpStatus.SC_OK) {
+                                // if it's text/html then store it and redirect
+                                // back to the portlet render view (portletUrl)
+                                Header responseHeader = method
+                                        .getResponseHeader("Content-Type");
+                                if (responseHeader != null
+                                        && responseHeader.getValue()
+                                                .startsWith("text/html")) {
+                                    String content = ResourceUtil.getString(
+                                            method.getResponseBodyAsStream(),
+                                            method.getResponseCharSet());
+                                    // TODO: think about cleaning this up if we don't get back to the render
+                                    perPortletMemento
+                                            .enqueueContent(bridgeRequest.getId(), new PortletBridgeContent(
+                                                    url, "post", content));
+                                    // redirect
+                                    // TODO: worry about this... adding the id at the end
+                                    response.sendRedirect(bridgeRequest
+                                            .getPageUrl());
+                                } else {
+                                    // if it's anything else then stream it
+                                    // back... consider stylesheets and javascript
+                                    // TODO: javascript and css rewriting
+                                    response.setContentType(method.getResponseHeader("Content-Type").toExternalForm());
+                                    ResourceUtil.copy(method
+                                            .getResponseBodyAsStream(),
+                                            response.getOutputStream(), 4096);
+                                }
+                            } else {
+                                // if there is a problem with the status code
+                                // then return that error back
+                                response.sendError(statusCode);
+                            }
+                            return null;
+                        }
+                    });
+        } catch (ResourceException resourceException) {
+            String format = MessageFormat.format(resourceBundle
+                    .getString(resourceException.getMessage()),
+                    resourceException.getArgs());
+            throw new ServletException(format, resourceException);
+        }
     }
 
     public void setPortletBridgeService(

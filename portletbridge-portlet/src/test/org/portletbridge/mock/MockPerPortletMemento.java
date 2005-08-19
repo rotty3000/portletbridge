@@ -23,6 +23,7 @@ import javax.portlet.PortletPreferences;
 import org.apache.commons.httpclient.HttpState;
 import org.portletbridge.ResourceException;
 import org.portletbridge.portlet.PerPortletMemento;
+import org.portletbridge.portlet.PortletBridgeContent;
 
 /**
  * @author JMcCrindle
@@ -83,6 +84,22 @@ public class MockPerPortletMemento implements PerPortletMemento {
     public int getProxyPort() {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    /* (non-Javadoc)
+     * @see org.portletbridge.portlet.PerPortletMemento#enqueueContent(java.lang.String, org.portletbridge.portlet.PortletBridgeContent)
+     */
+    public void enqueueContent(String bridgeRequestId, PortletBridgeContent content) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /* (non-Javadoc)
+     * @see org.portletbridge.portlet.PerPortletMemento#dequeueContent(java.lang.String)
+     */
+    public PortletBridgeContent dequeueContent(String bridgeRequestId) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

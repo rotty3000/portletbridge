@@ -25,6 +25,4 @@ public interface BridgeRequest {
     String getPageUrl();
     String getPortletId();
     URI getUrl();
-    void enqueueContent(PortletBridgeContent content);
-    PortletBridgeContent dequeueContent();
 }

@@ -29,4 +29,6 @@ public interface PerPortletMemento extends HttpClientState {
     void setPreferences(PortletPreferences preferences) throws ResourceException;
     Pattern getScope();
     URI getInitUrl();
+    void enqueueContent(String bridgeRequestId, PortletBridgeContent content);
+    PortletBridgeContent dequeueContent(String bridgeRequestId);
 }

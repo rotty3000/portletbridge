@@ -104,7 +104,7 @@ public class BridgeViewPortlet extends GenericPortlet {
                 if (bridgeRequest == null) {
                     // TODO: throw exception
                 }
-                PortletBridgeContent content = bridgeRequest.dequeueContent();
+                PortletBridgeContent content = perPortletMemento.dequeueContent(bridgeRequest.getId());
                 if (content == null) {
                     // we're rerending
                     httpClientTemplate.doGet(bridgeRequest.getUrl(),
