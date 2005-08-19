@@ -15,14 +15,12 @@
  */
 package org.portletbridge.portlet;
 
-import java.net.URI;
-
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.portletbridge.ResourceException;
 
 /**
  * @author JMcCrindle
  */
 public interface HttpClientTemplate {
-    Object doGet(URI url, HttpClientState state, HttpClientCallback callback) throws ResourceException;
-    Object doPost(URI url, HttpClientState state, HttpClientCallback callback) throws ResourceException;
+    Object service(HttpMethodBase method, HttpClientState state, HttpClientCallback callback) throws ResourceException;
 }

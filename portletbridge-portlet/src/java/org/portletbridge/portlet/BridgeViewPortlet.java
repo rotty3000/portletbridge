@@ -33,6 +33,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.portletbridge.ResourceException;
 
 /**
@@ -85,11 +86,12 @@ public class BridgeViewPortlet extends GenericPortlet {
             if (urlId == null) {
                 // this is the default start page for the portlet so go and
                 // fetch it
-                httpClientTemplate.doGet(perPortletMemento.getInitUrl(), perPortletMemento,
+                final URI initUrl = perPortletMemento.getInitUrl();
+                httpClientTemplate.service(new GetMethod(initUrl.toString()), perPortletMemento,
                         new HttpClientCallback() {
-                            public Object doInHttpClient(URI url, int statusCode,
+                            public Object doInHttpClient(int statusCode,
                                     HttpMethodBase method) throws Throwable {
-                                transformer.transform(memento, perPortletMemento, url, 
+                                transformer.transform(memento, perPortletMemento, initUrl, 
                                         request, response,
                                         new InputStreamReader(method
                                                 .getResponseBodyAsStream(),
@@ -99,7 +101,7 @@ public class BridgeViewPortlet extends GenericPortlet {
                         });
             } else {
                 // render or rerender
-                BridgeRequest bridgeRequest = memento
+                final BridgeRequest bridgeRequest = memento
                         .getBridgeRequest(urlId);
                 if (bridgeRequest == null) {
                     // TODO: throw exception
@@ -107,14 +109,14 @@ public class BridgeViewPortlet extends GenericPortlet {
                 PortletBridgeContent content = perPortletMemento.dequeueContent(bridgeRequest.getId());
                 if (content == null) {
                     // we're rerending
-                    httpClientTemplate.doGet(bridgeRequest.getUrl(),
+                    httpClientTemplate.service(new GetMethod(bridgeRequest.getUrl().toString()),
                             perPortletMemento, new HttpClientCallback() {
-                                public Object doInHttpClient(URI url, int statusCode,
+                                public Object doInHttpClient(int statusCode,
                                         HttpMethodBase method) throws Throwable {
                                     transformer.transform(
                                             memento,
                                             perPortletMemento, 
-                                            url,
+                                            bridgeRequest.getUrl(),
                                             request,
                                             response,
                                             new InputStreamReader(method

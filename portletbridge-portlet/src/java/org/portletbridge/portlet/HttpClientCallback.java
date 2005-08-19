@@ -15,8 +15,6 @@
  */
 package org.portletbridge.portlet;
 
-import java.net.URI;
-
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.portletbridge.ResourceException;
 
@@ -24,5 +22,5 @@ import org.portletbridge.ResourceException;
  * @author JMcCrindle
  */
 public interface HttpClientCallback {
-    Object doInHttpClient(URI url, int statusCode, HttpMethodBase method) throws ResourceException, Throwable;
+    Object doInHttpClient(int statusCode, HttpMethodBase method) throws ResourceException, Throwable;
 }

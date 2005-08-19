@@ -48,6 +48,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * @author JMcCrindle
  */
 public class PortletBridgePortlet extends GenericPortlet {
+    
+    private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PortletBridgePortlet.class);
 
     private Portlet viewPortlet = null;
     private Portlet editPortlet = null;
@@ -201,6 +204,9 @@ public class PortletBridgePortlet extends GenericPortlet {
         try {
             super.render(request, response);
         } catch (Throwable exception) {
+            // getPortletConfig().getPortletContext().log(exception.getMessage(), exception);
+            // using this instead because pluto doesn't seem to print out portletcontext logs
+            log.warn(exception, exception);
             response.setContentType("text/html");
             try {
                 Transformer transformer = errorTemplates.newTransformer();

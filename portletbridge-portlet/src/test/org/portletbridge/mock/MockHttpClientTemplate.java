@@ -18,14 +18,13 @@ package org.portletbridge.mock;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.portletbridge.ResourceException;
 import org.portletbridge.portlet.HttpClientCallback;
 import org.portletbridge.portlet.HttpClientState;
@@ -51,10 +50,10 @@ public class MockHttpClientTemplate implements HttpClientTemplate {
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.HttpClientTemplate#doGet(java.net.URI, org.portletbridge.portlet.HttpClientState, org.portletbridge.portlet.HttpClientCallback)
      */
-    public Object doGet(URI url, HttpClientState state,
+    public Object service(HttpMethodBase method, HttpClientState state,
             HttpClientCallback callback) throws ResourceException {
         try {
-            return callback.doInHttpClient(url, statusCode, new GetMethod(url.toString()) {
+            return callback.doInHttpClient(statusCode, new GetMethod(method.getURI().toString()) {
                 public InputStream getResponseBodyAsStream() throws IOException {
                     return responseBody;
                 }
@@ -81,26 +80,6 @@ public class MockHttpClientTemplate implements HttpClientTemplate {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.portletbridge.portlet.HttpClientTemplate#doPost(java.net.URI, org.portletbridge.portlet.HttpClientState, org.portletbridge.portlet.HttpClientCallback)
-     */
-    public Object doPost(URI url, HttpClientState state,
-            HttpClientCallback callback) throws ResourceException {
-        try {
-            return callback.doInHttpClient(url, statusCode, new PostMethod(url.toString()) {
-                public InputStream getResponseBodyAsStream() throws IOException {
-                    return responseBody;
-                }
-
-                public String getResponseCharSet() {
-                    return responseCharSet;
-                }
-            });
-        } catch (Throwable e) {
-            throw new ResourceException("error.httpclient", e.getMessage(), e);
-        }
-    }
-    
     public void setupResponseHeader(String name, String value) {
         this.responseHeaders.put(name, value);
     }

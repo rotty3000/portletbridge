@@ -81,7 +81,10 @@ public class BridgeEditPortlet extends GenericPortlet {
         if(initUrlParameter != null && initUrlParameter.trim().length() > 0) {
             try {
                 URI initUrl = new URI(initUrlParameter);
-                preferences.setValue("initUrl", initUrlParameter);
+                if(initUrl.getPath() == null || "".equals(initUrl.getPath())) {
+                    initUrl = new URI(initUrlParameter + "/");
+                }
+                preferences.setValue("initUrl", initUrl.toString());
             } catch (URISyntaxException e) {
                 // TODO: validation
                 throw new PortletException(e);

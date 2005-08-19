@@ -53,4 +53,11 @@ public class RandomTest extends TestCase {
     public void testVMID() throws Exception {
         System.out.println(new VMID().toString());
     }
+    
+    public void testURI() throws Exception {
+        URI uri = new URI("http://slashdot.org");
+        assertEquals("", uri.getPath());
+        uri = new URI("http://slashdot.org/");
+        assertEquals("/", uri.getPath());
+    }
 }

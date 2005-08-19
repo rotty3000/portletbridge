@@ -15,13 +15,10 @@
  */
 package org.portletbridge.portlet;
 
-import java.net.URI;
-
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.portletbridge.ResourceException;
 
 /**
@@ -37,16 +34,8 @@ public class DefaultHttpClientTemplate implements HttpClientTemplate {
     public DefaultHttpClientTemplate() {
         httpClient = new HttpClient(new MultiThreadedHttpConnectionManager());
     }
-
-    /* (non-Javadoc)
-     * @see org.portletbridge.portlet.HttpClientTemplate#doGet(java.net.URI, org.portletbridge.portlet.HttpClientState, org.portletbridge.portlet.HttpClientCallback)
-     */
-    public Object doGet(URI url, HttpClientState state, HttpClientCallback callback) throws ResourceException {
-        return service(url, new GetMethod(url.toString()), state, callback);
-    }
     
-    public Object service(URI url, HttpMethodBase method, HttpClientState state, HttpClientCallback callback) throws ResourceException {
-        method.setFollowRedirects(true);
+    public Object service(HttpMethodBase method, HttpClientState state, HttpClientCallback callback) throws ResourceException {
         try {
             HostConfiguration hostConfiguration = new HostConfiguration();
             
@@ -55,7 +44,7 @@ public class DefaultHttpClientTemplate implements HttpClientTemplate {
             }
             hostConfiguration.setHost(method.getURI());
             int statusCode = httpClient.executeMethod(hostConfiguration, method, state.getHttpState());
-            return callback.doInHttpClient(url, statusCode, method);
+            return callback.doInHttpClient(statusCode, method);
         } catch (Throwable e) {
             throw new ResourceException("error.httpclient", e.getMessage(), e);
         } finally {
@@ -63,11 +52,5 @@ public class DefaultHttpClientTemplate implements HttpClientTemplate {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.portletbridge.portlet.HttpClientTemplate#doPost(java.net.URI, org.portletbridge.portlet.HttpClientState, org.portletbridge.portlet.HttpClientCallback)
-     */
-    public Object doPost(URI url, HttpClientState state, HttpClientCallback callback) throws ResourceException {
-        return service(url, new GetMethod(url.toString()), state, callback);
-    }
 
 }
