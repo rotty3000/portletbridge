@@ -29,14 +29,12 @@
 <p>
 <ul>
 <li>Reuse bridge requests that have the same url, portletId etc.</li>
-<li>Do edit page</li>
-<li>Do help page</li>
 <li>Make more things serializeable</li>
 <li>Validation on Edit</li>
 <li>Upgrade to latest httpclient</li>
 <li>better id generator</li>
+<li>support posts</li>
 <li>Rewrite external stylesheets and javascript</li>
-<li>Better management of cached pages</li>
 <li>Try out Gridsphere and eXo</li>
 </ul>
 </p>

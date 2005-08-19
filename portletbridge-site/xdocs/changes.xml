@@ -5,6 +5,17 @@
   </properties>
   <body>
 
+    <release version="0.4" date="TBD">
+
+      <action dev="dkfn" type="update">
+        Better management of temporarily cached pages
+      </action>              
+      <action dev="dkfn" type="update">
+        Error page fix
+      </action>              
+      
+    </release>
+
     <release version="0.3" date="17 August 2005">
 
       <action dev="dkfn" type="update">
