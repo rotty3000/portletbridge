@@ -29,7 +29,7 @@ public class RegExStyleSheetRewriter implements StyleSheetRewriter {
 
     private UrlRewriter urlRewriter = null;
     private Pattern urlPattern = Pattern.compile("(url\\((?:'|\")?)(.*?)((?:'|\")?\\))");
-    private Pattern importPattern = Pattern.compile("(@import\\s+(?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
+    private Pattern importPattern = Pattern.compile("(@import\\s+[^url](?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
     
     /**
      * @param urlRewriter
