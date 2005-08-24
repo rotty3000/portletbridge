@@ -31,6 +31,7 @@
 <li>Reuse bridge requests that have the same url, portletId etc.</li>
 <li>Make more things serializeable</li>
 <li>Validation on Edit</li>
+<li>Edit XSL</li>
 <li>Upgrade to latest httpclient</li>
 <li>better id generator</li>
 <li>Rewrite external stylesheets and javascript</li>
