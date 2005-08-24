@@ -15,15 +15,24 @@
  */
 package org.portletbridge.portlet;
 
-import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.portlet.RenderResponse;
+import junit.framework.TestCase;
 
 /**
  * @author jmccrindle
  */
-public interface PortletBridgeMemento {
-    BridgeRequest getBridgeRequest(String id);
-    BridgeRequest createBridgeRequest(RenderResponse response, String id, URI url);
-    PerPortletMemento getPerPortletMemento(String portletId);
+public class GUIDGeneratorTest extends TestCase {
+    public void testGUIDGenerator() throws Exception {
+        GUIDGenerator generator = new GUIDGenerator();
+        Set set = new HashSet();
+        for(int i = 0; i < 1000000; i++) {
+            String uuid = generator.getUUID();
+            if(set.contains(uuid)) {
+                System.out.println("Collision at " + uuid);
+            }
+            set.add(uuid);
+        }
+    }
 }

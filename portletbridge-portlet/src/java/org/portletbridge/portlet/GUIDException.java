@@ -15,15 +15,38 @@
  */
 package org.portletbridge.portlet;
 
-import java.net.URI;
-
-import javax.portlet.RenderResponse;
-
 /**
  * @author jmccrindle
  */
-public interface PortletBridgeMemento {
-    BridgeRequest getBridgeRequest(String id);
-    BridgeRequest createBridgeRequest(RenderResponse response, String id, URI url);
-    PerPortletMemento getPerPortletMemento(String portletId);
+public class GUIDException extends Exception {
+
+    /**
+     * 
+     */
+    public GUIDException() {
+        super();
+    }
+
+    /**
+     * @param message
+     */
+    public GUIDException(String message) {
+        super(message);
+    }
+
+    /**
+     * @param cause
+     */
+    public GUIDException(Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * @param message
+     * @param cause
+     */
+    public GUIDException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

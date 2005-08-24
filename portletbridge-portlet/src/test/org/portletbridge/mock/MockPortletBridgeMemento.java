@@ -66,7 +66,7 @@ public class MockPortletBridgeMemento implements PortletBridgeMemento {
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.PortletBridgeMemento#createBridgeRequest(javax.portlet.RenderResponse, java.net.URI)
      */
-    public BridgeRequest createBridgeRequest(RenderResponse response, URI url) {
+    public BridgeRequest createBridgeRequest(RenderResponse response, String id, URI url) {
         return new DefaultBridgeRequest();
     }
 

@@ -98,6 +98,7 @@ public class BridgeEditPortlet extends GenericPortlet {
         setIfNotNull(request, preferences, "proxyAuthenticationPassword");
         setIfNotNull(request, preferences, "proxyAuthenticationHost");
         setIfNotNull(request, preferences, "proxyAuthenticationDomain");
+        setIfNotNull(request, preferences, "stylesheet");
         
         preferences.store();
     }

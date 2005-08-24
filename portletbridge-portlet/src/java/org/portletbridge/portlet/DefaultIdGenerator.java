@@ -23,20 +23,24 @@ package org.portletbridge.portlet;
  */
 public class DefaultIdGenerator implements IdGenerator {
 
-    private static int counter = 0;
+    private final GUIDGenerator generator;
     
     /**
      * Default Constructor
      */
     public DefaultIdGenerator() {
-        super();
+        try {
+            this.generator = new GUIDGenerator();
+        } catch (GUIDException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * @return the next integer
      */
     public synchronized String nextId() {
-        return String.valueOf(counter++);
+        return generator.getUUID();
     }
 
 }

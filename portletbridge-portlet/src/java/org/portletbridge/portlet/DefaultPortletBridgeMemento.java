@@ -30,9 +30,6 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
     private Map idToRequests = new HashMap();
     private Map mementos = new HashMap();
     
-    // TODO: rethink this
-    private IdGenerator idGenerator = new DefaultIdGenerator();
-    
     public DefaultPortletBridgeMemento() {
         super();
     }
@@ -56,8 +53,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
         return memento;
     }
 
-    public BridgeRequest createBridgeRequest(RenderResponse response, URI url) {
-        String id = idGenerator.nextId();
+    public BridgeRequest createBridgeRequest(RenderResponse response, String id, URI url) {
         PortletURL pageUrl = response.createRenderURL();
         pageUrl.setParameter("id", id);
         DefaultBridgeRequest bridgeRequest = new DefaultBridgeRequest(id, response.getNamespace(), pageUrl.toString(), url);

@@ -49,11 +49,14 @@ public class BridgeFunctions {
             .compile("(@import\\s+[^url](?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
 
     private Pattern windowOpenPattern = Pattern
-        .compile("(open\\(')([^']*)(')|(open\\(\")([^\"]*)(\")");;
+        .compile("(open\\(')([^']*)(')|(open\\(\")([^\"]*)(\")");
 
-    public BridgeFunctions(PortletBridgeMemento memento,
+    private final IdGenerator idGenerator;
+
+    public BridgeFunctions(IdGenerator idGenerator, PortletBridgeMemento memento,
             PerPortletMemento perPortletMemento, String servletName,
             URI currentUrl, RenderRequest request, RenderResponse response) {
+        this.idGenerator = idGenerator;
         this.memento = memento;
         this.perPortletMemento = perPortletMemento;
         this.servletName = servletName;
@@ -79,7 +82,7 @@ public class BridgeFunctions {
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
                 BridgeRequest bridgeRequest = memento.createBridgeRequest(
-                        response, url);
+                        response, idGenerator.nextId(), url);
                 String name = url.getPath();
                 int lastIndex = name.lastIndexOf('/');
                 if (lastIndex != -1) {
