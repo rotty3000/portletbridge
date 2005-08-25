@@ -78,6 +78,11 @@ limitations under the License.
         </portlet-info>
 	    <portlet-preferences>   
             <preference>
+				<name>secureEdit</name>
+				<value>false</value>
+				<read-only>true</read-only>
+			</preference>
+            <preference>
 				<name>initUrl</name>
 				<value></value>
 			</preference>
@@ -135,7 +140,12 @@ limitations under the License.
 			</preference>
     	    <preference>
 				<name>stylesheet</name>
-				<value>classpath:/org/portletbridge/xsl/default.xsl</value>
+				<value><![CDATA[
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bridge="java:org.portletbridge.portlet.BridgeFunctions" extension-element-prefixes="bridge">
+   <xsl:import href="portletbridge.xsl"/>
+</xsl:stylesheet>
+]]></value>
 			</preference>
 		        
             <preferences-validator>org.portletbridge.portlet.PortletBridgePortletValidator</preferences-validator>

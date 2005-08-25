@@ -25,7 +25,9 @@ import org.portletbridge.ResourceException;
  */
 public interface TemplateFactory {
 
-    Templates getTemplates(String stylesheet)
+    Templates getTemplatesFromUrl(String systemId)
         throws ResourceException, TransformerFactoryConfigurationError;
-
+    
+    public Templates getTemplatesFromString(String stylesheet)
+        throws ResourceException, TransformerFactoryConfigurationError;
 }

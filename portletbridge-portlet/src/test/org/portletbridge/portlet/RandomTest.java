@@ -16,13 +16,10 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
-import java.rmi.dgc.VMID;
+import java.security.MessageDigest;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 
 import junit.framework.TestCase;
 
@@ -85,6 +82,63 @@ public class RandomTest extends TestCase {
             System.out.println("b=" + table[(x & 63)]);
             x >>>= 6;
         } while(x > 0);
+    }
+    
+    public void testDigest() throws Exception {
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 1000; i++) {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update((i + "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrg" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasd gadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdg adfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdga dfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgad fhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadf haergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfh aergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfh aergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfha ergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhae rgadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
+                    "fasefawe").getBytes());
+            byte[] digest = messageDigest.digest();
+            // System.out.println(new String(Base64.encodeBase64(digest)));
+        }
+        System.out.println(((System.currentTimeMillis() - start) / 1000.0) * 1000);
+    }
+    
+    public static void main(String[] args) throws Exception {
+        RandomTest test = new RandomTest();
+        test.testDigest();
     }
     
     private static final char[] table = {

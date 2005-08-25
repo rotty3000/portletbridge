@@ -100,7 +100,7 @@ public class PortletBridgePortlet extends GenericPortlet {
         }
         
         try {
-            errorTemplates = templateFactory.getTemplates(errorStylesheet);
+            errorTemplates = templateFactory.getTemplatesFromUrl(errorStylesheet);
         } catch (ResourceException e) {
             throw new PortletException(e);
         } catch (TransformerFactoryConfigurationError e) {
@@ -120,7 +120,7 @@ public class PortletBridgePortlet extends GenericPortlet {
 
         BridgeEditPortlet bridgeEditPortlet = new BridgeEditPortlet();
         try {
-            bridgeEditPortlet.setTemplates(templateFactory.getTemplates(editStylesheet));
+            bridgeEditPortlet.setTemplates(templateFactory.getTemplatesFromUrl(editStylesheet));
         } catch (ResourceException e) {
             throw new PortletException(e);
         } catch (TransformerFactoryConfigurationError e) {
@@ -141,7 +141,7 @@ public class PortletBridgePortlet extends GenericPortlet {
 
         BridgeHelpPortlet bridgeHelpPortlet = new BridgeHelpPortlet();
         try {
-            bridgeHelpPortlet.setTemplates(templateFactory.getTemplates(editStylesheet));
+            bridgeHelpPortlet.setTemplates(templateFactory.getTemplatesFromUrl(editStylesheet));
         } catch (ResourceException e) {
             throw new PortletException(e);
         } catch (TransformerFactoryConfigurationError e) {

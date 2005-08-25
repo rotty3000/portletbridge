@@ -18,9 +18,6 @@ package org.portletbridge.portlet;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
@@ -43,7 +40,6 @@ import org.xml.sax.XMLReader;
 public class AltBridgeTransformer implements
         BridgeTransformer {
 
-    private Map templatesCache = Collections.synchronizedMap(new HashMap());
     private TemplateFactory templateFactory = null;
     private XMLReader parser;
     private String servletName;
@@ -79,10 +75,7 @@ public class AltBridgeTransformer implements
         try {
             PortletPreferences preferences = request.getPreferences();
             String stylesheet = preferences.getValue("stylesheet", null);
-            Templates templates = (Templates) templatesCache.get(stylesheet);
-            if (templates == null) {
-                templates = templateFactory.getTemplates(stylesheet);
-            }
+            Templates templates = templateFactory.getTemplatesFromString(stylesheet);
             Transformer transformer = templates.newTransformer();
             transformer.setParameter("bridge", new BridgeFunctions(idGenerator, memento, perPortletMemento, servletName,
                     currentUrl, request, response));

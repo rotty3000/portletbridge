@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +43,6 @@ import org.xml.sax.XMLReader;
 public class DefaultBridgeTransformer implements
         BridgeTransformer {
 
-    private Map templatesCache = Collections.synchronizedMap(new HashMap());
     private TemplateFactory templateFactory = null;
     private XMLReader parser;
     private String servletName;
@@ -80,10 +78,7 @@ public class DefaultBridgeTransformer implements
         try {
             PortletPreferences preferences = request.getPreferences();
             String stylesheet = preferences.getValue("stylesheet", null);
-            Templates templates = (Templates) templatesCache.get(stylesheet);
-            if (templates == null) {
-                templates = templateFactory.getTemplates(stylesheet);
-            }
+            Templates templates = templateFactory.getTemplatesFromString(stylesheet);
             SerializerFactory factory = SerializerFactory
                     .getSerializerFactory("html");
             OutputFormat outputFormat = new OutputFormat();

@@ -57,6 +57,11 @@ public class BridgeEditPortlet extends GenericPortlet {
      */
     protected void doEdit(RenderRequest request, RenderResponse response)
             throws PortletException, IOException {
+        PortletPreferences preferences = request.getPreferences();
+        String secureEdit = preferences.getValue("secureEdit", "false");
+        if("true".equalsIgnoreCase(secureEdit) && !request.isUserInRole("portletbridge")) {
+            throw new PortletException(getPortletConfig().getResourceBundle(request.getLocale()).getString("error.invalid.role"));
+        }
         response.setContentType("text/html");
         try {
             Transformer transformer = templates.newTransformer();

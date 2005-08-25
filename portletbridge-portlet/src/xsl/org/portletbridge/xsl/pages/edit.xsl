@@ -110,12 +110,12 @@
     <tr>
         <td><span class="portlet-form-field-label">Stylesheet</span></td>
 	  	<td>
-	  		<textarea class="portlet-form-input-field" type="text" name="stylesheet">
+	  		<textarea rows="15" cols="30" class="portlet-form-input-field" type="text" name="stylesheet">
 		  		<xsl:value-of select="java:preference($portlet, 'stylesheet', '')"/>
 	  		</textarea>
 	  	</td>
   	</tr>
-  	<tr><td colspan="2" align="right"><input class="portlet-form-button" type="submit"/></td></tr>
+  	<tr><td colspan="2" align="right"><input class="portlet-form-button" type="submit" value="Update"/></td></tr>
   	</table>
   </form>  
   
