@@ -45,12 +45,13 @@ public class DefaultHttpClientTemplate implements HttpClientTemplate {
             hostConfiguration.setHost(method.getURI());
             int statusCode = httpClient.executeMethod(hostConfiguration, method, state.getHttpState());
             return callback.doInHttpClient(statusCode, method);
+        } catch (ResourceException e) {
+            throw e;
         } catch (Throwable e) {
             throw new ResourceException("error.httpclient", e.getMessage(), e);
         } finally {
             method.releaseConnection();
         }
     }
-
 
 }
