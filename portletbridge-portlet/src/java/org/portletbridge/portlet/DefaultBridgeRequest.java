@@ -67,27 +67,4 @@ public class DefaultBridgeRequest implements Serializable, BridgeRequest {
         return id;
     }
 
-    protected boolean equals(Object o1, Object o2) {
-        return (o1 != null && o1.equals(o2)) || (o2 == null && o1 == null);
-    }
-    
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object obj) {
-        BridgeRequest bridgeRequest = (BridgeRequest) obj;
-        if(bridgeRequest == null) return false;
-        return equals(pageUrl, bridgeRequest.getPageUrl()) &&
-            equals(url, bridgeRequest.getUrl()) && equals(portletId, bridgeRequest.getPortletId());
-    }
-    
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode() {
-        return (pageUrl != null ? pageUrl.hashCode() / 3 : 0) + 
-            (url != null ? url.hashCode() / 3 : 0) + 
-            (portletId != null ? portletId.hashCode() / 3 : 0);
-    }
-
 }

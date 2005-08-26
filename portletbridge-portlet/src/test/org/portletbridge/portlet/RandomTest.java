@@ -86,7 +86,7 @@ public class RandomTest extends TestCase {
     
     public void testDigest() throws Exception {
         long start = System.currentTimeMillis();
-        for(int i = 0; i < 1000; i++) {
+        for(int i = 0; i < 100; i++) {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update((i + "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrg" +
                     "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
@@ -133,7 +133,13 @@ public class RandomTest extends TestCase {
             byte[] digest = messageDigest.digest();
             // System.out.println(new String(Base64.encodeBase64(digest)));
         }
-        System.out.println(((System.currentTimeMillis() - start) / 1000.0) * 1000);
+        System.out.println(((System.currentTimeMillis() - start) / 100.0) * 1000);
+    }
+    
+    public void testUniqueMessageDigest() throws Exception {
+        MessageDigest m1 = MessageDigest.getInstance("MD5");
+        MessageDigest m2 = MessageDigest.getInstance("MD5");
+        assertTrue(m1 != m2);
     }
     
     public static void main(String[] args) throws Exception {

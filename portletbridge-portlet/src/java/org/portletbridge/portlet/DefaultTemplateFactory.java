@@ -18,6 +18,11 @@ package org.portletbridge.portlet;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Source;
@@ -41,6 +46,8 @@ public class DefaultTemplateFactory implements TemplateFactory {
     private Templates defaultTemplate;
 
     private String defaultTemplateSytemId;
+    
+    private Map templateCache = Collections.synchronizedMap(new HashMap());
 
     public DefaultTemplateFactory() {
         defaultTemplateSytemId = getClass().getResource(
@@ -116,7 +123,7 @@ public class DefaultTemplateFactory implements TemplateFactory {
         }
         Templates result = null;
         TransformerFactory factory = TransformerFactory.newInstance();
-        final TransformerException[] exceptionHolder = new TransformerException[1];
+        final Exception[] exceptionHolder = new Exception[1];
         factory.setErrorListener(new ErrorListener() {
             public void error(TransformerException exception)
                     throws TransformerException {
@@ -135,9 +142,21 @@ public class DefaultTemplateFactory implements TemplateFactory {
         });
 
         try {
-            result = factory.newTemplates(new StreamSource(new StringReader(
-                    stylesheet), defaultTemplateSytemId));
+            // caching but lots of object creation...
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(stylesheet.getBytes());
+            String key = new String(messageDigest.digest());
+            Templates templates = (Templates) templateCache.get(key);
+            if(templates != null) {
+                result = templates;
+            } else {
+                result = factory.newTemplates(new StreamSource(new StringReader(
+                        stylesheet), defaultTemplateSytemId));
+                templateCache.put(key, result);
+            }
         } catch (TransformerConfigurationException e) {
+            exceptionHolder[0] = e;
+        } catch (NoSuchAlgorithmException e) {
             exceptionHolder[0] = e;
         }
         if (exceptionHolder[0] != null) {

@@ -104,7 +104,7 @@ public class BridgeViewPortlet extends GenericPortlet {
                 final BridgeRequest bridgeRequest = memento
                         .getBridgeRequest(urlId);
                 if (bridgeRequest == null) {
-                    // TODO: throw exception
+                    throw new ResourceException("error.nobridgerequest");
                 }
                 PortletBridgeContent content = perPortletMemento.dequeueContent(bridgeRequest.getId());
                 if (content == null) {
