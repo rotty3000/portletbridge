@@ -5,7 +5,7 @@
     exclude-result-prefixes="java">
 
   <xsl:output 
-      method="xml" 
+      method="html" 
       version="1.0" 
       indent="yes"
       omit-xml-declaration="yes"/>
