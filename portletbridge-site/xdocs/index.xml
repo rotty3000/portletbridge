@@ -34,6 +34,14 @@
 <tr>
 <td>August 2005</td>
 <td>
+<a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 0.4 Released. New
+features include: the ability to secure the edit page; editing of the xsl preference; guid generation;
+better management of processed links.
+</td>
+</tr>
+<tr>
+<td>August 2005</td>
+<td>
 <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 0.3.1 Released. 
 This is a bug fix release.
 </td>
