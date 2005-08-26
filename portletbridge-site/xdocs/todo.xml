@@ -28,14 +28,16 @@
 <section name="Todo">
 <p>
 <ul>
-<li>Reuse bridge requests that have the same url, portletId etc.</li>
+<li>More tests</li>
+<li>Performance analysis</li>
+<li>More Javadocs</li>
+<li>User Guide and Features</li>
 <li>Make more things serializeable</li>
 <li>Validation on Edit</li>
-<li>Edit XSL</li>
-<li>Upgrade to latest httpclient</li>
-<li>better id generator</li>
 <li>Rewrite external stylesheets and javascript</li>
 <li>Try out Gridsphere and eXo</li>
+<li>Object pooling</li>
+<li>Go back to the home page if there is nothing in the session (bridge/memento etc.)</li>
 </ul>
 </p>
 </section>

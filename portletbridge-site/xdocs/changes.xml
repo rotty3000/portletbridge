@@ -5,6 +5,26 @@
   </properties>
   <body>
 
+    <release version="0.4" date="TBD">
+
+      <action dev="dkfn" type="update">
+        Edit XSL
+      </action>              
+      <action dev="dkfn" type="update">
+        Secure Edit preference
+      </action>              
+      <action dev="dkfn" type="update">
+        HttpClient upgrade
+      </action>              
+      <action dev="dkfn" type="update">
+        Better GUID generation
+      </action>              
+      <action dev="dkfn" type="update">
+        Reuse of BridgeRequests for same urls
+      </action>              
+      
+    </release>
+    
     <release version="0.3.1" date="19 August 2005">
 
       <action dev="dkfn" type="update">
