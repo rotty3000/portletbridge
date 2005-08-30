@@ -36,6 +36,8 @@
 <li>Validation on Edit</li>
 <li>Rewrite external stylesheets and javascript</li>
 <li>Try out Gridsphere and eXo</li>
+<li>HttpClient timeout (and other properties?)</li>
+<li>setTitle</li>
 <li>Object pooling</li>
 <li>Go back to the home page if there is nothing in the session (bridge/memento etc.)</li>
 </ul>
