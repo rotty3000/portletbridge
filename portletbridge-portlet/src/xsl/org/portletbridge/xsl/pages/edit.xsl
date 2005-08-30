@@ -108,9 +108,16 @@
 	  	</td>
   	</tr>
     <tr>
-        <td><span class="portlet-form-field-label">Stylesheet</span></td>
-	  	<td>
-	  		<textarea rows="15" cols="30" class="portlet-form-input-field" type="text" name="stylesheet">
+        <td colspan="2"><span class="portlet-form-field-label">Stylesheet</span></td>
+    </tr>
+    <tr>
+	  	<td colspan="2">
+	  	    <style>
+	  	    	xsltextarea {
+	  	    		font-family: Courier;
+	  	    	}
+	  	    </style>
+	  		<textarea rows="20" cols="40" class="xsltextarea" type="text" name="stylesheet">
 		  		<xsl:value-of select="java:preference($portlet, 'stylesheet', '')"/>
 	  		</textarea>
 	  	</td>
