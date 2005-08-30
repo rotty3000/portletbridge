@@ -27,14 +27,16 @@
       <item name="Sourceforge"  href="http://www.sourceforge.net/projects/portletbridge"/>
     </links>
     <menu name="Project">
-          <item name="Overview" href="index.html"/>
-          <item name="Changes"  href="changes-report.html"/>
-          <item name="Todo"     href="todo.html"/>
+          <item name="Overview" 		href="index.html"/>
+          <item name="Features" 		href="features.html"/>
+          <item name="Configuration" 	href="configuration.html"/>
+          <item name="Changes"  		href="changes-report.html"/>
+          <item name="Todo"     		href="todo.html"/>
     </menu>
     <menu name="Sub Projects">
-          <item name="PortletBridge - Core" href="http://www.portletbridge.org/multiproject/portletbridge-core/index.html"/>
-          <item name="PortletBridge - Web" href="http://www.portletbridge.org/multiproject/portletbridge-web/index.html"/>
-          <item name="PortletBridge - Portlet" href="http://www.portletbridge.org/multiproject/portletbridge-portlet/index.html"/>
+          <item name="PortletBridge - Core" 	href="http://www.portletbridge.org/multiproject/portletbridge-core/index.html"/>
+          <item name="PortletBridge - Web" 		href="http://www.portletbridge.org/multiproject/portletbridge-web/index.html"/>
+          <item name="PortletBridge - Portlet" 	href="http://www.portletbridge.org/multiproject/portletbridge-portlet/index.html"/>
           <item name="SaxBenchmark" href="http://www.portletbridge.org/saxbenchmark/index.html"/>
     </menu>
   </body>
