@@ -62,8 +62,7 @@ jars for rewriting the content from the downstream site.
 Init Params:
 <table>
 <tr><th>Name</th><th>Description</th><th>Required</th></tr>
-<tr><td>proxyBrowserSessionKey</td><td>proxyBrowserSessionKey</td><td>Yes</td></tr>
-<tr><td>encodeUrls</td><td>true for pluto, false for jboss</td><td>Yes</td></tr>
+<tr><td>mementoSessionKey</td><td>mementoSessionKey</td><td>Yes</td></tr>
 <tr><td>servletName</td><td>pbhs</td><td>Yes</td></tr>
 <tr><td>parserClassName</td><td>org.cyberneko.html.parsers.SAXParser</td><td>Yes</td></tr>
 </table>
@@ -72,6 +71,7 @@ Init Params:
 Preferences:
 <table>
 <tr><th>Name</th><th>Description</th><th>Readonly</th><th>Required</th></tr>
+<tr><td>secureEdit</td><td>Whether or not EDIT checks for isUserInRole("portletbridge")</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>initUrl</td><td>The initial url for the portlet to point to</td><td>No</td><td>Yes</td></tr>
 <tr><td>scope</td><td>A regular expression that identifies which downstream sites should be proxied and which just linked to.</td><td>No</td><td>Yes</td></tr>
 <tr><td>authentication</td><td>What kind of authentication to use ("none", "basic", "ntlm")</td><td>No</td><td>No</td></tr>
