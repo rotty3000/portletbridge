@@ -16,7 +16,7 @@
 
   <form method="post">
     <xsl:attribute name="action"><xsl:value-of select="java:actionUrl($portlet)"/></xsl:attribute>
-    <table>
+    <table style="width:200px">
     <tr>
         <td><span class="portlet-form-field-label">Initial URL</span></td>
 	  	<td>
@@ -112,12 +112,7 @@
     </tr>
     <tr>
 	  	<td colspan="2">
-	  	    <style>
-	  	    	xsltextarea {
-	  	    		font-family: Courier;
-	  	    	}
-	  	    </style>
-	  		<textarea rows="20" cols="40" class="xsltextarea" type="text" name="stylesheet">
+	  		<textarea rows="20" cols="35" style="font-family: Courier;" type="text" name="stylesheet">
 		  		<xsl:value-of select="java:preference($portlet, 'stylesheet', '')"/>
 	  		</textarea>
 	  	</td>
