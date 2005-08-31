@@ -49,7 +49,7 @@ public class BridgeHelpPortlet extends GenericPortlet {
         try {
             Transformer transformer = templates.newTransformer();
             transformer.setParameter("portlet", new PortletFunctions(request, response));
-            transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getPortletOutputStream()));
+            transformer.transform(new StreamSource(new StringReader("<xml/>")), new StreamResult(response.getWriter()));
         } catch (TransformerConfigurationException e) {
             throw new PortletException(e);
         } catch (TransformerException e) {

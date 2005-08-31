@@ -41,6 +41,9 @@ import org.portletbridge.ResourceException;
  * @author rickard
  */
 public class BridgeViewPortlet extends GenericPortlet {
+    
+    private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(BridgeViewPortlet.class);
 
     private String mementoSessionKey = null;
 
@@ -83,7 +86,18 @@ public class BridgeViewPortlet extends GenericPortlet {
             perPortletMemento.setPreferences(preferences);
             String urlId = request.getParameter("id");
 
-            if (urlId == null) {
+            
+            final BridgeRequest bridgeRequest;
+            
+            if(urlId != null) { 
+                bridgeRequest = memento
+                    .getBridgeRequest(urlId);
+            } else {
+                log.warn("no bridge request found for " + urlId);
+                bridgeRequest = null;
+            }
+
+            if (urlId == null || bridgeRequest == null) {
                 // this is the default start page for the portlet so go and
                 // fetch it
                 final URI initUrl = perPortletMemento.getInitUrl();
@@ -100,12 +114,6 @@ public class BridgeViewPortlet extends GenericPortlet {
                             }
                         });
             } else {
-                // render or rerender
-                final BridgeRequest bridgeRequest = memento
-                        .getBridgeRequest(urlId);
-                if (bridgeRequest == null) {
-                    throw new ResourceException("error.nobridgerequest");
-                }
                 PortletBridgeContent content = perPortletMemento.dequeueContent(bridgeRequest.getId());
                 if (content == null) {
                     // we're rerending

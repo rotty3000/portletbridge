@@ -4,10 +4,10 @@
       <instance-name>PortletBridgePortletInstance</instance-name>
       <component-ref>PortletBridgePortlet</component-ref>
       <preferences>
-         <preference>
+         <!--preference>
             <name>initUrl</name>
-            <value>http://slashdot.org</value>
-         </preference>
+            <value></value>
+         </preference-->
       </preferences>
    </instance>
 </instances>
