@@ -10,8 +10,6 @@ import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.security.SecureRandom;
 
-import org.apache.commons.codec.binary.Base64;
-
 /**
  * <p>
  * This GUID generator  can be safely pooled on a single machine and deployed in a cluster to

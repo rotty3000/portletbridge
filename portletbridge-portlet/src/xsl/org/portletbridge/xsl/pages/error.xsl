@@ -15,7 +15,9 @@
   
   <xsl:template match="/">
   
+  <div class="portlet-font">
   There was a problem while processing your request: <xsl:value-of select="java:getMessage($exception)"/>
+  </div>
   
   </xsl:template>
    
