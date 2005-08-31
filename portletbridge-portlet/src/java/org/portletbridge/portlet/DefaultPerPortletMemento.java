@@ -15,6 +15,7 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import org.portletbridge.ResourceException;
 /**
  * @author JMcCrindle
  */
-public class DefaultPerPortletMemento implements PerPortletMemento {
+public class DefaultPerPortletMemento implements PerPortletMemento, Serializable {
 
     private URI initUrl;
 

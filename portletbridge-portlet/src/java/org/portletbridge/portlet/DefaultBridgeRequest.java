@@ -23,8 +23,6 @@ import java.net.URI;
  */
 public class DefaultBridgeRequest implements Serializable, BridgeRequest {
     
-    private static final long serialVersionUID = -2897995240044433094L;
-    
     private String id = null;
     private String portletId = null;
     private String pageUrl = null;

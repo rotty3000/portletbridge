@@ -15,6 +15,7 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ import javax.portlet.RenderResponse;
 /**
  * @author JMcCrindle
  */
-public class DefaultPortletBridgeMemento implements PortletBridgeMemento {
+public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serializable {
 
     private Map idToRequests = new HashMap();
     private Map dataToRequests = new HashMap();
