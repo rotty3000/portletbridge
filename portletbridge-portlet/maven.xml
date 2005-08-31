@@ -13,6 +13,9 @@
     <copy toDir="${maven.war.webapp.dir}/WEB-INF/src/java">
       <fileset dir="${maven.src.dir}"/>
     </copy>
+    <copy toDir="${maven.war.webapp.dir}/WEB-INF/src/">
+      <fileset file="${basedir}/LICENSE.txt"/>
+    </copy>
   </postGoal>
 
   <postGoal name="xdoc:register-reports"> 
