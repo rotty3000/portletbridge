@@ -124,8 +124,13 @@ Portlet Bridge requires Java 1.4 or above.
 </section>
 <section name="Credits">
 <p>
-Many thanks to Rickard for writing the <a href="http://jroller.com/page/rickard/20050411">specification</a> (and challenge) that this project
-is based on. Even more thanks to Rickard for his donation of code to this project.
+<ul>
+<li>Many thanks to Rickard for writing the <a href="http://jroller.com/page/rickard/20050411">specification</a> (and challenge) that this project
+is based on.</li>
+<li>Even more thanks to Rickard for his donation of code to this project.</li>
+<li>Thanks to the fine folks at Apache for their Commons projects, Cyberneko, Xalan and Xerces etc.</li>
+<li>Thanks to Julien Viet from JBoss for his helpful advice and support</li>
+<li>Thanks to Steve Woodcock for his JGUID project</li>
 </p>
 </section>
 </body>
