@@ -32,6 +32,15 @@
 <th>Date</th><th>News</th>
 </tr>
 <tr>
+<td>September 2005</td>
+<td>
+<a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> beta 1 has been released. 
+While there are still a few todo's, the PortletBridge portlet is essentially feature complete for 1.0.
+That said, if there are any features you'd like to see in the portlet, please let me know by mail at 
+dkfn at users.sourceforge.net.
+</td>
+</tr>
+<tr>
 <td>August 2005</td>
 <td>
 <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 0.4 Released. New
@@ -131,6 +140,7 @@ is based on.</li>
 <li>Thanks to the fine folks at Apache for their Commons projects, Cyberneko, Xalan and Xerces etc.</li>
 <li>Thanks to Julien Viet from JBoss for his helpful advice and support</li>
 <li>Thanks to Steve Woodcock for his JGUID project</li>
+</ul>
 </p>
 </section>
 </body>
