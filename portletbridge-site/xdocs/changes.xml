@@ -5,6 +5,18 @@
   </properties>
   <body>
 
+    <release version="1.0-beta1" date="01 September 2005">
+
+      <action dev="dkfn" type="update">
+        Edit XSL
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Various JBoss fixes
+      </action>              
+      
+    </release>
+
     <release version="0.4" date="26 August 2005">
 
       <action dev="dkfn" type="update">
