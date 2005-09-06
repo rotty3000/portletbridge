@@ -5,6 +5,7 @@
    extension-element-prefixes="bridge">
    
    <!-- @author rickard -->
+   <!-- @author jamie -->
 
    <xsl:output method="html"
       encoding="UTF-8"
