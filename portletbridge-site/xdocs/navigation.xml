@@ -30,6 +30,8 @@
           <item name="Overview" 		href="index.html"/>
           <item name="Features" 		href="features.html"/>
           <item name="Configuration" 	href="configuration.html"/>
+          <item name="FAQ" 				href="faq.html"/>
+          <item name="Sample XSL" 		href="xsl.html"/>
           <item name="Changes"  		href="changes-report.html"/>
           <item name="Todo"     		href="todo.html"/>
     </menu>

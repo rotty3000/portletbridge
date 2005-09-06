@@ -71,5 +71,14 @@
         <p><a href="http://dev2dev.bea.com/pub/a/2004/09/deployJava81sp3.html">Deploying JSR 168 portlets into Weblogic Portal 8.1</a></p>
       </answer>
     </faq>
+    <faq id="how-install-weblogic">
+      <question>
+        How do I deploy into Gridsphere?
+      </question>
+      <answer>
+        <p>Deploying into Gridsphere required some work which you can read 
+        	about <a href="http://www.gridsphere.org/gridsphere/wp-4/Slides/gridsphere/pdf/JSRPortletDeployment.pdf">here</a></p>
+      </answer>
+    </faq>
   </part>  
 </faqs>
