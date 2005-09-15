@@ -25,6 +25,11 @@
       <xsl:apply-templates select="STYLE"/>
       <xsl:apply-templates select="LINK[@rel='stylesheet']"/>
       <xsl:apply-templates select="SCRIPT"/>
+      <xsl:apply-templates select="TITLE"/>
+   </xsl:template>
+
+   <xsl:template match="/HTML/HEAD/TITLE">
+      <xsl:value-of select="bridge:setTitle(bridge:getResponse($bridge), text())"/>
    </xsl:template>
 
    <xsl:template match="/HTML/BODY">
