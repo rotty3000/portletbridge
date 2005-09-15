@@ -82,7 +82,7 @@
     </faq>
   </part> 
   
-  <port id="issues">
+  <part id="issues">
     <title>Issues</title>
     <faq id="serialization">
       <question>
@@ -101,5 +101,5 @@
 		</p>
       </answer>
     </faq>
-  </port> 
+  </part> 
 </faqs>
