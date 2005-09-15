@@ -20,7 +20,7 @@
 <document>
 
  <properties>
-  <title>PortletBridge</title>
+  <title>PortletBridge - The Web Clipping Portlet</title>
  </properties>
 
 <body>
@@ -109,7 +109,8 @@ bug fix release for <a href="/multiproject/portletbridge-portlet/index.html">Por
 <p>
 The Portlet Bridge project is intended to allow regular web sites be 
 hosted as portlets. See the <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a>
-project for more information.
+project for more information. The portlet bridge portlet makes downstream HTTP
+calls and uses CyberNeko and XSLT to do the web clipping.
 </p>
 <p>
 In addition to creating a bridging portlet, this project will also include support for proxying
