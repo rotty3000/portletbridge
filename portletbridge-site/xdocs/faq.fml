@@ -80,5 +80,26 @@
         	about <a href="http://www.gridsphere.org/gridsphere/wp-4/Slides/gridsphere/pdf/JSRPortletDeployment.pdf">here</a></p>
       </answer>
     </faq>
-  </part>  
+  </part> 
+  
+  <port id="issues">
+    <title>Issues</title>
+    <faq id="serialization">
+      <question>
+        I'm getting an InvalidClassException, what should I do?
+      </question>
+      <answer>
+        If your exception looks something like the snippet below it's because the serialversionid
+        of the class changed and tomcat is trying to unfreeze an old instance of the object from
+        the session. You should be able to ignore this. If not, let me know (dkfn at users.sourceforge.net)
+        <p>
+		14:04:45,295 ERROR [org.apache.catalina.session.ManagerBase] Exception loading s
+		essions from persistent storage
+		java.io.InvalidClassException: org.portletbridge.portlet.DefaultBridgeRequest; l
+		ocal class incompatible: stream classdesc serialVersionUID = -785819319195243178
+		6, local class serialVersionUID = 4504756989609725196
+		</p>
+      </answer>
+    </faq>
+  </port> 
 </faqs>
