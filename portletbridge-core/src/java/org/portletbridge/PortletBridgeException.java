@@ -21,6 +21,11 @@ package org.portletbridge;
 public class PortletBridgeException extends ResourceException {
 
     /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 8111408787079575082L;
+
+    /**
      * @param key
      */
     public PortletBridgeException(String key) {

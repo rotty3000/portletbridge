@@ -32,7 +32,7 @@
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
 
-  <currentVersion>0.1</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <!-- details about the organization that 'owns' the project -->
 
   <!-- details about the organization that 'owns' the project -->
@@ -93,7 +93,7 @@
   	<dependency>
   	  <groupId>commons-httpclient</groupId>
   	  <artifactId>commons-httpclient</artifactId>
-  	  <version>3.0-rc2</version>
+  	  <version>3.0-rc3</version>
   	</dependency>
   	<dependency>
       <groupId>xerces</groupId>

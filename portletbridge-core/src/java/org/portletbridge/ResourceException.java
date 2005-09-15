@@ -20,6 +20,11 @@ package org.portletbridge;
  */
 public class ResourceException extends Exception {
 
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 3347348123681235963L;
+
     private Object[] args;
     
     /**

@@ -63,6 +63,11 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class ProxyHttpServlet extends HttpServlet {
 
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 7594239856795649323L;
+
     private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
             .getLog(ProxyHttpServlet.class);
 
