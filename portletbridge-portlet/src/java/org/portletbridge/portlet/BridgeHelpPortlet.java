@@ -30,6 +30,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
+ * Portlet to display the PortletBridgeHelp
+ * 
  * @author JMcCrindle
  */
 public class BridgeHelpPortlet extends GenericPortlet {

@@ -46,26 +46,6 @@ public class RandomTest extends TestCase {
         assertEquals("ah", blah.substring(2));
     }
     
-    public void testUri() throws Exception {
-        URI uri = new URI("test");
-    }
-    
-//    public void testVMID() throws Exception {
-//        String value = new VMID().toString();
-//        String one = value.substring(0, 16);
-//        String two = value.substring(17, 24);
-//        String three = value.substring(25, 36);
-//        String four = value.substring(38, 42);
-//        System.out.println(value);
-//        System.out.println(one + ":" + two + ":" + three + ":-" + four);
-//        StringBuffer result = new StringBuffer();
-//        result.append(Base64.encodeBase64(Hex.decodeHex(one.toCharArray())));
-//        result.append(Base64.encodeBase64(Hex.decodeHex(two.toCharArray())));
-//        result.append(Base64.encodeBase64(Hex.decodeHex(three.toCharArray())));
-//        result.append(Base64.encodeBase64(Hex.decodeHex(four.toCharArray())));
-//        System.out.println(result);
-//    }
-    
     public void testURI() throws Exception {
         URI uri = new URI("http://slashdot.org");
         assertEquals("", uri.getPath());
@@ -131,7 +111,9 @@ public class RandomTest extends TestCase {
                     "testsadfasdfasdgadfhaergadsfgadrheahgafdgasdgaedrgasd" +
                     "fasefawe").getBytes());
             byte[] digest = messageDigest.digest();
-            // System.out.println(new String(Base64.encodeBase64(digest)));
+            if(digest != null) {
+                // get rid of annoying warning
+            }
         }
         System.out.println(((System.currentTimeMillis() - start) / 100.0) * 1000);
     }

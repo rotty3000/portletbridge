@@ -18,6 +18,8 @@ package org.portletbridge.portlet;
 import java.net.URI;
 
 /**
+ * Contains all the information about a particular request
+ * 
  * @author JMcCrindle
  */
 public interface BridgeRequest {

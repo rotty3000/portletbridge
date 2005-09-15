@@ -36,6 +36,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
+ * Portlet that handles editing of preferences
+ * 
  * @author JMcCrindle
  */
 public class BridgeEditPortlet extends GenericPortlet {

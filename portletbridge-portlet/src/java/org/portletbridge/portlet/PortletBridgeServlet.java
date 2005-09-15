@@ -44,6 +44,11 @@ import org.portletbridge.ResourceException;
  */
 public class PortletBridgeServlet extends HttpServlet {
 
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 7841139248662925798L;
+
     public static final ResourceBundle resourceBundle = PropertyResourceBundle
             .getBundle("org.portletbridge.portlet.PortletBridgePortlet");
     

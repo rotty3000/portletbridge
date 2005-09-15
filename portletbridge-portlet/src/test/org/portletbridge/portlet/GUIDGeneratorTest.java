@@ -27,7 +27,7 @@ public class GUIDGeneratorTest extends TestCase {
     public void testGUIDGenerator() throws Exception {
         GUIDGenerator generator = new GUIDGenerator();
         Set set = new HashSet();
-        for(int i = 0; i < 1000000; i++) {
+        for(int i = 0; i < 1000; i++) {
             String uuid = generator.getUUID();
             if(set.contains(uuid)) {
                 System.out.println("Collision at " + uuid);

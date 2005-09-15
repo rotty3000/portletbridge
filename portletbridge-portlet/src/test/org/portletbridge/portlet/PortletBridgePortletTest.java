@@ -18,16 +18,9 @@ package org.portletbridge.portlet;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import javax.portlet.PortletMode;
-import javax.portlet.WindowState;
-
 import junit.framework.TestCase;
 
 import org.portletbridge.mock.MockPortletConfig;
-import org.portletbridge.mock.MockPortletPreferences;
-import org.portletbridge.mock.MockPortletSession;
-import org.portletbridge.mock.MockRenderRequest;
-import org.portletbridge.mock.MockRenderResponse;
 
 /**
  * @author JMcCrindle
@@ -64,29 +57,10 @@ public class PortletBridgePortletTest extends TestCase {
         mockPortletConfig.setupInitParam("mementoSessionKey", "mementoSessionKey");
         mockPortletConfig.setupInitParam("parserClassName", "org.cyberneko.html.parsers.SAXParser");
         mockPortletConfig.setupInitParam("servletName", "pbhs");
+        mockPortletConfig.setupInitParam("editStylesheet", "classpath:/org/portletbridge/xsl/pages/edit.xsl");
+        mockPortletConfig.setupInitParam("helpStylesheet", "classpath:/org/portletbridge/xsl/pages/help.xsl");
+        mockPortletConfig.setupInitParam("errorStylesheet", "classpath:/org/portletbridge/xsl/pages/error.xsl");
         portlet.init(mockPortletConfig);
-    }
-
-    public void testRender() throws Exception {
-        PortletBridgePortlet portlet = new PortletBridgePortlet();
-        ResourceBundle bundle = PropertyResourceBundle.getBundle("org.portletbridge.portlet.PortletBridgePortlet");
-        MockPortletConfig mockPortletConfig = new MockPortletConfig();
-        mockPortletConfig.setupResourceBundle(bundle);
-        mockPortletConfig.setupInitParam("mementoSessionKey", "mementoSessionKey");
-        mockPortletConfig.setupInitParam("parserClassName", "org.cyberneko.html.parsers.SAXParser");
-        mockPortletConfig.setupInitParam("servletName", "pbhs");
-        portlet.init(mockPortletConfig);
-        MockRenderRequest mockRenderRequest = new MockRenderRequest();
-        mockRenderRequest.setupWindowState(WindowState.NORMAL);
-        mockRenderRequest.setupPortletMode(PortletMode.VIEW);
-        mockRenderRequest.setupPortletSession(new MockPortletSession());
-        MockPortletPreferences mockPortletPreferences = new MockPortletPreferences();
-        mockPortletPreferences.setValue("initUrl", "http://asksid:8080/");
-        mockPortletPreferences.setValue("stylesheet", "classpath:/org/portletbridge/xsl/default.xsl");
-        mockRenderRequest.setupPortletPreferences(mockPortletPreferences);
-        MockRenderResponse mockRenderResponse = new MockRenderResponse();
-        // portlet.setHttpClientTemplate(new MockHttpClientTemplate());
-        portlet.render(mockRenderRequest, mockRenderResponse);
     }
 
 }

@@ -19,21 +19,34 @@ import java.io.Serializable;
 import java.net.URI;
 
 /**
+ * Default implementation fo the BridgeRequest
+ * 
  * @author jmccrindle
  */
 public class DefaultBridgeRequest implements Serializable, BridgeRequest {
     
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 4504756989609725196L;
+
     private String id = null;
     private String portletId = null;
     private String pageUrl = null;
     private URI url = null;
-    private Object contentLock = new Object();
-    private PortletBridgeContent content = null;
     
     public DefaultBridgeRequest() {
         
     }
     
+    /**
+     * Create a new BridgeRequest
+     * 
+     * @param id the id of the bridge request
+     * @param portletId the portletId for the portlet instance (usually the portlet namespace)
+     * @param pageUrl the portlet url to redirect to 
+     * @param url the url of the downstream site.
+     */
     public DefaultBridgeRequest(String id, String portletId, String pageUrl, URI url) {
         super();
         this.id = id;

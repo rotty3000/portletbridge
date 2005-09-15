@@ -28,6 +28,11 @@ import javax.portlet.RenderResponse;
  */
 public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serializable {
 
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = -5751042731400361166L;
+
     private Map idToRequests = new HashMap();
     private Map dataToRequests = new HashMap();
     private Map mementos = new HashMap();

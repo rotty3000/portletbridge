@@ -22,6 +22,9 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.portletbridge.ResourceException;
 
 /**
+ * Default implementation of the httpclient template. Makes a call
+ * to the url specifies and then passes the result to the callback.
+ * 
  * @author JMcCrindle
  */
 public class DefaultHttpClientTemplate implements HttpClientTemplate {

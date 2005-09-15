@@ -21,6 +21,11 @@ package org.portletbridge.portlet;
 public class GUIDException extends Exception {
 
     /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = -1842486373115955260L;
+
+    /**
      * 
      */
     public GUIDException() {

@@ -56,6 +56,7 @@ public class DefaultTemplateFactory implements TemplateFactory {
         try {
             defaultTemplate = TransformerFactory.newInstance().newTemplates(
                     templateSource);
+            log.debug("created default template");
         } catch (TransformerConfigurationException e) {
             throw new IllegalStateException(e.getMessage());
         } catch (TransformerFactoryConfigurationError e) {

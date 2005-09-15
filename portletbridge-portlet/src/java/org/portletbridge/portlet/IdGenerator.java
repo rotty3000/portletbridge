@@ -16,6 +16,8 @@
 package org.portletbridge.portlet;
 
 /**
+ * Implementations should generate unique id's for bridge requests
+ * 
  * @author jmccrindle
  */
 public interface IdGenerator {

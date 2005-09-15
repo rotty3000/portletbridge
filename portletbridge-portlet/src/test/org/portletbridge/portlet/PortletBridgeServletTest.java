@@ -70,7 +70,8 @@ public class PortletBridgeServletTest extends TestCase {
         config.setupContext(new MockServletContext());
         servlet.init(config);
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setupUrl(new URL("http://www.test.com/blah/123"));
+        request.setupContextPath("");
+        request.setupUrl(new URL("http://www.test.com/blah/123/"));
         MockHttpSession session = new MockHttpSession();
         MockPortletBridgeMemento memento = new MockPortletBridgeMemento();
         memento.setupBridgeRequest("123", new DefaultBridgeRequest("1", "portletid", "pageurl", new URI("http://www.bob.com")));

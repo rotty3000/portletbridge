@@ -33,7 +33,7 @@ public class DefaultPortletBridgeService implements PortletBridgeService {
      * @see org.portletbridge.portlet.PortletBridgeService#getIdFromRequestUri(java.lang.String)
      */
     public String getIdFromRequestUri(String contextPath, String requestUri) {
-        String path = requestUri.substring(contextPath.length() - 1);
+        String path = contextPath.length() > 0 ? requestUri.substring(contextPath.length() - 1) : requestUri;
         int secondIndexOfSlash = path.indexOf('/', 2);
         int thirdIndexOfSlash = path.indexOf('/', secondIndexOfSlash + 1);
         if(secondIndexOfSlash >= 0 && thirdIndexOfSlash >= 0) {

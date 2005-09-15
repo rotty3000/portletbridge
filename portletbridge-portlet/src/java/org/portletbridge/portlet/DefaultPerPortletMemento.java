@@ -32,9 +32,18 @@ import org.portletbridge.PortletBridgeException;
 import org.portletbridge.ResourceException;
 
 /**
+ * Default implementation of the per portlet memento. This stored information
+ * about the current state of the portlet that can be retrieved by the 
+ * PortletBridgePortlet.
+ * 
  * @author JMcCrindle
  */
 public class DefaultPerPortletMemento implements PerPortletMemento, Serializable {
+
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 7117499680906225653L;
 
     private URI initUrl;
 

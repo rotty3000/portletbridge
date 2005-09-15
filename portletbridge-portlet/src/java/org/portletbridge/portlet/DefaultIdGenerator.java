@@ -17,7 +17,8 @@ package org.portletbridge.portlet;
 
 
 /**
- * Default Id Generator. Generates numbers counting up from 0.
+ * Default Id Generator. Uses the GUIDGenerator to generate
+ * url friendly id's.
  * 
  * @author jmccrindle
  */

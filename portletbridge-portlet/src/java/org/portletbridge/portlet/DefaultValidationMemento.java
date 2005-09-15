@@ -24,6 +24,11 @@ import java.util.Map;
  */
 public class DefaultValidationMemento implements ValidationMemento, Serializable {
 
+    /**
+     * default serial version id 
+     */
+    private static final long serialVersionUID = 5856458092122115180L;
+
     private Map validationInfoMap = new HashMap();
     
     /**

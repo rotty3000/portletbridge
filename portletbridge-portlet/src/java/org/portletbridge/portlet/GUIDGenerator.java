@@ -132,16 +132,12 @@ public class GUIDGenerator {
         
          try
         {
-            StringBuffer stringbuffer = new StringBuffer();
-            StringBuffer stringbuffer1 = new StringBuffer();
             seeder = new SecureRandom();
             InetAddress inetaddress = InetAddress.getLocalHost();
             byte abyte0[] = inetaddress.getAddress();
             String s = urlFriendlyFormat(getInt(abyte0), 8);
-            String s1 = urlFriendlyFormat(hashCode(), 8);
             midValue = s;
             midValueUnformated = s;
-            int i = seeder.nextInt();
         }
         catch(Exception exception)
         {
@@ -249,31 +245,7 @@ public class GUIDGenerator {
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '*', '-' 
     };
     
-    /** <p>
-     * A utility method that takes in a string of hex characters and prepends a number
-     * characters to the string to make up a string of the required length as defined
-     * in the int value passed into the method. This is because the values for say the
-     * hashcode on a lower memory machine will only be 4 characters long and so to
-     * the correct formatting is produced 0 characters must be prepended to the fornt
-     * of the string.
-     * <p>
-     * @param s The String containing the hex values.
-     * @param i The int specifying the length that the string should be.
-     * @return A String of the correct length containing the original hex value and a
-     * number of pad zeros at the front of the string.
-     */    
-    private String padHex(String s, int i)
-    {
-        StringBuffer stringbuffer = new StringBuffer();
-        if(s.length() < i)
-        {
-            for(int j = 0; j < i - s.length(); j++)
-                stringbuffer.append("0");
-
-        }
-        return stringbuffer.toString();
-    }
-       /**
+    /**
      * <p>The random seed used in the method call to provide the required randomized
      * element. The normal random class is not used as the sequences produced are more
      * uniform than this implementation and will produce a predictable sequence which

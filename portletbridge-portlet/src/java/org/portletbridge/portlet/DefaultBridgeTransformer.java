@@ -38,6 +38,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 /**
+ * The default bridge transformer. Uses XSLT to transform the downstream 
+ * site into portlet content.
+ * 
  * @author JMcCrindle
  */
 public class DefaultBridgeTransformer implements
@@ -49,7 +52,7 @@ public class DefaultBridgeTransformer implements
     private final IdGenerator idGenerator;
 
     /**
-     * 
+     * Create a new transformer
      */
     public DefaultBridgeTransformer(IdGenerator idGenerator, TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.idGenerator = idGenerator;

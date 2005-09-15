@@ -37,6 +37,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.portletbridge.ResourceException;
 
 /**
+ * The portlet that renders the portlet view mode. Renders
+ * content from the downstream site after transforming it.
+ * 
  * @author JMcCrindle
  * @author rickard
  */
@@ -51,11 +54,19 @@ public class BridgeViewPortlet extends GenericPortlet {
 
     private BridgeTransformer transformer = null;
 
+    /**
+     * Does nothing. All requests are passed through the portlet bridge servlet
+     * 
+     * @see PortletBridgeServlet
+     */
     public void processAction(ActionRequest request, ActionResponse response)
             throws PortletException, IOException {
         // noop
     }
 
+    /**
+     * Writes out the transformed content from the downstream site.
+     */
     public void doView(final RenderRequest request,
             final RenderResponse response) throws PortletException, IOException {
 

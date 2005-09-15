@@ -34,6 +34,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 /**
+ * Bridge Transformer that uses the standard XSLT transformers
+ * 
  * @author JMcCrindle
  * @author rickard
  */

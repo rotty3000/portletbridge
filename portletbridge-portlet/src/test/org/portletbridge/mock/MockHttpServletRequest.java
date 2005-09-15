@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.Principal;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,6 +38,8 @@ public class MockHttpServletRequest implements HttpServletRequest {
     
     private HttpSession session = null;
     private URL url = null;
+    private String contextPath = null;
+    private Hashtable headers = new Hashtable();
 
     /**
      * 
@@ -51,6 +54,10 @@ public class MockHttpServletRequest implements HttpServletRequest {
     
     public void setupUrl(URL url) {
         this.url = url;
+    }
+    
+    public void setupContextPath(String contextPath) {
+        this.contextPath = contextPath;
     }
     
     /* (non-Javadoc)
@@ -80,16 +87,14 @@ public class MockHttpServletRequest implements HttpServletRequest {
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequest#getHeader(java.lang.String)
      */
-    public String getHeader(String arg0) {
-        // TODO Auto-generated method stub
-        return null;
+    public String getHeader(String name) {
+        return (String) headers.get(name);
     }
 
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
      */
-    public Enumeration getHeaders(String arg0) {
-        // TODO Auto-generated method stub
+    public Enumeration getHeaders(String name) {
         return null;
     }
 
@@ -97,8 +102,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
      * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
      */
     public Enumeration getHeaderNames() {
-        // TODO Auto-generated method stub
-        return null;
+        return headers.keys();
     }
 
     /* (non-Javadoc)
@@ -137,8 +141,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
      * @see javax.servlet.http.HttpServletRequest#getContextPath()
      */
     public String getContextPath() {
-        // TODO Auto-generated method stub
-        return null;
+        return contextPath;
     }
 
     /* (non-Javadoc)

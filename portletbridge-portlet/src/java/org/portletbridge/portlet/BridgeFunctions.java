@@ -23,6 +23,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 /**
+ * Functions class for XSLT used for rewriting urls etc.
+ * 
  * @author JMcCrindle
  * @author rickard
  */

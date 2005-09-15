@@ -24,9 +24,24 @@ import javax.portlet.RenderResponse;
 import org.portletbridge.ResourceException;
 
 /**
+ * The portlet uses implementations of this class to transform data 
+ * from the downstream site into the portlet content
+ * 
  * @author JMcCrindle
  */
 public interface BridgeTransformer {
+
+    /**
+     * Transform the downstream content to portlet content
+     * 
+     * @param memento the portlet memento to use
+     * @param perPortletMemento the memento for the particular portlet instance
+     * @param currentUrl the current url
+     * @param request the render request
+     * @param response the render response to write the result out to
+     * @param in the reader to read the downstream content from
+     * @throws ResourceException if there is a problem transforming the content
+     */
     void transform(PortletBridgeMemento memento, PerPortletMemento perPortletMemento, URI currentUrl,
             RenderRequest request, RenderResponse response,
             Reader in) throws ResourceException;

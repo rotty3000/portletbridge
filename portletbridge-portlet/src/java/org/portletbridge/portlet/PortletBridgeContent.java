@@ -45,4 +45,8 @@ public class PortletBridgeContent {
     public void setUrl(URI url) {
         this.url = url;
     }
+
+    public String getMethod() {
+        return method;
+    }
 }
