@@ -1,3 +1,4 @@
 .project
 target
 velocity.log
+.classpath

@@ -24,7 +24,7 @@
  </properties>
 
 <body>
-<section name="Default XSL">
+<section name="Sample XSL">
 <p>
 The PortletBridge portlet has a stylesheet preference which can be used
 to set up custom XSLT for a particular instance of a portlet. Below is

@@ -28,19 +28,14 @@
 <section name="Todo">
 <p>
 <ul>
-<li>More tests</li>
 <li>Performance analysis</li>
 <li>More Javadocs</li>
-<li>User Guide and Features</li>
-<li>Sample XSLT</li>
-<li>Make more things serializeable</li>
 <li>Validation on Edit</li>
 <li>Rewrite external stylesheets and javascript</li>
 <li>Try out Gridsphere and eXo</li>
 <li>HttpClient timeout (and other properties?)</li>
 <li>setTitle</li>
 <li>Object pooling</li>
-<li>Go back to the home page if there is nothing in the session (bridge/memento etc.)</li>
 </ul>
 </p>
 </section>
