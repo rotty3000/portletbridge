@@ -8,6 +8,10 @@
     <release version="1.0" date="15 September 2005">
 
       <action dev="dkfn" type="update">
+        Sets the title of the portlet to the page title
+      </action>              
+      
+      <action dev="dkfn" type="update">
         Documentation updates
       </action>              
       
