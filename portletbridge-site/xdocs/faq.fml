@@ -33,6 +33,58 @@
         to transform the data from the downstream site.</p>
       </answer>
     </faq>
+    <faq id="iframe-vs-portlet">
+      <question>
+        What is the difference between the PortletBridge Portlet and an IFrame
+      </question>
+      <answer>
+        <p>
+        There are several differences between using an IFrame and the PortletBridge
+        Portlet. Probably the biggest advantage to using an IFrame is that it is
+        simpler than the PortletBridge Portlet and the downstream site will often
+        be more faithfully rendered. There are however several advantages to using
+        the PortletBridge Portlet.
+        <ul>
+          <li>
+            Where an IFrame is like a window onto another site, the PortletBridge
+            Portlet bahaves more like a portlet, providing a block of HTML into your
+            portal page.
+          </li>
+          <li>
+            IFrames don't resize easily to accomodate the size of the downstream 
+            content (this may be an advantage but you can change the PortletBridge
+            Portlet to do the same by putting a fixed size div into the XSLT around
+            the content).
+          </li>
+          <li>
+            IFrame URL's take you out of the Portal. This is often not the behaviour
+            you'd expect from a Portlet (The PortletBridge Portlet can be configured
+            either way using the "scope" preference).
+          </li>
+          <li>
+            You may not want to expose the whole downstream site to the general 
+            public. An IFrame URL must be reachable by your browser.
+          </li>
+          <li>
+            You can't rewrite the content of your IFrame which means that it while looks
+            exactly like the downstream site, it may not look like the rest of your
+            portal. The PortletBridge portlet allows you to modify the XSLT that
+            transforms the content.
+          </li>
+          <li>
+            An IFrame will show everything from the downstream site. The PortletBridge
+            Portlet allows for "web clipping" using custom XSLT which means you only
+            get what you want.
+          </li>
+          <li>
+            Finally, while IFrames work on most browsers, they don't work on them all
+            nor are they supported in the XHTML spec. PortletBridge would probably 
+            be a better choice under these circumstances.
+          </li>
+        </ul>
+        </p>
+      </answer>
+    </faq>
 
   </part>
   
