@@ -5,6 +5,22 @@
   </properties>
   <body>
 
+    <release version="1.0" date="15 September 2005">
+
+      <action dev="dkfn" type="update">
+        Documentation updates
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Serial version ids
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Tests fixed and updated
+      </action>              
+      
+    </release>
+
     <release version="1.0-beta1" date="01 September 2005">
 
       <action dev="dkfn" type="update">
