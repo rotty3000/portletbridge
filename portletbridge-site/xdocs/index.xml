@@ -71,27 +71,6 @@ This is a complete rewrite based on and using code kindly donated by
 <a href="http://jroller.com/page/rickard/">Rickard Öberg</a>.
 </td>
 </tr>
-<tr>
-<td>July 2005</td>
-<td>Move to <a href="http://www.sourceforge.net/projects/portletbridge">Source Forge</a> and
-bug fix release for <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a></td>.
-</tr>
-<tr>
-<td>June 2005</td>
-<td>First release of the <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a></td>
-</tr>
-<tr>
-<td>May 2005</td>
-<td>PortletBridge HTTP rewriting demo available</td>
-</tr>
-<tr>
-<td>May 2005</td>
-<td>HTML SAX Parser Benchmarks are <a href="http://www.portletbridge.org/saxbenchmark">available</a></td>
-</tr>
-<tr>
-<td>May 2005</td>
-<td>PortletBridge site launched</td>
-</tr>
 </table>
 </p>
 </section>
@@ -115,24 +94,10 @@ bug fix release for <a href="/multiproject/portletbridge-portlet/index.html">Por
 </section>
 <section name="PortletBridge">
 <p>
-The Portlet Bridge project is intended to allow regular web sites be 
+The Portlet Bridge Portlet is a web clipping proxy portlet that allows web application be 
 hosted as portlets. See the <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a>
 project for more information. The portlet bridge portlet makes downstream HTTP
 calls and uses CyberNeko and XSLT to do the web clipping.
-</p>
-<p>
-In addition to creating a bridging portlet, this project will also include support for proxying
-HTML without a portal container. There is a demo of portletbridge acting as a HTML proxy 
-<a href="http://www.portletbridge.org:8080/portletbridge/http://www.theregister.com/">here</a>
-which demonstrates the portletbridge in action. Please note, however:
-<ul>
-<li>It's very slow because the demo is on a very slow link</li>
-<li>It doesn't rewrite javascript</li>
-<li>The code is changed on its way through the HTMLSAXParser and link rewriter which does result
-in unwanted artifacts</li>
-</ul>
-See the <a href="/multiproject/portletbridge-web/index.html">portletbridge-web</a> project for
-configuration settings.
 </p>
 </section>
 <section name="Requirements">

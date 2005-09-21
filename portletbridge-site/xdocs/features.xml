@@ -36,9 +36,6 @@ content from a downstream web site. Currently, the portlet supports:
 <li>Using an xsl stylesheet to rewrite the content from the downstream site</li>
 <li>Proxying of remote resources (e.g. images, flash etc.)</li>
 <li>Regular expression defining which URL's are in the portlet and which should be regular links</li>
-<li>Tested in Pluto 1.0.1 rc4</li>
-<li>Tested in JBoss Portal 2.0</li>
-<li>Tested in LifeRay Professional 3.6.0</li>
 <li>XSL Stylesheets packaged as part of the portlet or remote (URL based)</li>
 <li>Links to binary files</li>
 <li>Help and Edit modes</li>
@@ -46,6 +43,9 @@ content from a downstream web site. Currently, the portlet supports:
 <li>Moving javascript and css links out of the head</li>
 <li>Hiding of downstream URLs and configurable scope</li>
 <li>Back button and refresh support</li>
+<li>Tested in Pluto 1.0.1 rc4</li>
+<li>Tested in JBoss Portal 2.0</li>
+<li>Tested in LifeRay Professional 3.6.0</li>
 </ul>
 </p>
 <p>
