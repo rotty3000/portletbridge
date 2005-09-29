@@ -29,7 +29,7 @@
    </xsl:template>
 
    <xsl:template match="/HTML/HEAD/TITLE">
-      <xsl:value-of select="bridge:setTitle(bridge:getResponse($bridge), text())"/>
+      <xsl:value-of select="bridge:setTitle($bridge, text())"/>
    </xsl:template>
 
    <xsl:template match="/HTML/BODY">

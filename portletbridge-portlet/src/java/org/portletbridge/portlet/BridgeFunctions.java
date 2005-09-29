@@ -187,6 +187,10 @@ public class BridgeFunctions {
     public URI getCurrentUrl() {
         return currentUrl;
     }
+    
+    public void setTitle(String title) {
+        response.setTitle(title);
+    }
 
     public PortletBridgeMemento getMemento() {
         return memento;

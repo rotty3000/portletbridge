@@ -68,7 +68,14 @@
   </repository>
 
   <!-- any mailing lists for the project -->
-  <mailingLists/>
+  <mailingLists>
+	<mailingList>
+	    <name>${pom.name} User Mailing list</name>
+	    <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
+	    <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
+	    <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
+	</mailingList>
+  </mailingLists>
 
   <!-- who the developers are for the project -->
   <developers>

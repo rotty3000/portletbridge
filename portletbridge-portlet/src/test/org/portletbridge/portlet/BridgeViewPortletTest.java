@@ -53,5 +53,12 @@ public class BridgeViewPortletTest extends TestCase {
         MockRenderResponse mockRenderResponse = new MockRenderResponse();
         portlet.render(mockRenderRequest, mockRenderResponse);
     }
+    
+    public static void main(String[] args) throws Exception {
+        BridgeViewPortletTest test = new BridgeViewPortletTest("BridgeViewPortletTest");
+        test.setUp();
+        test.testDoView();
+        test.tearDown();
+    }
 
 }
