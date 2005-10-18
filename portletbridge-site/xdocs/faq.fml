@@ -113,6 +113,8 @@
       </question>
       <answer>
         <p><a href="http://www.liferay.com/web/guest/documentation/development/hot_deploy#2">Hot deploying portlets into Liferay</a></p>
+        <p>NOTE: If you're deploying into Liferay on top of JBoss, you will have to remove the commons-logging jar from the 
+        portletbridge-portlet.war file to make it work.</p>
       </answer>
     </faq>
     <faq id="how-install-weblogic">
