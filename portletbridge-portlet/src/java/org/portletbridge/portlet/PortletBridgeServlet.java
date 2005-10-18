@@ -45,13 +45,13 @@ import org.portletbridge.ResourceException;
 public class PortletBridgeServlet extends HttpServlet {
 
     /**
-     * default serial version id 
+     * default serial version id
      */
     private static final long serialVersionUID = 7841139248662925798L;
 
     public static final ResourceBundle resourceBundle = PropertyResourceBundle
             .getBundle("org.portletbridge.portlet.PortletBridgePortlet");
-    
+
     private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
             .getLog(PortletBridgeServlet.class);
 
@@ -72,6 +72,9 @@ public class PortletBridgeServlet extends HttpServlet {
         // get proxyBrowserSessionKey
         mementoSessionKey = this.getServletConfig().getInitParameter(
                 "mementoSessionKey");
+
+        log.debug("init(): mementoSessionKey=" + mementoSessionKey);
+
         if (mementoSessionKey == null) {
             throw new ServletException(resourceBundle
                     .getString("error.mementoSessionKey"));
@@ -91,24 +94,28 @@ public class PortletBridgeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session == null) {
             throw new ServletException(resourceBundle
-                    .getString("error.nosession"));
+                    .getString("error.nosession")
+                    + ", URL=" + request.getRequestURI());
         }
         final PortletBridgeMemento memento = (PortletBridgeMemento) session
                 .getAttribute(mementoSessionKey);
         if (memento == null) {
             throw new ServletException(resourceBundle
-                    .getString("error.nomemento"));
+                    .getString("error.nomemento")
+                    + ", URL=" + request.getRequestURI());
         }
         final BridgeRequest bridgeRequest = memento.getBridgeRequest(id);
         if (bridgeRequest == null) {
             throw new ServletException(resourceBundle
-                    .getString("error.nobridgerequest"));
+                    .getString("error.nobridgerequest")
+                    + ", URL=" + request.getRequestURI());
         }
         final PerPortletMemento perPortletMemento = memento
                 .getPerPortletMemento(bridgeRequest.getPortletId());
         if (perPortletMemento == null) {
             throw new ServletException(resourceBundle
-                    .getString("error.noperportletmemento"));
+                    .getString("error.noperportletmemento")
+                    + ", URL=" + request.getRequestURI());
         }
 
         // go and fetch the data from the backend as appropriate
@@ -120,9 +127,14 @@ public class PortletBridgeServlet extends HttpServlet {
                 // TODO: may have to change encoding
                 url = new URI(url.toString() + '?' + request.getQueryString());
             } catch (URISyntaxException e) {
-                throw new ServletException(e.getMessage(), e);
+                throw new ServletException(e.getMessage() + ", doGet(): URL="
+                        + url + ", id=" + id + ", request URI="
+                        + request.getRequestURI(), e);
             }
         }
+
+        log.debug("doGet(): URL=" + url + ", id=" + id + ", request URI="
+                + request.getRequestURI());
 
         fetch(request, response, bridgeRequest, perPortletMemento, url);
 
@@ -135,7 +147,8 @@ public class PortletBridgeServlet extends HttpServlet {
      * @param url
      * @throws ServletException
      */
-    protected void fetch(HttpServletRequest request, final HttpServletResponse response,
+    protected void fetch(HttpServletRequest request,
+            final HttpServletResponse response,
             final BridgeRequest bridgeRequest,
             final PerPortletMemento perPortletMemento, final URI url)
             throws ServletException {
@@ -143,8 +156,8 @@ public class PortletBridgeServlet extends HttpServlet {
             GetMethod getMethod = new GetMethod(url.toString());
             // TODO: suspect to send the same request headers after a redirect?
             copyRequestHeaders(request, getMethod);
-            httpClientTemplate.service(getMethod,
-                    perPortletMemento, new HttpClientCallback() {
+            httpClientTemplate.service(getMethod, perPortletMemento,
+                    new HttpClientCallback() {
                         public Object doInHttpClient(int statusCode,
                                 HttpMethodBase method)
                                 throws ResourceException, Throwable {
@@ -177,8 +190,17 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // TODO: javascript and css rewriting
                                     Header header = method
                                             .getResponseHeader("Content-Type");
-                                    response.setContentType(((null == header.getName() ? "" : header.getName())  + ": " + 
-                                        (null == header.getValue() ? "" : header.getValue())));
+                                    response
+                                            .setContentType(((null == header
+                                                    .getName() ? "" : header
+                                                    .getName())
+                                                    + ": " + (null == header
+                                                    .getValue() ? "" : header
+                                                    .getValue())));
+
+                                    log.trace("fetch(): returning URL=" + url
+                                            + ", as stream, content type="
+                                            + header);
                                     ResourceUtil.copy(method
                                             .getResponseBodyAsStream(),
                                             response.getOutputStream(), 4096);
@@ -231,12 +253,16 @@ public class PortletBridgeServlet extends HttpServlet {
 
         // go and fetch the data from the backend as appropriate
         final URI url = bridgeRequest.getUrl();
+
+        log.debug("doPost(): URL=" + url);
+
         try {
             PostMethod postMethod = new PostMethod(url.toString());
             copyRequestHeaders(request, postMethod);
-            postMethod.setRequestEntity(new InputStreamRequestEntity(request.getInputStream()));
-            httpClientTemplate.service(postMethod,
-                    perPortletMemento, new HttpClientCallback() {
+            postMethod.setRequestEntity(new InputStreamRequestEntity(request
+                    .getInputStream()));
+            httpClientTemplate.service(postMethod, perPortletMemento,
+                    new HttpClientCallback() {
                         public Object doInHttpClient(int statusCode,
                                 HttpMethodBase method)
                                 throws ResourceException, Throwable {
@@ -260,6 +286,12 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // redirect
                                     // TODO: worry about this... adding the id
                                     // at the end
+
+                                    log
+                                            .debug("doPost(): doing response.sendRedirect to URL="
+                                                    + bridgeRequest
+                                                            .getPageUrl());
+
                                     response.sendRedirect(bridgeRequest
                                             .getPageUrl());
                                 } else {
@@ -316,8 +348,7 @@ public class PortletBridgeServlet extends HttpServlet {
 
         // Conditional cookie transfer
         try {
-            if (method.getURI().getHost().equals(
-                    request.getHeader("host"))) {
+            if (method.getURI().getHost().equals(request.getHeader("host"))) {
                 String cookie = request.getHeader("cookie");
                 if (cookie != null)
                     method.setRequestHeader("cookie", cookie);
@@ -329,4 +360,3 @@ public class PortletBridgeServlet extends HttpServlet {
     }
 
 }
-
