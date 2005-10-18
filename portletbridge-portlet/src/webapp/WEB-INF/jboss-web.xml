@@ -1,3 +1,6 @@
-<?xml version="1.0"?>
 <jboss-web>
-</jboss-web>
+   <class-loading java2ClassLoadingCompliance="false"> 
+      <loader-repository>portletbridge.org:loader=1portletbridge-portlet.war</loader-repository>
+      <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+   </class-loading>
+</jboss-web> 
