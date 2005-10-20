@@ -49,6 +49,13 @@
       </xsl:attribute>
    </xsl:template>
 
+   <!-- Rewrite script links -->
+   <xsl:template match="SCRIPT/@src">
+      <xsl:attribute name="src">
+         <xsl:value-of select="bridge:link($bridge, .)"/>
+      </xsl:attribute>
+   </xsl:template>
+
    <!-- Rewrite image references -->
    <xsl:template match="IMG/@src">
       <xsl:attribute name="src">

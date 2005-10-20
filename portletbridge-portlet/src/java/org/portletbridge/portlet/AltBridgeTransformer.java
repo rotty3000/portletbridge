@@ -46,12 +46,14 @@ public class AltBridgeTransformer implements
     private XMLReader parser;
     private String servletName;
     private final IdGenerator idGenerator;
+    private final BridgeFunctionsFactory bridgeFunctionsFactory;
 
     /**
      * 
      */
-    public AltBridgeTransformer(IdGenerator idGenerator, TemplateFactory templateFactory, XMLReader parser, String servletName) {
+    public AltBridgeTransformer(IdGenerator idGenerator, BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.idGenerator = idGenerator;
+        this.bridgeFunctionsFactory = bridgeFunctionsFactory;
         this.templateFactory = templateFactory;
         this.parser = parser;
         this.servletName = servletName;
@@ -79,7 +81,7 @@ public class AltBridgeTransformer implements
             String stylesheet = preferences.getValue("stylesheet", null);
             Templates templates = templateFactory.getTemplatesFromString(stylesheet);
             Transformer transformer = templates.newTransformer();
-            transformer.setParameter("bridge", new BridgeFunctions(idGenerator, memento, perPortletMemento, servletName,
+            transformer.setParameter("bridge", bridgeFunctionsFactory.createBridgeFunctions(memento, perPortletMemento, servletName,
                     currentUrl, request, response));
             transformer.transform(new SAXSource(parser, new InputSource(in)), new StreamResult(response.getWriter()));
         } catch (TransformerConfigurationException e) {

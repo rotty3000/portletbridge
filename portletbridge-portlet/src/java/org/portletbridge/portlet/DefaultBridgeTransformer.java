@@ -50,12 +50,14 @@ public class DefaultBridgeTransformer implements
     private XMLReader parser;
     private String servletName;
     private final IdGenerator idGenerator;
+    private final BridgeFunctionsFactory bridgeFunctionsFactory;
 
     /**
      * Create a new transformer
      */
-    public DefaultBridgeTransformer(IdGenerator idGenerator, TemplateFactory templateFactory, XMLReader parser, String servletName) {
+    public DefaultBridgeTransformer(IdGenerator idGenerator, BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.idGenerator = idGenerator;
+        this.bridgeFunctionsFactory = bridgeFunctionsFactory;
         this.templateFactory = templateFactory;
         this.parser = parser;
         this.servletName = servletName;
@@ -93,7 +95,7 @@ public class DefaultBridgeTransformer implements
             writer.setOutputCharStream(responseWriter);
             XslFilter filter = new XslFilter(templates);
             Map context = new HashMap();
-            context.put("bridge", new BridgeFunctions(idGenerator, memento, perPortletMemento, servletName,
+            context.put("bridge", bridgeFunctionsFactory.createBridgeFunctions(memento, perPortletMemento, servletName,
                     currentUrl, request, response));
             filter.setContext(context);
             filter.setParent(parser);

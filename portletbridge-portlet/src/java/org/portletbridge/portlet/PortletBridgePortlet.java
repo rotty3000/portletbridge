@@ -179,7 +179,11 @@ public class PortletBridgePortlet extends GenericPortlet {
         BridgeTransformer transformer = null;
         try {
             XMLReader parser = XMLReaderFactory.createXMLReader(parserClassName);
-            transformer = new AltBridgeTransformer(new DefaultIdGenerator(), templateFactory, parser, servletName);
+            IdGenerator idGenerator = new DefaultIdGenerator();
+            ContentRewriter javascriptRewriter = new RegexContentRewriter();
+            ContentRewriter cssRewriter = new RegexContentRewriter();
+            BridgeFunctionsFactory bridgeFunctionsFactory = new BridgeFunctionsFactory(idGenerator, javascriptRewriter, cssRewriter); 
+            transformer = new AltBridgeTransformer(new DefaultIdGenerator(), bridgeFunctionsFactory, templateFactory, parser, servletName);
         } catch (SAXNotRecognizedException e) {
             throw new PortletException(e);
         } catch (SAXNotSupportedException e) {

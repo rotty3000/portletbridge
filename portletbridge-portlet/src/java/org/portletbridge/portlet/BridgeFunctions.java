@@ -28,7 +28,7 @@ import javax.portlet.RenderResponse;
  * @author JMcCrindle
  * @author rickard
  */
-public class BridgeFunctions {
+public class BridgeFunctions implements LinkRewriter {
 
     private final URI currentUrl;
 
@@ -55,9 +55,15 @@ public class BridgeFunctions {
 
     private final IdGenerator idGenerator;
 
-    public BridgeFunctions(IdGenerator idGenerator, PortletBridgeMemento memento,
+    private final ContentRewriter javascriptRewriter;
+
+    private final ContentRewriter cssRewriter;
+
+    public BridgeFunctions(ContentRewriter javascriptRewriter, ContentRewriter cssRewriter, IdGenerator idGenerator, PortletBridgeMemento memento,
             PerPortletMemento perPortletMemento, String servletName,
             URI currentUrl, RenderRequest request, RenderResponse response) {
+        this.javascriptRewriter = javascriptRewriter;
+        this.cssRewriter = cssRewriter;
         this.idGenerator = idGenerator;
         this.memento = memento;
         this.perPortletMemento = perPortletMemento;
@@ -79,7 +85,8 @@ public class BridgeFunctions {
     }
 
     private String rewrite(String link, boolean checkScope) {
-        String trim = link.trim();
+        // replacing spaces in the url with +'s because... well, there shouldn't be spaces.
+        String trim = link.trim().replace(' ', '+');
         URI url = currentUrl.resolve(trim);
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
