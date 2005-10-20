@@ -155,5 +155,13 @@
 		</p>
       </answer>
     </faq>
+    <faq id="commons-logging">
+      <question>
+        I'm getting a "Log4JLogger does not implement Log" error using JBoss?
+      </question>
+      <answer>
+        Remove commons logging from the portletbridge-portlet.war file.
+      </answer>
+    </faq>
   </part> 
 </faqs>

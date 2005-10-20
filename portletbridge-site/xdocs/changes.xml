@@ -5,6 +5,34 @@
   </properties>
   <body>
 
+    <release version="1.1-beta1" date="15 September 2005">
+
+      <action dev="dkfn" type="update">
+        Update to XSL to rewrite script urls
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Header fix for weblogic
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        More logging
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Started pulling out CSS and Javascript rewriters for extensibility
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Bug fix to handle spaces in URL's
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        JBoss isolation for liferay+jboss+tomcat
+      </action>              
+      
+    </release>
+
     <release version="1.0" date="15 September 2005">
 
       <action dev="dkfn" type="update">
