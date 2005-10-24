@@ -49,14 +49,12 @@ public class DefaultBridgeTransformer implements
     private TemplateFactory templateFactory = null;
     private XMLReader parser;
     private String servletName;
-    private final IdGenerator idGenerator;
     private final BridgeFunctionsFactory bridgeFunctionsFactory;
 
     /**
      * Create a new transformer
      */
-    public DefaultBridgeTransformer(IdGenerator idGenerator, BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
-        this.idGenerator = idGenerator;
+    public DefaultBridgeTransformer(BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.bridgeFunctionsFactory = bridgeFunctionsFactory;
         this.templateFactory = templateFactory;
         this.parser = parser;

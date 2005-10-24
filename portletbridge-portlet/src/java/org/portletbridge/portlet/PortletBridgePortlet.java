@@ -178,12 +178,14 @@ public class PortletBridgePortlet extends GenericPortlet {
         // setup parser
         BridgeTransformer transformer = null;
         try {
+            String cssRegex = config.getInitParameter("cssRegex");
+            String javascriptRegex = config.getInitParameter("cssRegex");
             XMLReader parser = XMLReaderFactory.createXMLReader(parserClassName);
             IdGenerator idGenerator = new DefaultIdGenerator();
-            ContentRewriter javascriptRewriter = new RegexContentRewriter();
-            ContentRewriter cssRewriter = new RegexContentRewriter();
+            ContentRewriter javascriptRewriter = new RegexContentRewriter("open\\('([^']*)'|open\\(\"([^\"]*)\"");
+            ContentRewriter cssRewriter = new RegexContentRewriter("(?:url\\((?:'|\")?(.*?)(?:'|\")?\\))|(?:@import\\s+[^url](?:'|\")?(.*?)(?:'|\")|;|\\s+|$)");
             BridgeFunctionsFactory bridgeFunctionsFactory = new BridgeFunctionsFactory(idGenerator, javascriptRewriter, cssRewriter); 
-            transformer = new AltBridgeTransformer(new DefaultIdGenerator(), bridgeFunctionsFactory, templateFactory, parser, servletName);
+            transformer = new AltBridgeTransformer(bridgeFunctionsFactory, templateFactory, parser, servletName);
         } catch (SAXNotRecognizedException e) {
             throw new PortletException(e);
         } catch (SAXNotSupportedException e) {

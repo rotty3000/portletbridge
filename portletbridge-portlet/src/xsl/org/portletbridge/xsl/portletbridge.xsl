@@ -23,7 +23,7 @@
 
    <xsl:template match="/HTML/HEAD">
       <xsl:apply-templates select="STYLE"/>
-      <xsl:apply-templates select="LINK[@rel='stylesheet']"/>
+      <xsl:apply-templates select="LINK[bridge:equalsIgnoreCase($bridge, @rel, 'stylesheet')]"/>
       <xsl:apply-templates select="SCRIPT"/>
       <xsl:apply-templates select="TITLE"/>
    </xsl:template>
@@ -33,7 +33,15 @@
    </xsl:template>
 
    <xsl:template match="/HTML/BODY">
-      <xsl:apply-templates select="node()"/>
+      <DIV>
+	      <xsl:attribute name="class">
+	         <xsl:value-of select="@class"/>
+	      </xsl:attribute>
+	      <SCRIPT>
+	          <xsl:value-of select="@onload"/>
+	      </SCRIPT>
+	      <xsl:apply-templates select="node()"/>
+      </DIV>
    </xsl:template>
 
    <!-- Rewrite links -->
@@ -63,6 +71,12 @@
       </xsl:attribute>
    </xsl:template>
 
+   <xsl:template match="INPUT/@src">
+      <xsl:attribute name="src">
+         <xsl:value-of select="bridge:link($bridge, .)"/>
+      </xsl:attribute>
+   </xsl:template>
+
    <!-- Rewrite imagemap references -->
    <xsl:template match="MAP/AREA/@href">
       <xsl:attribute name="href">
@@ -74,9 +88,14 @@
    <xsl:template match="/HTML/HEAD/STYLE">
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
-
          <xsl:value-of select="bridge:style($bridge, .)"/>
       </xsl:copy>
+   </xsl:template>
+   
+   <xsl:template match="@style">
+      <xsl:attribute name="style">
+         <xsl:value-of select="bridge:style($bridge, .)"/>
+      </xsl:attribute>
    </xsl:template>
 
    <!-- Copy script tags from head -->

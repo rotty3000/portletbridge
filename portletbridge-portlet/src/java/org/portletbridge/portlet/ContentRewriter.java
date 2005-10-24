@@ -1,5 +1,5 @@
 package org.portletbridge.portlet;
 
 public interface ContentRewriter {
-    String rewrite(String content);
+    String rewrite(String content, LinkRewriter linkRewriter);
 }

@@ -45,14 +45,12 @@ public class AltBridgeTransformer implements
     private TemplateFactory templateFactory = null;
     private XMLReader parser;
     private String servletName;
-    private final IdGenerator idGenerator;
     private final BridgeFunctionsFactory bridgeFunctionsFactory;
 
     /**
      * 
      */
-    public AltBridgeTransformer(IdGenerator idGenerator, BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
-        this.idGenerator = idGenerator;
+    public AltBridgeTransformer(BridgeFunctionsFactory bridgeFunctionsFactory, TemplateFactory templateFactory, XMLReader parser, String servletName) {
         this.bridgeFunctionsFactory = bridgeFunctionsFactory;
         this.templateFactory = templateFactory;
         this.parser = parser;
