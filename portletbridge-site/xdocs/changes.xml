@@ -5,6 +5,38 @@
   </properties>
   <body>
 
+    <release version="1.1-beta2" date="TBD">
+
+      <action dev="dkfn" type="update">
+        Upgrade to Commons HttpClient rc3
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        BODY onload support
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Partial BODY class support
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        style attributes rewritten
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        INPUT src image urls rewritten
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Javascript and CSS regex configuration parameters
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Case insensitive LINK[@rel='stylesheet'] matching
+      </action>              
+      
+    </release>
+
     <release version="1.1-beta1" date="15 September 2005">
 
       <action dev="dkfn" type="update">
