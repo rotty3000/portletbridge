@@ -32,6 +32,20 @@
 <th>Date</th><th>News</th>
 </tr>
 <tr>
+<td>October 2005</td>
+<td>
+<a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 1.1-beta2 has been released. 
+New features include: rewriting of remote css and javascript; configurable regular expressions for css and 
+javascript; upgrade to httpclient rc4; and numerous bug fixes.
+</td>
+</tr>
+<tr>
+<td>October 2005</td>
+<td>
+<a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 1.1-beta1 has been released. 
+</td>
+</tr>
+<tr>
 <td>September 2005</td>
 <td>
 <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 1.0 has been released. 
