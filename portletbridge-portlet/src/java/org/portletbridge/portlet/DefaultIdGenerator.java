@@ -25,6 +25,15 @@ package org.portletbridge.portlet;
 public class DefaultIdGenerator implements IdGenerator {
 
     private final GUIDGenerator generator;
+
+    private static IdGenerator instance = new DefaultIdGenerator();
+
+    /**
+     * Unfortunate, because I can't stand singletons
+     */
+    public synchronized static IdGenerator getInstance() {
+        return instance;
+    }
     
     /**
      * Default Constructor

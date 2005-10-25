@@ -54,6 +54,16 @@ limitations under the License.
 		</init-param>
 		        
         <init-param>
+			<name>cssRegex</name>
+			<value>(?:url\((?:'|")?(.*?)(?:'|")?\))|(?:@import\s+[^url](?:'|")?(.*?)(?:'|")|;|\s+|$)</value>
+		</init-param>
+		        
+        <init-param>
+			<name>jsRegex</name>
+			<value>open\('([^']*)'|open\("([^\"]*)"</value>
+		</init-param>
+		        
+        <init-param>
 			<name>servletName</name>
 			<value>pbhs</value>
 		</init-param>

@@ -16,13 +16,18 @@
 package org.portletbridge.portlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import javax.portlet.RenderResponse;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +66,10 @@ public class PortletBridgeServlet extends HttpServlet {
 
     private String mementoSessionKey;
 
+    private BridgeFunctionsFactory bridgeFunctionsFactory;
+
+    private Set ignoreRequestHeaders;
+
     /**
      * Initialise the servlet. Will throw a servlet exception if the
      * proxyBrowserSessionKey is not set.
@@ -79,6 +88,23 @@ public class PortletBridgeServlet extends HttpServlet {
             throw new ServletException(resourceBundle
                     .getString("error.mementoSessionKey"));
         }
+
+        // TODO: blow up if these aren't set.
+        String cssRegex = this.getServletConfig().getInitParameter("cssRegex");
+        String javascriptRegex = this.getServletConfig().getInitParameter(
+                "jsRegex");
+
+        ContentRewriter javascriptRewriter = new RegexContentRewriter(
+                javascriptRegex);
+        ContentRewriter cssRewriter = new RegexContentRewriter(cssRegex);
+
+        bridgeFunctionsFactory = new BridgeFunctionsFactory(DefaultIdGenerator
+                .getInstance(), javascriptRewriter, cssRewriter);
+
+        // TODO: blow up if these aren't set.
+        ignoreRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
+                "ignoreRequestHeaders").split(",")));
+
     }
 
     /**
@@ -136,7 +162,7 @@ public class PortletBridgeServlet extends HttpServlet {
         log.debug("doGet(): URL=" + url + ", id=" + id + ", request URI="
                 + request.getRequestURI());
 
-        fetch(request, response, bridgeRequest, perPortletMemento, url);
+        fetch(request, response, bridgeRequest, memento, perPortletMemento, url);
 
     }
 
@@ -147,9 +173,10 @@ public class PortletBridgeServlet extends HttpServlet {
      * @param url
      * @throws ServletException
      */
-    protected void fetch(HttpServletRequest request,
+    protected void fetch(final HttpServletRequest request,
             final HttpServletResponse response,
             final BridgeRequest bridgeRequest,
+            final PortletBridgeMemento memento,
             final PerPortletMemento perPortletMemento, final URI url)
             throws ServletException {
         try {
@@ -183,6 +210,56 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // at the end
                                     response.sendRedirect(bridgeRequest
                                             .getPageUrl());
+                                } else if (responseHeader != null
+                                        && responseHeader.getValue()
+                                                .startsWith("text/javascript")) {
+                                    // rewrite external javascript
+                                    String content = ResourceUtil.getString(
+                                            method.getResponseBodyAsStream(),
+                                            method.getResponseCharSet());
+                                    BridgeFunctions bridge = bridgeFunctionsFactory
+                                            .createBridgeFunctions(
+                                                    memento,
+                                                    perPortletMemento,
+                                                    getServletName(),
+                                                    url,
+                                                    new PseudoRenderRequest(request.getContextPath()),
+                                                    new PseudoRenderResponse(
+                                                            bridgeRequest
+                                                                    .getPortletId(),
+                                                            bridgeRequest
+                                                                    .getPageUrl(),
+                                                            bridgeRequest
+                                                                    .getId()));
+                                    response.setContentType("text/javascript");
+                                    PrintWriter writer = response.getWriter();
+                                    writer.write(bridge.script(content));
+                                    writer.flush();
+                                } else if (responseHeader != null
+                                        && responseHeader.getValue()
+                                                .startsWith("text/css")) {
+                                    // rewrite external css
+                                    String content = ResourceUtil.getString(
+                                            method.getResponseBodyAsStream(),
+                                            method.getResponseCharSet());
+                                    BridgeFunctions bridge = bridgeFunctionsFactory
+                                            .createBridgeFunctions(
+                                                    memento,
+                                                    perPortletMemento,
+                                                    getServletName(),
+                                                    url,
+                                                    new PseudoRenderRequest(request.getContextPath()),
+                                                    new PseudoRenderResponse(
+                                                            bridgeRequest
+                                                                    .getPortletId(),
+                                                            bridgeRequest
+                                                                    .getPageUrl(),
+                                                            bridgeRequest
+                                                                    .getId()));
+                                    response.setContentType("text/css");
+                                    PrintWriter writer = response.getWriter();
+                                    writer.write(bridge.style(content));
+                                    writer.flush();
                                 } else {
                                     // if it's anything else then stream it
                                     // back... consider stylesheets and
@@ -308,7 +385,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                 }
                             } else if (statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
                                 fetch(request, response, bridgeRequest,
-                                        perPortletMemento, url);
+                                        memento, perPortletMemento, url);
                             } else {
                                 // if there is a problem with the status code
                                 // then return that error back
@@ -336,13 +413,16 @@ public class PortletBridgeServlet extends HttpServlet {
 
     protected void copyRequestHeaders(HttpServletRequest request,
             HttpMethodBase method) {
+
         Enumeration properties = request.getHeaderNames();
         while (properties.hasMoreElements()) {
             String propertyName = (String) properties.nextElement();
-            Enumeration values = request.getHeaders(propertyName);
-            while (values.hasMoreElements()) {
-                String property = (String) values.nextElement();
-                method.setRequestHeader(propertyName, property);
+            if (!ignoreRequestHeaders.contains(propertyName.toLowerCase())) {
+                Enumeration values = request.getHeaders(propertyName);
+                while (values.hasMoreElements()) {
+                    String property = (String) values.nextElement();
+                    method.setRequestHeader(propertyName, property);
+                }
             }
         }
 
