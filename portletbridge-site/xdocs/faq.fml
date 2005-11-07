@@ -130,8 +130,16 @@
         How do I deploy into Gridsphere?
       </question>
       <answer>
-        <p>Deploying into Gridsphere required some work which you can read 
-        	about <a href="http://www.gridsphere.org/gridsphere/wp-4/Slides/gridsphere/pdf/JSRPortletDeployment.pdf">here</a></p>
+        <p>
+        In order to deploy into Gridsphere you will need to:
+        <ul>
+        	<li>Download Gridsphere portal 2.1.1</li>
+        	<li>Put an expanded copy of PortletBridge portlet into your Gridsphere tomcat webapps directory</li>
+        	<li>Put an empty file called "portletbridge-portlet" into $CATALINA_HOME/webapps/gridsphere/WEB-INF/CustomPortal/portlets</li>
+        	<li>Copy gridsphere-ui-tags-2.1.jar from $CATALINA_HOME/webapps/gridsphere/WEB-INF/lib to $CATALINA_HOME/webapps/portletbridge-portlet/WEB-INF/lib</li>
+        	<li>Use &lt;portlet-class&gt;portletbridge-portlet#PortletBridgePortlet&lt;/portlet-class&gt; when placing the portlet into a layout</li>
+        </ul>
+        </p>
       </answer>
     </faq>
   </part> 
@@ -161,6 +169,17 @@
       </question>
       <answer>
         Remove commons logging from the portletbridge-portlet.war file.
+      </answer>
+    </faq>
+    <faq id="https">
+      <question>
+        How do I get https to work for untrusted certificates?
+      </question>
+      <answer>
+        The JVM won't trust self signed certificates or certificates signed by an untrusted publisher.
+        You will need to install them into your keystore. Follow the instructions found here
+        http://java.sun.com/j2ee/1.4/docs/tutorial/doc/Security6.html to install your 
+        certificate into your JVM.
       </answer>
     </faq>
   </part> 
