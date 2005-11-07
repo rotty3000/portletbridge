@@ -36,9 +36,10 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
     private Map idToRequests = new HashMap();
     private Map dataToRequests = new HashMap();
     private Map mementos = new HashMap();
+    private final String idParamKey;
     
-    public DefaultPortletBridgeMemento() {
-        super();
+    public DefaultPortletBridgeMemento(String idParamKey) {
+        this.idParamKey = idParamKey;
     }
 
     /* (non-Javadoc)
@@ -68,7 +69,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
         if(request != null) {
             return request;
         } else {
-            pageUrl.setParameter("id", id);
+            pageUrl.setParameter(idParamKey, id);
             DefaultBridgeRequest bridgeRequest = new DefaultBridgeRequest(id, namespace, pageUrl.toString(), url);
             idToRequests.put(id, bridgeRequest);
             dataToRequests.put(key, bridgeRequest);

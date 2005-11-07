@@ -68,6 +68,11 @@ limitations under the License.
 			<value>pbhs</value>
 		</init-param>
 
+        <init-param>
+			<name>idParamKey</name>
+			<value>id</value>
+		</init-param>
+
         <expiration-cache>-1</expiration-cache>
 		        
         <supports>

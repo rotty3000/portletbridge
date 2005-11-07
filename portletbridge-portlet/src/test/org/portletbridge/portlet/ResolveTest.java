@@ -30,6 +30,13 @@ public class ResolveTest extends TestCase {
         URI resolvedUri = uri.resolve("/nscorp/application?pageid=Employees&category=Employees&title=Employee+Resource+Center");
         assertNotNull(resolvedUri);
     }
+    
+    public void testYourResolve() throws Throwable {
+        URI uri = new URI("http://emu.atldc.nscorp.com:8011/EOLStoreWeb/init.do");
+        URI resolvedUri = uri.resolve("getItemList.do?searchResults=A");
+        assertNotNull(resolvedUri);
+        assertEquals("http://emu.atldc.nscorp.com:8011/EOLStoreWeb/getItemList.do?searchResults=A", resolvedUri.toString());
+    }
 
     protected void setUp() throws Exception {
         super.setUp();

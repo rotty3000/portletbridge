@@ -175,6 +175,7 @@ public class PortletBridgePortlet extends GenericPortlet {
             throw new PortletException(resourceBundle
                     .getString("error.parserClassName"));
         }
+        String idParamKey = config.getInitParameter("idParamKey");
         // setup parser
         BridgeTransformer transformer = null;
         try {
@@ -199,6 +200,9 @@ public class PortletBridgePortlet extends GenericPortlet {
         bridgeViewPortlet.setHttpClientTemplate(new DefaultHttpClientTemplate());
         bridgeViewPortlet.setTransformer(transformer);
         bridgeViewPortlet.setMementoSessionKey(mementoSessionKey);
+        if(idParamKey != null) {
+            bridgeViewPortlet.setIdParamKey(idParamKey);
+        }
         return bridgeViewPortlet;
     }
     
