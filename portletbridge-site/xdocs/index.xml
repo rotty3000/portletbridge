@@ -32,6 +32,13 @@
 <th>Date</th><th>News</th>
 </tr>
 <tr>
+<td>November 2005</td>
+<td>
+<a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 1.1-beta2.1 has been released. 
+This release allows request parameter id's to be configured and is compiled with Java 1.4.2.
+</td>
+</tr>
+<tr>
 <td>October 2005</td>
 <td>
 <a href="/multiproject/portletbridge-portlet/index.html">PortletBridge Portlet</a> 1.1-beta2 has been released. 
