@@ -5,7 +5,19 @@
   </properties>
   <body>
 
-    <release version="1.1-beta2" date="TBD">
+    <release version="1.1-beta2.1" date="November 2005">
+
+      <action dev="dkfn" type="update">
+        Compiled with Java 1.4.2
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Configurable "id" request parameter
+      </action>
+
+	</release>
+
+    <release version="1.1-beta2" date="October 2005">
 
       <action dev="dkfn" type="update">
         Upgrade to Commons HttpClient rc4
