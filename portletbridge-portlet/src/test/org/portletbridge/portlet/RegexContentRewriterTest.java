@@ -26,8 +26,8 @@ public class RegexContentRewriterTest extends TestCase {
                 "(?:url\\((?:'|\")?(.*?)(?:'|\")?\\))|(?:@import\\s+[^url](?:'|\")?(.*?)(?:'|\")|;|\\s+|$)");
         String string = "" + "@import 'one';\n" + "@import url('two');\n"
                 + "url('three');\n";
-        String result = rewriter.rewrite(string, new LinkRewriter() {
-            public String link(String link) {
+        String result = rewriter.rewrite(null, string, new LinkRewriter() {
+            public String link(String baseUrl, String link) {
                 return "MATCHED_URL(" + link + ")";
             }
         });
@@ -45,8 +45,8 @@ public class RegexContentRewriterTest extends TestCase {
         RegexContentRewriter rewriter = new RegexContentRewriter(
                 "open\\('([^']*)'|open\\(\"([^\"]*)\"");
         String string = "open('http://www.blah.com')";
-        String result = rewriter.rewrite(string, new LinkRewriter() {
-            public String link(String link) {
+        String result = rewriter.rewrite(null, string, new LinkRewriter() {
+            public String link(String baseUrl, String link) {
                 return "MATCHED_URL(" + link + ")";
             }
         });

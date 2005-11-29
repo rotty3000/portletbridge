@@ -55,6 +55,8 @@ public class BridgeViewPortlet extends GenericPortlet {
     private BridgeTransformer transformer = null;
     
     private String idParamKey = "id";
+    
+    private BridgeAuthenticator bridgeAuthenticator = null;
 
     /**
      * Does nothing. All requests are passed through the portlet bridge servlet
@@ -90,13 +92,13 @@ public class BridgeViewPortlet extends GenericPortlet {
                     .getAttribute(mementoSessionKey,
                             PortletSession.APPLICATION_SCOPE);
             if (tempMemento == null) {
-                tempMemento = new DefaultPortletBridgeMemento("idParamKey");
+                tempMemento = new DefaultPortletBridgeMemento(idParamKey, bridgeAuthenticator);
                 session.setAttribute(mementoSessionKey, tempMemento, PortletSession.APPLICATION_SCOPE);
             }
             final PortletBridgeMemento memento = tempMemento;
             final PerPortletMemento perPortletMemento = memento
                     .getPerPortletMemento(portletId);
-            perPortletMemento.setPreferences(preferences);
+            perPortletMemento.setPreferences(request);
             String urlId = request.getParameter(idParamKey);
 
             
@@ -179,5 +181,9 @@ public class BridgeViewPortlet extends GenericPortlet {
 
     public void setIdParamKey(String idParamKey) {
         this.idParamKey = idParamKey;
+    }
+
+    public void setBridgeAuthenticator(BridgeAuthenticator bridgeAuthenticator) {
+        this.bridgeAuthenticator = bridgeAuthenticator;
     }
 }

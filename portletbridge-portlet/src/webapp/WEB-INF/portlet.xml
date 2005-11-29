@@ -72,6 +72,11 @@ limitations under the License.
 			<name>idParamKey</name>
 			<value>id</value>
 		</init-param>
+		
+		<init-param>
+			<name>authenticatorClassName</name>
+			<value>org.portletbridge.portlet.DefaultBridgeAuthenticator</value>
+		</init-param>
 
         <expiration-cache>-1</expiration-cache>
 		        

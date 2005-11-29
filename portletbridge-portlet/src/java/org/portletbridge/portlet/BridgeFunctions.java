@@ -16,6 +16,7 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 import javax.portlet.RenderRequest;
@@ -28,6 +29,9 @@ import javax.portlet.RenderResponse;
  * @author rickard
  */
 public class BridgeFunctions implements LinkRewriter {
+    
+    private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+    .getLog(BridgeFunctions.class);
 
     private final URI currentUrl;
 
@@ -64,20 +68,27 @@ public class BridgeFunctions implements LinkRewriter {
         this.scope = perPortletMemento.getScope();
     }
 
-    public String link(String link) {
+    public String link(String baseUrl, String link) {
         if (link.startsWith("javascript:")) {
-            return script(link);
+            return script(baseUrl, link);
         } else if (link.equals("#")) {
             return link;
         } else {
-            return rewrite(link, true);
+            return rewrite(baseUrl, link, true);
         }
     }
 
-    private String rewrite(String link, boolean checkScope) {
+    private String rewrite(String baseUrl, String link, boolean checkScope) {
         // replacing spaces in the url with +'s because... well, there shouldn't be spaces.
         String trim = link.trim().replace(' ', '+');
-        URI url = currentUrl.resolve(trim);
+        URI url = null;
+        if(baseUrl != null && baseUrl.trim().length() > 0) {
+            // consider caching this
+            URI baseUri = currentUrl.resolve(baseUrl);
+            url = baseUri.resolve(trim);
+        } else {
+            url = currentUrl.resolve(trim);
+        }
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
                 BridgeRequest bridgeRequest = memento.createBridgeRequest(
@@ -109,16 +120,16 @@ public class BridgeFunctions implements LinkRewriter {
      * 
      * @see org.portletbridge.StyleSheetRewriter#rewrite(java.lang.String)
      */
-    public String style(String css) {
-        return cssRewriter.rewrite(css, this);
+    public String style(String baseUrl, String css) {
+        return cssRewriter.rewrite(baseUrl, css, this);
     }
 
     private boolean shouldRewrite(URI uri) {
         return scope.matcher(uri.toString()).matches();
     }
 
-    public String script(String script) {
-        return javascriptRewriter.rewrite(script, this);
+    public String script(String baseUrl, String script) {
+        return javascriptRewriter.rewrite(baseUrl, script, this);
     }
 
     public URI getCurrentUrl() {

@@ -37,9 +37,11 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
     private Map dataToRequests = new HashMap();
     private Map mementos = new HashMap();
     private final String idParamKey;
+    private final BridgeAuthenticator bridgeAuthenticator;
     
-    public DefaultPortletBridgeMemento(String idParamKey) {
+    public DefaultPortletBridgeMemento(String idParamKey, BridgeAuthenticator bridgeAuthenticator) {
         this.idParamKey = idParamKey;
+        this.bridgeAuthenticator = bridgeAuthenticator;
     }
 
     /* (non-Javadoc)
@@ -55,7 +57,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
     public PerPortletMemento getPerPortletMemento(String portletId) {
         PerPortletMemento memento = (PerPortletMemento) mementos.get(portletId);
         if(memento == null) {
-            memento = new DefaultPerPortletMemento();
+            memento = new DefaultPerPortletMemento(bridgeAuthenticator);
             mementos.put(portletId, memento);
         }
         return memento;

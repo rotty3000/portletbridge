@@ -153,6 +153,8 @@ public class PortletBridgePortlet extends GenericPortlet {
     /**
      * @return
      * @throws PortletException
+     * @throws IllegalAccessException 
+     * @throws  
      */
     protected BridgeViewPortlet createViewPortlet(ResourceBundle resourceBundle, TemplateFactory templateFactory) throws PortletException {
         PortletConfig config = this.getPortletConfig();
@@ -174,6 +176,29 @@ public class PortletBridgePortlet extends GenericPortlet {
         if (parserClassName == null) {
             throw new PortletException(resourceBundle
                     .getString("error.parserClassName"));
+        }
+        // get authenticatorClassName
+        String authenticatorClassName = config.getInitParameter("authenticatorClassName");
+        if (authenticatorClassName == null) {
+            throw new PortletException(resourceBundle
+                    .getString("error.authenticatorClassName"));
+        }
+        BridgeAuthenticator bridgeAuthenticator = null;
+        try {
+            Class authenticatorClass = Class.forName(authenticatorClassName);
+            bridgeAuthenticator = (BridgeAuthenticator) authenticatorClass.newInstance();
+        } catch (ClassNotFoundException e) {
+            log.warn(e, e);
+            throw new PortletException(resourceBundle
+                    .getString("error.authenticator"));
+        } catch (InstantiationException e) {
+            log.warn(e, e);
+            throw new PortletException(resourceBundle
+                    .getString("error.authenticator"));
+        } catch (IllegalAccessException e) {
+            log.warn(e, e);
+            throw new PortletException(resourceBundle
+                    .getString("error.authenticator"));
         }
         String idParamKey = config.getInitParameter("idParamKey");
         // setup parser
@@ -200,6 +225,7 @@ public class PortletBridgePortlet extends GenericPortlet {
         bridgeViewPortlet.setHttpClientTemplate(new DefaultHttpClientTemplate());
         bridgeViewPortlet.setTransformer(transformer);
         bridgeViewPortlet.setMementoSessionKey(mementoSessionKey);
+        bridgeViewPortlet.setBridgeAuthenticator(bridgeAuthenticator);
         if(idParamKey != null) {
             bridgeViewPortlet.setIdParamKey(idParamKey);
         }

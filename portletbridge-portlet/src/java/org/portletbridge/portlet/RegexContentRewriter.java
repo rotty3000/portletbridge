@@ -12,7 +12,7 @@ public class RegexContentRewriter implements ContentRewriter {
                 .compile(pattern);
     }
     
-    public String rewrite(String content, LinkRewriter linkRewriter) {
+    public String rewrite(String baseUrl, String content, LinkRewriter linkRewriter) {
         Matcher matcher = urlPattern.matcher(content);
         StringBuffer sb = new StringBuffer();
         while(matcher.find()) {
@@ -21,7 +21,7 @@ public class RegexContentRewriter implements ContentRewriter {
                 String before = content.substring(matcher.start(), matcher.start(group));
                 String url = matcher.group(group);
                 String after = content.substring(matcher.end(group), matcher.end());
-                matcher.appendReplacement(sb, before + linkRewriter.link(url) + after);
+                matcher.appendReplacement(sb, before + linkRewriter.link(baseUrl, url) + after);
             }
         }
         matcher.appendTail(sb);

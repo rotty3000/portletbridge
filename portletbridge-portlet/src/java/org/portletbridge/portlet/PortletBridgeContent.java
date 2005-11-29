@@ -15,12 +15,13 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.Serializable;
 import java.net.URI;
 
 /**
  * @author jmccrindle
  */
-public class PortletBridgeContent {
+public class PortletBridgeContent implements Serializable {
     
     private URI url = null;
     private String content = null;

@@ -23,7 +23,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
 
+import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -57,11 +59,13 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
 
     private Map bridgeContent = new HashMap();
 
+    private final BridgeAuthenticator bridgeAuthenticator;
+
     /**
      *  
      */
-    public DefaultPerPortletMemento() {
-        super();
+    public DefaultPerPortletMemento(BridgeAuthenticator bridgeAuthenticator) {
+        this.bridgeAuthenticator = bridgeAuthenticator;
     }
 
     /*
@@ -96,8 +100,9 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
      * 
      * @see org.portletbridge.portlet.PerPortletMemento#setPreferences(javax.portlet.PortletPreferences)
      */
-    public void setPreferences(PortletPreferences preferences)
+    public void setPreferences(RenderRequest request)
             throws ResourceException {
+        PortletPreferences preferences = request.getPreferences();
         String initUrlPreference = preferences.getValue("initUrl", null);
         if (initUrlPreference == null || initUrlPreference.trim().length() == 0) {
             throw new ResourceException("error.initurl",
@@ -108,16 +113,6 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
         } catch (URISyntaxException e) {
             throw new ResourceException("error.initurl", e.getMessage(), e);
         }
-        String configAuthentication = preferences.getValue("authentication",
-                "none");
-        String configAuthenticationUsername = preferences.getValue(
-                "authenticationUsername", null);
-        String configAuthenticationPassword = preferences.getValue(
-                "authenticationPassword", null);
-        String configAuthenticationHost = preferences.getValue(
-                "authenticationHost", null);
-        String configAuthenticationDomain = preferences.getValue(
-                "authenticationDomain", null);
 
         String configProxyAuthentication = preferences.getValue(
                 "proxyAuthentication", "none");
@@ -154,25 +149,15 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
             throw new PortletBridgeException("error.configProxyEnabled");
         }
 
-        if (configProxyAuthentication != null
-                && configAuthentication.trim().length() > 0) {
-            if ("ntlm".equalsIgnoreCase(configProxyAuthentication)) {
-                state.setCredentials(AuthScope.ANY, new NTCredentials(
-                        configAuthenticationUsername,
-                        configAuthenticationPassword, configAuthenticationHost,
-                        configAuthenticationDomain));
-            } else if ("basic".equalsIgnoreCase(configProxyAuthentication)) {
-                state.setProxyCredentials(AuthScope.ANY,
-                        new UsernamePasswordCredentials(
-                                configProxyAuthenticationUsername,
-                                configProxyAuthenticationPassword));
-            } else if ("none".equalsIgnoreCase(configAuthentication)) {
-                state.clearProxyCredentials();
+        if(bridgeAuthenticator != null) {
+            Credentials credentials = bridgeAuthenticator.getCredentials(request);
+            if(credentials != null) {
+                state.setCredentials(AuthScope.ANY, credentials);
             } else {
-                throw new PortletBridgeException("error.configAuthentication");
+                state.clearCredentials();
             }
         }
-
+        
         proxyHost = preferences.getValue("proxyHost", System.getProperty("http.proxyHost"));
         String proxyPortPreference = preferences.getValue("proxyPort", System.getProperty("http.proxyPort"));
         if(proxyPortPreference != null) {

@@ -233,7 +233,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                                                     .getId()));
                                     response.setContentType("text/javascript");
                                     PrintWriter writer = response.getWriter();
-                                    writer.write(bridge.script(content));
+                                    writer.write(bridge.script(null, content));
                                     writer.flush();
                                 } else if (responseHeader != null
                                         && responseHeader.getValue()
@@ -258,7 +258,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                                                     .getId()));
                                     response.setContentType("text/css");
                                     PrintWriter writer = response.getWriter();
-                                    writer.write(bridge.style(content));
+                                    writer.write(bridge.style(null, content));
                                     writer.flush();
                                 } else {
                                     // if it's anything else then stream it

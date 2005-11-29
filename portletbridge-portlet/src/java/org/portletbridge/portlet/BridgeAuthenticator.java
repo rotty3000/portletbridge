@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright 2001-2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,11 @@
  */
 package org.portletbridge.portlet;
 
-public interface LinkRewriter {
-    String link(String baseUrl, String link);
+import javax.portlet.RenderRequest;
+
+import org.apache.commons.httpclient.Credentials;
+import org.portletbridge.ResourceException;
+
+public interface BridgeAuthenticator {
+    Credentials getCredentials(RenderRequest request) throws ResourceException;
 }
