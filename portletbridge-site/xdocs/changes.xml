@@ -5,6 +5,30 @@
   </properties>
   <body>
 
+    <release version="1.1-beta4" date="November 2005">
+
+      <action dev="dkfn" type="update">
+        Compiled with Java 1.4.2
+      </action>              
+      
+      <action dev="dkfn" type="update">
+        Configurable "id" request parameter fix
+      </action>
+
+      <action dev="dkfn" type="update">
+        Base URL support
+      </action>
+
+      <action dev="dkfn" type="update">
+        CSS Link fix
+      </action>
+
+      <action dev="dkfn" type="update">
+        Authentication bug fix
+      </action>
+
+	</release>
+
     <release version="1.1-beta3" date="November 2005">
 
       <action dev="dkfn" type="update">
