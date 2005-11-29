@@ -8,10 +8,6 @@
     <release version="1.1-beta4" date="November 2005">
 
       <action dev="dkfn" type="update">
-        Compiled with Java 1.4.2
-      </action>              
-      
-      <action dev="dkfn" type="update">
         Configurable "id" request parameter fix
       </action>
 
@@ -25,6 +21,10 @@
 
       <action dev="dkfn" type="update">
         Authentication bug fix
+      </action>
+
+      <action dev="dkfn" type="update">
+        Configurable BridgeAuthenticator
       </action>
 
 	</release>
