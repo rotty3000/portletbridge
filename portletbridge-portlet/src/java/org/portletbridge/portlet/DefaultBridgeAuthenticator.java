@@ -15,6 +15,8 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.Serializable;
+
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 
@@ -24,7 +26,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.portletbridge.PortletBridgeException;
 import org.portletbridge.ResourceException;
 
-public class DefaultBridgeAuthenticator implements BridgeAuthenticator {
+public class DefaultBridgeAuthenticator implements BridgeAuthenticator, Serializable {
 
     public Credentials getCredentials(RenderRequest request)
             throws ResourceException {

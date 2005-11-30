@@ -49,7 +49,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
 
     private URI initUrl;
 
-    private HttpState state = new HttpState();
+    private SerializeableHttpState state = new SerializeableHttpState();
 
     private String proxyHost;
 
@@ -73,7 +73,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
      * 
      * @see org.portletbridge.portlet.PerPortletMemento#getHttpState()
      */
-    public HttpState getHttpState() {
+    public SerializeableHttpState getHttpState() {
         return state;
     }
 

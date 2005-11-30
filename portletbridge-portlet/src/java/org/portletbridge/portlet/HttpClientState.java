@@ -15,13 +15,13 @@
  */
 package org.portletbridge.portlet;
 
-import org.apache.commons.httpclient.HttpState;
+import java.io.Serializable;
 
 /**
  * @author JMcCrindle
  */
-public interface HttpClientState {
-    public HttpState getHttpState();
+public interface HttpClientState extends Serializable {
+    public SerializeableHttpState getHttpState();
     public String getProxyHost();
     public int getProxyPort();
 }
