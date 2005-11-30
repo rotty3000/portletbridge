@@ -31,11 +31,11 @@
 <li>Performance analysis</li>
 <li>More Javadocs</li>
 <li>Validation on Edit</li>
-<li>Rewrite external stylesheets and javascript</li>
-<li>Try out Gridsphere and eXo</li>
+<li>Try out eXo</li>
 <li>HttpClient timeout (and other properties?)</li>
-<li>setTitle</li>
 <li>Object pooling</li>
+<li>XHTML</li>
+<li>Separate builds for separate portals</li>
 </ul>
 </p>
 </section>

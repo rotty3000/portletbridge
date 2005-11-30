@@ -46,6 +46,7 @@ content from a downstream web site. Currently, the portlet supports:
 <li>Tested in Pluto 1.0.1 rc4</li>
 <li>Tested in JBoss Portal 2.0</li>
 <li>Tested in LifeRay Professional 3.6.0</li>
+<li>Tested in Gridsphere Portal 2.1.1</li>
 </ul>
 </p>
 <p>
