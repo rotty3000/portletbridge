@@ -17,6 +17,7 @@ package org.portletbridge.portlet;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Enumeration;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
@@ -207,6 +208,14 @@ public class PortletBridgePortlet extends GenericPortlet {
             String cssRegex = config.getInitParameter("cssRegex");
             String javascriptRegex = config.getInitParameter("jsRegex");
             XMLReader parser = XMLReaderFactory.createXMLReader(parserClassName);
+            for(Enumeration names = config.getInitParameterNames(); names.hasMoreElements(); ) {
+                String name = (String) names.nextElement();
+                if(name.startsWith("parserFeature-")) {
+                    parser.setFeature(name.substring("parserFeature-".length()), "true".equalsIgnoreCase(config.getInitParameter(name)));
+                } else if (name.startsWith("parserProperty-")) {
+                    parser.setProperty(name.substring("parserProperty-".length()), config.getInitParameter(name));
+                }
+            }
             IdGenerator idGenerator = DefaultIdGenerator.getInstance();
             ContentRewriter javascriptRewriter = new RegexContentRewriter(javascriptRegex);
             ContentRewriter cssRewriter = new RegexContentRewriter(cssRegex);

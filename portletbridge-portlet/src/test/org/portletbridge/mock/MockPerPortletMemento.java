@@ -19,11 +19,13 @@ import java.net.URI;
 import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
 
 import org.apache.commons.httpclient.HttpState;
 import org.portletbridge.ResourceException;
 import org.portletbridge.portlet.PerPortletMemento;
 import org.portletbridge.portlet.PortletBridgeContent;
+import org.portletbridge.portlet.SerializeableHttpState;
 
 /**
  * @author JMcCrindle
@@ -63,14 +65,6 @@ public class MockPerPortletMemento implements PerPortletMemento {
     }
 
     /* (non-Javadoc)
-     * @see org.portletbridge.portlet.HttpClientState#getHttpState()
-     */
-    public HttpState getHttpState() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
      * @see org.portletbridge.portlet.HttpClientState#getProxyHost()
      */
     public String getProxyHost() {
@@ -98,6 +92,16 @@ public class MockPerPortletMemento implements PerPortletMemento {
      * @see org.portletbridge.portlet.PerPortletMemento#dequeueContent(java.lang.String)
      */
     public PortletBridgeContent dequeueContent(String bridgeRequestId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setPreferences(RenderRequest request) throws ResourceException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public SerializeableHttpState getHttpState() {
         // TODO Auto-generated method stub
         return null;
     }

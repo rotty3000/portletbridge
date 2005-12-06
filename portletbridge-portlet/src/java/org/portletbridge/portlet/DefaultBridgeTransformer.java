@@ -81,7 +81,13 @@ public class DefaultBridgeTransformer implements
         try {
             PortletPreferences preferences = request.getPreferences();
             String stylesheet = preferences.getValue("stylesheet", null);
-            Templates templates = templateFactory.getTemplatesFromString(stylesheet);
+            String stylesheetUrl = preferences.getValue("stylesheetUrl", null);
+            Templates templates = null;
+            if(stylesheetUrl != null) {
+                templates = templateFactory.getTemplatesFromUrl(stylesheetUrl);
+            } else {
+                templates = templateFactory.getTemplatesFromString(stylesheet);
+            }
             SerializerFactory factory = SerializerFactory
                     .getSerializerFactory("html");
             OutputFormat outputFormat = new OutputFormat();

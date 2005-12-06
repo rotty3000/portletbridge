@@ -131,7 +131,7 @@
     <dependency>
       <groupId>nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
-      <version>0.9.4</version>
+      <version>0.9.5</version>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>      

@@ -83,19 +83,27 @@ public class DefaultTemplateFactory implements TemplateFactory {
         Templates result = null;
         TransformerFactory factory = TransformerFactory.newInstance();
         try {
-            URL resourceUrl = null;
-            if (systemId.startsWith("classpath:")) {
-                String substring = systemId.substring(10);
-                resourceUrl = this.getClass().getResource(substring);
+            // this means that the templatecache is going to be a mix
+            // of md5 checksums and urls
+            Templates templates = (Templates) templateCache.get(systemId);
+            if(templates != null) {
+                return templates;
             } else {
-                resourceUrl = new URL(systemId);
+                URL resourceUrl = null;
+                if (systemId.startsWith("classpath:")) {
+                    String substring = systemId.substring(10);
+                    resourceUrl = this.getClass().getResource(substring);
+                } else {
+                    resourceUrl = new URL(systemId);
+                }
+                if (resourceUrl == null) {
+                    throw new ResourceException("error.stylesheet.notfound",
+                            systemId);
+                }
+                result = factory.newTemplates(new StreamSource(resourceUrl
+                        .toExternalForm()));
+                templateCache.put(systemId, result);
             }
-            if (resourceUrl == null) {
-                throw new ResourceException("error.stylesheet.notfound",
-                        systemId);
-            }
-            result = factory.newTemplates(new StreamSource(resourceUrl
-                    .toExternalForm()));
         } catch (TransformerConfigurationException e) {
             throw new ResourceException("error.transformer", e.getMessage(), e);
         } catch (MalformedURLException e) {
