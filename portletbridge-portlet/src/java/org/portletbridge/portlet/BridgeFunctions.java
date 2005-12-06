@@ -65,7 +65,11 @@ public class BridgeFunctions implements LinkRewriter {
         this.currentUrl = currentUrl;
         this.request = request;
         this.response = response;
-        this.scope = perPortletMemento.getScope();
+        if(perPortletMemento != null) {
+            this.scope = perPortletMemento.getScope();
+        } else {
+            this.scope = Pattern.compile(".*");
+        }
     }
 
     public String link(String baseUrl, String link) {
