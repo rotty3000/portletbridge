@@ -54,6 +54,11 @@ limitations under the License.
 		</init-param>
 		        
         <init-param>
+			<name>stylesheetUrl</name>
+			<value>classpath:/org/portletbridge/xsl/default.xsl</value>
+		</init-param>
+		        
+        <init-param>
 			<name>cssRegex</name>
 			<value>(?:url\((?:'|")?(.*?)(?:'|")?\))|(?:@import\s+[^url](?:'|")?(.*?)(?:'|")|;|\s+|$)</value>
 		</init-param>
