@@ -50,6 +50,7 @@ to alter how the portlet renders downstream sites.
       omit-xml-declaration="yes"/>
 
    <xsl:param name="bridge"/>
+   <xsl:variable name="base" select="/HTML/HEAD/BASE/@href"/>
 
    <!-- Fetch some info from head, and all of body -->
    <xsl:template match="/HTML">
@@ -59,43 +60,64 @@ to alter how the portlet renders downstream sites.
 
    <xsl:template match="/HTML/HEAD">
       <xsl:apply-templates select="STYLE"/>
-      <xsl:apply-templates select="LINK[@rel='stylesheet']"/>
+      <xsl:apply-templates select="LINK[bridge:equalsIgnoreCase($bridge, @rel, 'stylesheet') and (not(@media) or @media != 'print')]"/>
       <xsl:apply-templates select="SCRIPT"/>
       <xsl:apply-templates select="TITLE"/>
    </xsl:template>
 
    <xsl:template match="/HTML/HEAD/TITLE">
-      <xsl:value-of select="bridge:setTitle(bridge:getResponse($bridge), text())"/>
+      <xsl:value-of select="bridge:setTitle($bridge, text())"/>
    </xsl:template>
 
    <xsl:template match="/HTML/BODY">
-      <xsl:apply-templates select="node()"/>
+      <DIV>
+	      <xsl:attribute name="class">
+	         <xsl:value-of select="@class"/>
+	      </xsl:attribute>
+	      <SCRIPT>
+	          <xsl:value-of select="@onload"/>
+	      </SCRIPT>
+	      <xsl:apply-templates select="node()"/>
+      </DIV>
    </xsl:template>
 
    <!-- Rewrite links -->
    <xsl:template match="A/@href">
       <xsl:attribute name="href">
-         <xsl:value-of select="bridge:link($bridge, .)"/>
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <xsl:template match="A/@onclick">
       <xsl:attribute name="onclick">
-         <xsl:value-of select="bridge:script($bridge, .)"/>
+         <xsl:value-of select="bridge:script($bridge, $base, .)"/>
+      </xsl:attribute>
+   </xsl:template>
+
+   <!-- Rewrite script links -->
+   <xsl:template match="SCRIPT/@src">
+      <xsl:attribute name="src">
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <!-- Rewrite image references -->
    <xsl:template match="IMG/@src">
       <xsl:attribute name="src">
-         <xsl:value-of select="bridge:link($bridge, .)"/>
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
+      </xsl:attribute>
+   </xsl:template>
+
+   <xsl:template match="INPUT/@src">
+      <xsl:attribute name="src">
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
       </xsl:attribute>
    </xsl:template>
 
    <!-- Rewrite imagemap references -->
    <xsl:template match="MAP/AREA/@href">
       <xsl:attribute name="href">
-         <xsl:value-of select="bridge:link($bridge, .)"/>
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
       </xsl:attribute>
    </xsl:template>
 
@@ -103,9 +125,14 @@ to alter how the portlet renders downstream sites.
    <xsl:template match="/HTML/HEAD/STYLE">
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
-
-         <xsl:value-of select="bridge:style($bridge, .)"/>
+         <xsl:value-of select="bridge:style($bridge, $base, .)"/>
       </xsl:copy>
+   </xsl:template>
+   
+   <xsl:template match="@style">
+      <xsl:attribute name="style">
+         <xsl:value-of select="bridge:style($bridge, $base, .)"/>
+      </xsl:attribute>
    </xsl:template>
 
    <!-- Copy script tags from head -->
@@ -113,25 +140,24 @@ to alter how the portlet renders downstream sites.
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
          <xsl:attribute name="src">
-            <xsl:value-of select="bridge:link($bridge, @src)"/>
+            <xsl:value-of select="bridge:link($bridge, $base, @src)"/>
          </xsl:attribute>
       </xsl:copy>
    </xsl:template>
 
    <xsl:template match="/HTML/HEAD/SCRIPT/text()">
-      <xsl:value-of select="bridge:script($bridge, .)"/>
+      <xsl:value-of select="bridge:script($bridge, $base, .)"/>
    </xsl:template>
 
    <!-- Convert link tags in head to style tags -->
    <xsl:template match="/HTML/HEAD/LINK">
-      <style type="text/css">@import "
-         <xsl:value-of select="bridge:link($bridge, @href)"/>";
+      <style type="text/css">@import "<xsl:value-of select="bridge:link($bridge, $base, @href)"/>";
       </style>
    </xsl:template>
 
    <xsl:template match="FORM/@action">
       <xsl:attribute name="action">
-         <xsl:value-of select="bridge:link($bridge, .)"/>
+         <xsl:value-of select="bridge:link($bridge, $base, .)"/>
       </xsl:attribute>
    </xsl:template>
 

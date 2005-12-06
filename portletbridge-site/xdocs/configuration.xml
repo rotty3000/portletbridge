@@ -28,7 +28,7 @@
 <p>
 The PortletBridge portlet should run without any specific configuration. All you
 need to do is deploy it into your portal and then edit the preferences. It is recommended
-that you set the "secureEdit" preference to "true" in a live deployment. Please note,
+that you remove the edit mode in a live deployment. Please note,
 you will have to either map the "portletbridge" role to an appropriate local role (for Liferay,
 the liferay.xml descriptor maps it to "Administrator") or set up a "portletbridge" role
 (for JBoss 2.0).
@@ -42,6 +42,10 @@ Init Params:
 <tr><td>mementoSessionKey</td><td>mementoSessionKey</td><td>Yes</td></tr>
 <tr><td>servletName</td><td>pbhs</td><td>Yes</td></tr>
 <tr><td>parserClassName</td><td>org.cyberneko.html.parsers.SAXParser</td><td>Yes</td></tr>
+<tr><td>authenticatorClassName</td><td>The classname of the bridge authenticator.</td><td>Yes</td></tr>
+<tr><td>editStylesheet</td><td>URL to the edit stylesheet</td><td>Yes</td></tr>
+<tr><td>helpStylesheet</td><td>URL to the help stylesheet</td><td>Yes</td></tr>
+<tr><td>errorStylesheet</td><td>URL to the error stylesheet</td><td>Yes</td></tr>
 </table>
 </p>
 <p>
@@ -63,7 +67,8 @@ Preferences:
 <tr><td>proxyAuthenticationPassword</td><td>Proxy Password</td><td>No</td><td>No</td></tr>
 <tr><td>proxyAuthenticationHost</td><td>Proxy Authentication Host (for ntlm)</td><td>No</td><td>No</td></tr>
 <tr><td>proxyAuthenticationDomain</td><td>Proxy Authentication Domain (for ntlm)</td><td>No</td><td>No</td></tr>
-<tr><td>stylesheet</td><td>classpath:/org/portletbridge/xsl/portletbridge.xsl</td><td>No</td><td>No</td></tr>
+<tr><td>stylesheet</td><td>The XSLT to be applied to the stream</td><td>No</td><td>No</td></tr>
+<tr><td>stylesheetUrl</td><td>A url to the stylesheet, preferred to the stylesheet preference e.g. classpath:/org/portletbridge/xsl/portletbridge.xsl</td><td>No</td><td>No</td></tr>
 </table>
 </p>
 </section>
@@ -74,9 +79,6 @@ Init Params:
 <tr><th>Name</th><th>Description</th><th>Required</th></tr>
 <tr><td>mementoSessionKey</td><td>The key to store portletbridge user data under</td><td>Yes</td></tr>
 <tr><td>parserClassName</td><td>The name of the parser class to use</td><td>Yes</td></tr>
-<tr><td>editStylesheet</td><td>URL to the edit stylesheet</td><td>Yes</td></tr>
-<tr><td>helpStylesheet</td><td>URL to the help stylesheet</td><td>Yes</td></tr>
-<tr><td>errorStylesheet</td><td>URL to the error stylesheet</td><td>Yes</td></tr>
 <tr><td>servletName</td><td>The name the servlet is under</td><td>Yes</td></tr>
 </table>
 </p>

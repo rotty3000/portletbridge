@@ -137,6 +137,22 @@
         	<li>Put an expanded copy of PortletBridge portlet into your Gridsphere tomcat webapps directory</li>
         	<li>Put an empty file called "portletbridge-portlet" into $CATALINA_HOME/webapps/gridsphere/WEB-INF/CustomPortal/portlets</li>
         	<li>Copy gridsphere-ui-tags-2.1.jar from $CATALINA_HOME/webapps/gridsphere/WEB-INF/lib to $CATALINA_HOME/webapps/portletbridge-portlet/WEB-INF/lib</li>
+                <li>
+                  Add the following to $CATALINA_HOME/webapps/portletbridge-portlet/WEB-INF/web.xml:
+<source>
+ <![CDATA[
+   <servlet>
+      <servlet-name>PortletServlet</servlet-name>
+      <servlet-class>org.gridlab.gridsphere.provider.portlet.jsr.PortletServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>PortletServlet</servlet-name>
+      <url-pattern>/jsr/portletbridge-portlet</url-pattern>
+    </servlet-mapping>
+]]>
+</source>
+                </li>
         	<li>Use &lt;portlet-class&gt;portletbridge-portlet#PortletBridgePortlet&lt;/portlet-class&gt; when placing the portlet into a layout</li>
         </ul>
         </p>
@@ -180,6 +196,18 @@
         You will need to install them into your keystore. Follow the instructions found here
         http://java.sun.com/j2ee/1.4/docs/tutorial/doc/Security6.html to install your 
         certificate into your JVM.
+      </answer>
+    </faq>
+    <faq id="https">
+      <question>
+        Why am I getting the "No memento defined" error?
+      </question>
+      <answer>
+        This happens because the memento (which stores user state, like cookies etc.) cannot be found
+        in the session. One reason for this could be because the servlet engine isn't sharing sessions
+        between the PortletBridgePortlet and the PortletBridgeServlet. More information on how to
+        configure tomcat to share its sessions is 
+        <a href="http://weblogs.java.net/blog/wholder/archive/2005/02/">available here</a>.
       </answer>
     </faq>
   </part> 
