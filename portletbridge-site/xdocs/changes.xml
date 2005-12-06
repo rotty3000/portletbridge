@@ -5,7 +5,28 @@
   </properties>
   <body>
 
-    <release version="1.1-beta4" date="November 2005">
+
+    <release version="1.1-rc2" date="December 2005">
+
+      <action dev="dkfn" type="update">
+        Upgrade to neko 0.9.5
+      </action>
+
+      <action dev="dkfn" type="update">
+        Parser feature and property support
+      </action>
+
+      <action dev="dkfn" type="update">
+        stylesheetUrl support
+      </action>
+
+      <action dev="dkfn" type="update">
+        getTemplatesFromUrl caching
+      </action>
+
+	</release>
+
+    <release version="1.1-rc1" date="November 2005">
 
       <action dev="dkfn" type="update">
         Configurable "id" request parameter fix
