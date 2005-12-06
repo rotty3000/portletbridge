@@ -210,5 +210,16 @@
         <a href="http://weblogs.java.net/blog/wholder/archive/2005/02/">available here</a>.
       </answer>
     </faq>
+    <faq id="https">
+      <question>
+        Does PortletBridge support XHTML?
+      </question>
+      <answer>
+        Not by default, unfortunately. Differences between parsing and transforming XHTML and HTML
+        mean that the PortletBridge can't currently support a mixed XHTML and HTML environment, so
+        HTML is chosen by default. Mixed mode HTML and XHTML is planned for the 2.0 release of
+        PortletBridge provided I can find a way to do it...
+      </answer>
+    </faq>
   </part> 
 </faqs>
