@@ -24,7 +24,7 @@
 
    <xsl:template match="/HTML/HEAD">
       <xsl:apply-templates select="STYLE"/>
-      <xsl:apply-templates select="LINK[bridge:equalsIgnoreCase($bridge, @rel, 'stylesheet') and (not(@media) or @media != 'print')]"/>
+      <xsl:apply-templates select="LINK[bridge:equalsIgnoreCase($bridge, @rel, 'stylesheet') and (not(@media) or (@media != 'print' and @media != 'handheld'))]"/>
       <xsl:apply-templates select="SCRIPT"/>
       <xsl:apply-templates select="TITLE"/>
    </xsl:template>
@@ -115,8 +115,7 @@
 
    <!-- Convert link tags in head to style tags -->
    <xsl:template match="/HTML/HEAD/LINK">
-      <style type="text/css">@import "<xsl:value-of select="bridge:link($bridge, $base, @href)"/>";
-      </style>
+      <STYLE type="text/css">@import "<xsl:value-of select="bridge:link($bridge, $base, @href)"/>";</STYLE>
    </xsl:template>
 
    <xsl:template match="FORM/@action">
