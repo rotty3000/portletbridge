@@ -20,6 +20,19 @@ import javax.portlet.RenderRequest;
 import org.apache.commons.httpclient.Credentials;
 import org.portletbridge.ResourceException;
 
+/**
+ * Interface for supporting pluggable authentication. 
+ * This needs to be configured as an init parameter in
+ * portlet xml called "authenticatorClassName".
+ * @author jmccrindle
+ *
+ */
 public interface BridgeAuthenticator {
+    /**
+     * @param request the render request.
+     * @return a subclass of Credentials for HttpClient to use
+     * @throws ResourceException if there was a problem getting
+     *          the credentials.
+     */
     Credentials getCredentials(RenderRequest request) throws ResourceException;
 }
