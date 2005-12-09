@@ -71,9 +71,9 @@
   <mailingLists>
 	<mailingList>
 	    <name>${pom.name} User Mailing list</name>
-	    <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
-	    <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
-	    <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
+	    <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-users</subscribe>
+	    <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-users</unsubscribe>
+	    <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-users</archive>
 	</mailingList>
   </mailingLists>
 
