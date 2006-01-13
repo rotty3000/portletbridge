@@ -38,15 +38,29 @@ content from a downstream web site. Currently, the portlet supports:
 <li>Regular expression defining which URL's are in the portlet and which should be regular links</li>
 <li>XSL Stylesheets packaged as part of the portlet or remote (URL based)</li>
 <li>Links to binary files</li>
-<li>Help and Edit modes</li>
 <li>Rewriting CSS urls</li>
 <li>Moving javascript and css links out of the head</li>
 <li>Hiding of downstream URLs and configurable scope</li>
 <li>Back button and refresh support</li>
-<li>Tested in Pluto 1.0.1 rc4</li>
-<li>Tested in JBoss Portal 2.0</li>
-<li>Tested in LifeRay Professional 3.6.0</li>
-<li>Tested in Gridsphere Portal 2.1.1</li>
+<li>Base tag support</li>
+<li>Pluggable authentication</li>
+<li>Configurable regular expressions for Javascript and CSS rewriting</li>
+<li>Help and Edit modes</li>
+</ul>
+PortletBridge has been tested for the following Portals
+<ul>
+<li>Pluto 1.0.1</li>
+<li>JBoss Portal 2.2</li>
+<li>JBoss Portal 2.0</li>
+<li>LifeRay Professional 3.6.0</li>
+<li>Gridsphere Portal 2.1.1</li>
+<li>uPortal 2.5.1</li>
+</ul>
+</p>
+Reports are that PortletBridge works with the following Portals
+<ul>
+<li>Weblogic Portal</li>
+<li>Jetspeed 2</li>
 </ul>
 </p>
 <p>
