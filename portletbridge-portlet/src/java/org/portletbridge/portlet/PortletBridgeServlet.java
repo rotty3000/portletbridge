@@ -41,6 +41,7 @@ import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.portletbridge.PortletBridgeException;
 import org.portletbridge.ResourceException;
 
 /**
@@ -384,8 +385,15 @@ public class PortletBridgeServlet extends HttpServlet {
                                             response.getOutputStream(), 4096);
                                 }
                             } else if (statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
-                                fetch(request, response, bridgeRequest,
-                                        memento, perPortletMemento, url);
+                                Header locationHeader = method.getResponseHeader("Location");
+                                if(locationHeader != null) {
+                                    String redirectUrl = locationHeader.getValue().trim();
+                                    log.debug("redirecting to [" + redirectUrl + "]");
+								  fetch(request, response, bridgeRequest,
+                                        memento, perPortletMemento, new URI(redirectUrl));
+                                } else {
+                                	throw new PortletBridgeException("error.missingLocation");
+                                }
                             } else {
                                 // if there is a problem with the status code
                                 // then return that error back
