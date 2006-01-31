@@ -27,7 +27,6 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.portlet.RenderResponse;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -148,10 +147,13 @@ public class PortletBridgeServlet extends HttpServlet {
         // go and fetch the data from the backend as appropriate
         URI url = bridgeRequest.getUrl();
 
+        // TODO: if there is a query string, we should create a new bridge request with that query string added
+        // TODO: need to clean up how we create bridge requests (i.e. get rid of the pseudorenderresponse)
         if (request.getQueryString() != null
                 && request.getQueryString().trim().length() > 0) {
             try {
                 // TODO: may have to change encoding
+            	// TODO: what if the url already has a query string
                 url = new URI(url.toString() + '?' + request.getQueryString());
             } catch (URISyntaxException e) {
                 throw new ServletException(e.getMessage() + ", doGet(): URL="
@@ -387,10 +389,19 @@ public class PortletBridgeServlet extends HttpServlet {
                             } else if (statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
                                 Header locationHeader = method.getResponseHeader("Location");
                                 if(locationHeader != null) {
-                                    String redirectUrl = locationHeader.getValue().trim();
+                                    URI redirectUrl = new URI(locationHeader.getValue().trim());
                                     log.debug("redirecting to [" + redirectUrl + "]");
-								  fetch(request, response, bridgeRequest,
-                                        memento, perPortletMemento, new URI(redirectUrl));
+                                    PseudoRenderResponse renderResponse = new PseudoRenderResponse(
+                                            bridgeRequest
+                                                    .getPortletId(),
+                                            bridgeRequest
+                                                    .getPageUrl(),
+                                            bridgeRequest
+                                                    .getId());
+                                    BridgeRequest updatedBridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), redirectUrl);
+                                    fetch(request, response, updatedBridgeRequest,
+                                        memento, perPortletMemento, redirectUrl);
+
                                 } else {
                                 	throw new PortletBridgeException("error.missingLocation");
                                 }

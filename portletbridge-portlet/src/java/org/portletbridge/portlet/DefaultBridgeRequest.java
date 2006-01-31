@@ -54,7 +54,7 @@ public class DefaultBridgeRequest implements Serializable, BridgeRequest {
         this.pageUrl = pageUrl;
         this.url = url;
     }
-
+    
     public String getPageUrl() {
         return pageUrl;
     }

@@ -312,6 +312,29 @@ public class PortletBridgePortlet extends GenericPortlet {
             helpPortlet.processAction(request, response);
         }
     }
-    
+
+	public Portlet getEditPortlet() {
+		return editPortlet;
+	}
+
+	public void setEditPortlet(Portlet editPortlet) {
+		this.editPortlet = editPortlet;
+	}
+
+	public Portlet getHelpPortlet() {
+		return helpPortlet;
+	}
+
+	public void setHelpPortlet(Portlet helpPortlet) {
+		this.helpPortlet = helpPortlet;
+	}
+
+	public Portlet getViewPortlet() {
+		return viewPortlet;
+	}
+
+	public void setViewPortlet(Portlet viewPortlet) {
+		this.viewPortlet = viewPortlet;
+	}
     
 }
