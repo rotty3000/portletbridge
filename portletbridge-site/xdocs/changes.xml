@@ -5,6 +5,33 @@
   </properties>
   <body>
 
+    <release version="1.1" date="January 2005">
+    
+      <action dev="dkfn" type="update">
+        Redirect after post bug fixed some more
+      </action>
+      
+      <action dev="dkfn" type="update">
+        Redirect after get bug fixed
+      </action>
+      
+      <action dev="dkfn" type="update">
+        Get with additional query string bug fixed
+      </action>
+    
+    </release>
+
+    <release version="1.1.1" date="January 2005">
+    
+      <action dev="dkfn" type="update">
+        Redirect after post bug fix
+      </action>
+    
+    </release>
+
+    <release version="1.1" date="January 2005">
+    </release>
+
     <release version="1.1-rc2" date="January 2005">
 
       <action dev="dkfn" type="update">
