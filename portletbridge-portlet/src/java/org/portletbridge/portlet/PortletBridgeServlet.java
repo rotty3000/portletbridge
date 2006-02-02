@@ -69,6 +69,8 @@ public class PortletBridgeServlet extends HttpServlet {
     private BridgeFunctionsFactory bridgeFunctionsFactory;
 
     private Set ignoreRequestHeaders;
+    
+    private Set ignorePostToGetRequestHeaders;
 
     /**
      * Initialise the servlet. Will throw a servlet exception if the
@@ -103,7 +105,10 @@ public class PortletBridgeServlet extends HttpServlet {
 
         // TODO: blow up if these aren't set.
         ignoreRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
-                "ignoreRequestHeaders").split(",")));
+        "ignoreRequestHeaders").split(",")));
+
+        ignorePostToGetRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
+        "ignorePostToGetRequestHeaders").split(",")));
 
     }
 
@@ -130,7 +135,7 @@ public class PortletBridgeServlet extends HttpServlet {
                     .getString("error.nomemento")
                     + ", URL=" + request.getRequestURI());
         }
-        final BridgeRequest bridgeRequest = memento.getBridgeRequest(id);
+        BridgeRequest bridgeRequest = memento.getBridgeRequest(id);
         if (bridgeRequest == null) {
             throw new ServletException(resourceBundle
                     .getString("error.nobridgerequest")
@@ -153,8 +158,11 @@ public class PortletBridgeServlet extends HttpServlet {
                 && request.getQueryString().trim().length() > 0) {
             try {
                 // TODO: may have to change encoding
-            	// TODO: what if the url already has a query string
-                url = new URI(url.toString() + '?' + request.getQueryString());
+            	// if the url already has a query string add an & instead
+                String urlAsString = url.toString();
+				url = new URI(urlAsString + ((url.getQuery() != null) ? '&' : '?') + request.getQueryString());
+	            PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
+	            bridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), url);
             } catch (URISyntaxException e) {
                 throw new ServletException(e.getMessage() + ", doGet(): URL="
                         + url + ", id=" + id + ", request URI="
@@ -168,6 +176,23 @@ public class PortletBridgeServlet extends HttpServlet {
         fetch(request, response, bridgeRequest, memento, perPortletMemento, url);
 
     }
+
+    /**
+     * Create a PseudoRenderResponse
+     * 
+     * @param bridgeRequest the bridgeRequest to use
+     * @return a render response
+     */
+	protected PseudoRenderResponse createRenderResponse(BridgeRequest bridgeRequest) {
+		PseudoRenderResponse renderResponse = new PseudoRenderResponse(
+		        bridgeRequest
+		                .getPortletId(),
+		        bridgeRequest
+		                .getPageUrl(),
+		        bridgeRequest
+		                .getId());
+		return renderResponse;
+	}
 
     /**
      * @param response
@@ -194,6 +219,14 @@ public class PortletBridgeServlet extends HttpServlet {
                             if (statusCode == HttpStatus.SC_OK) {
                                 // if it's text/html then store it and redirect
                                 // back to the portlet render view (portletUrl)
+                            	org.apache.commons.httpclient.URI effectiveUri = method.getURI();
+                            	BridgeRequest effectiveBridgeRequest = null;
+                            	if(!effectiveUri.toString().equals(url.toString())) {
+                    	            PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
+                    	            effectiveBridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), new URI(effectiveUri.toString()));
+                            	} else {
+                            		effectiveBridgeRequest = bridgeRequest;
+                            	}
                                 Header responseHeader = method
                                         .getResponseHeader("Content-Type");
                                 if (responseHeader != null
@@ -205,13 +238,13 @@ public class PortletBridgeServlet extends HttpServlet {
                                     // TODO: think about cleaning this up if we
                                     // don't get back to the render
                                     perPortletMemento.enqueueContent(
-                                            bridgeRequest.getId(),
+                                    		effectiveBridgeRequest.getId(),
                                             new PortletBridgeContent(url,
                                                     "get", content));
                                     // redirect
                                     // TODO: worry about this... adding the id
                                     // at the end
-                                    response.sendRedirect(bridgeRequest
+                                    response.sendRedirect(effectiveBridgeRequest
                                             .getPageUrl());
                                 } else if (responseHeader != null
                                         && responseHeader.getValue()
@@ -227,13 +260,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                                     getServletName(),
                                                     url,
                                                     new PseudoRenderRequest(request.getContextPath()),
-                                                    new PseudoRenderResponse(
-                                                            bridgeRequest
-                                                                    .getPortletId(),
-                                                            bridgeRequest
-                                                                    .getPageUrl(),
-                                                            bridgeRequest
-                                                                    .getId()));
+                                                    createRenderResponse(effectiveBridgeRequest));
                                     response.setContentType("text/javascript");
                                     PrintWriter writer = response.getWriter();
                                     writer.write(bridge.script(null, content));
@@ -252,13 +279,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                                     getServletName(),
                                                     url,
                                                     new PseudoRenderRequest(request.getContextPath()),
-                                                    new PseudoRenderResponse(
-                                                            bridgeRequest
-                                                                    .getPortletId(),
-                                                            bridgeRequest
-                                                                    .getPageUrl(),
-                                                            bridgeRequest
-                                                                    .getId()));
+                                                    createRenderResponse(effectiveBridgeRequest));
                                     response.setContentType("text/css");
                                     PrintWriter writer = response.getWriter();
                                     writer.write(bridge.style(null, content));
@@ -391,13 +412,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                 if(locationHeader != null) {
                                     URI redirectUrl = new URI(locationHeader.getValue().trim());
                                     log.debug("redirecting to [" + redirectUrl + "]");
-                                    PseudoRenderResponse renderResponse = new PseudoRenderResponse(
-                                            bridgeRequest
-                                                    .getPortletId(),
-                                            bridgeRequest
-                                                    .getPageUrl(),
-                                            bridgeRequest
-                                                    .getId());
+                                    PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
                                     BridgeRequest updatedBridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), redirectUrl);
                                     fetch(request, response, updatedBridgeRequest,
                                         memento, perPortletMemento, redirectUrl);
@@ -436,15 +451,19 @@ public class PortletBridgeServlet extends HttpServlet {
         Enumeration properties = request.getHeaderNames();
         while (properties.hasMoreElements()) {
             String propertyName = (String) properties.nextElement();
-            if (!ignoreRequestHeaders.contains(propertyName.toLowerCase())) {
+            String propertyNameToLower = propertyName.toLowerCase();
+			if (!ignoreRequestHeaders.contains(propertyNameToLower)
+            		&& !(method instanceof GetMethod && ignorePostToGetRequestHeaders.contains(propertyNameToLower))) {
                 Enumeration values = request.getHeaders(propertyName);
                 while (values.hasMoreElements()) {
                     String property = (String) values.nextElement();
+                    // System.out.println(propertyName + ":" + property);
                     method.setRequestHeader(propertyName, property);
                 }
             }
         }
 
+        // TODO consider what happens if the host is different after a redirect...
         // Conditional cookie transfer
         try {
             if (method.getURI().getHost().equals(request.getHeader("host"))) {

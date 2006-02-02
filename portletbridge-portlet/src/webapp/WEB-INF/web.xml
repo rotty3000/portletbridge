@@ -42,7 +42,10 @@ limitations under the License.
           <param-name>ignoreRequestHeaders</param-name>
           <param-value>accept-encoding,connection,keep-alive</param-value>
       </init-param>
-      
+      <init-param>
+          <param-name>ignorePostToGetRequestHeaders</param-name>
+          <param-value>content-type,content-length</param-value>
+      </init-param>
 	  <load-on-startup>1</load-on-startup>
 	</servlet>
 
