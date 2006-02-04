@@ -67,6 +67,10 @@ public class PortletBridgeServletTest extends TestCase {
         PortletBridgeServlet servlet = new PortletBridgeServlet();
         MockServletConfig config = new MockServletConfig();
         config.setupParam("mementoSessionKey", "mementoSessionKey");
+        config.setupParam("jsRegex", "open\\('([^']*)'|open\\(\"([^\\\"]*)\"");
+        config.setupParam("cssRegex", "pbhs");
+        config.setupParam("ignoreRequestHeaders", "host");
+        config.setupParam("ignorePostToGetRequestHeaders", "host");
         config.setupContext(new MockServletContext());
         servlet.init(config);
         MockHttpServletRequest request = new MockHttpServletRequest();

@@ -55,8 +55,11 @@ public class PortletBridgePortletTest extends TestCase {
         MockPortletConfig mockPortletConfig = new MockPortletConfig();
         mockPortletConfig.setupResourceBundle(bundle);
         mockPortletConfig.setupInitParam("mementoSessionKey", "mementoSessionKey");
+        mockPortletConfig.setupInitParam("authenticatorClassName", DefaultBridgeAuthenticator.class.getName());
         mockPortletConfig.setupInitParam("parserClassName", "org.cyberneko.html.parsers.SAXParser");
-        mockPortletConfig.setupInitParam("servletName", "pbhs");
+        mockPortletConfig.setupInitParam("servletName", "(?:url\\((?:'|\")?(.*?)(?:'|\")?\\))|(?:@import\\s+[^url](?:'|\")?(.*?)(?:'|\")|;|\\s+|$)");
+        mockPortletConfig.setupInitParam("jsRegex", "open\\('([^']*)'|open\\(\"([^\\\"]*)\"");
+        mockPortletConfig.setupInitParam("cssRegex", "pbhs");
         mockPortletConfig.setupInitParam("editStylesheet", "classpath:/org/portletbridge/xsl/pages/edit.xsl");
         mockPortletConfig.setupInitParam("helpStylesheet", "classpath:/org/portletbridge/xsl/pages/help.xsl");
         mockPortletConfig.setupInitParam("errorStylesheet", "classpath:/org/portletbridge/xsl/pages/error.xsl");

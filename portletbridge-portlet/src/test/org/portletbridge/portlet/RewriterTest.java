@@ -21,65 +21,7 @@ import java.util.regex.Pattern;
 import junit.framework.TestCase;
 
 public class RewriterTest extends TestCase {
-    public void testOrs() {
-        Pattern urlPattern = Pattern
-                .compile("(url\\((?:'|\")?)(.*?)((?:'|\")?\\))|(@import\\s+[^url](?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
-        Matcher matcher = urlPattern.matcher("" + "@import 'one';\n"
-                + "@import(url('two');\n" + "url('three');\n");
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            String before = matcher.group(1);
-            String url = matcher.group(2);
-            String after = matcher.group(3);
-            matcher.appendReplacement(sb, before + "MATCHED_URL(" + url + ")"
-                    + after);
-        }
-        matcher.appendTail(sb);
-        assertEquals("@import 'MATCHED_URL(one)';\n" +
-            "@import(url('MATCHED_URL(two)');\n" + 
-            "url('MATCHED_URL(three)');\n", sb.toString());
-    }
-    public void testImport() {
-        Pattern urlPattern = Pattern
-        .compile("(@import\\s+[^url](?:'|\")?)(.*?)((?:'|\")|;|\\s+|$)");
-        String css = "@import('one');";        
-        Matcher matcher = urlPattern.matcher(css);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            String before = matcher.group(1);
-            String url = matcher.group(2);
-            String after = matcher.group(3);
-            matcher.appendReplacement(sb, before + "MATCHED_URL(" + url + ")"
-                    + after);
-        }
-        matcher.appendTail(sb);
-        assertEquals("@import 'MATCHED_URL(one)' ;", sb.toString());
-    }
-    
-    public void testCssRewriter() {
-        Pattern urlPattern = Pattern
-        .compile("(?:url\\((?:'|\")?(.*?)(?:'|\")?\\))|(?:@import\\s+[^url](?:'|\")?(.*?)(?:'|\")|;|\\s+|$)");
-        String string = "" + "@import 'one';\n"
-                + "@import url('two');\n" + "url('three');\n";
-        Matcher matcher = urlPattern.matcher(string);
-        StringBuffer sb = new StringBuffer();
-        matcher.find();
-        do {
-            int group = extractGroup(matcher);
-            if(group > 0) {
-                String before = string.substring(matcher.start(), matcher.start(group));
-                String url = matcher.group(group);
-                String after = string.substring(matcher.end(group), matcher.end());
-                System.out.println(before + "[" + url + "]" + after);
-                matcher.appendReplacement(sb, before + "MATCHED_URL(" + url + ")" + after);
-            }
-        } while (matcher.find());
-        matcher.appendTail(sb);
-        assertEquals("@import 'MATCHED_URL(one)';\n"
-                + "@import url('MATCHED_URL(two))';\n"
-                + "url('MATCHED_URL(three)');\n", sb.toString());
-    }
-    
+        
     public void testMatching() {
         String string = "123456";
         Matcher matcher = Pattern.compile("4(5)6|.(.).").matcher(string);
