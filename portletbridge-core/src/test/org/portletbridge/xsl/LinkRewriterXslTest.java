@@ -18,7 +18,6 @@ package org.portletbridge.xsl;
 import java.io.File;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Templates;
@@ -81,7 +80,7 @@ public class LinkRewriterXslTest extends TestCase {
                     // output to handle2, thus piping the result so the second
                     // stylesheet can parse it. The second stylesheet outputs to the
                     // terminal
-                    StringWriter stringWriter = new StringWriter();
+                    // StringWriter stringWriter = new StringWriter();
                     // Result result1 = new StreamResult(stringWriter);
                     Result result1 = new StreamResult(new OutputStreamWriter(System.out));
                     handler1.setResult(result1);

@@ -33,7 +33,9 @@ import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
  */
 public class HttpClientIntegrationTest extends TestCase {
 
-    private static final class MyHttpState extends HttpState implements Serializable { }
+    private static final class MyHttpState extends HttpState implements Serializable {
+    		private static final long serialVersionUID = 1404178053957985083L; 
+    	}
     
     /*
      * @see TestCase#setUp()
