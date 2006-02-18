@@ -16,7 +16,6 @@
 package org.portletbridge.portlet;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 import javax.portlet.RenderRequest;

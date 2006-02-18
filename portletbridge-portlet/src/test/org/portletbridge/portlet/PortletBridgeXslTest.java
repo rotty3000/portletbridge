@@ -2,7 +2,6 @@ package org.portletbridge.portlet;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 

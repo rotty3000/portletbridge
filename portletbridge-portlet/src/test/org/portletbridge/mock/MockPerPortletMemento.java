@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 
-import org.apache.commons.httpclient.HttpState;
 import org.portletbridge.ResourceException;
 import org.portletbridge.portlet.PerPortletMemento;
 import org.portletbridge.portlet.PortletBridgeContent;
@@ -32,7 +31,9 @@ import org.portletbridge.portlet.SerializeableHttpState;
  */
 public class MockPerPortletMemento implements PerPortletMemento {
 
-    /**
+	private static final long serialVersionUID = -5454519371025077832L;
+
+	/**
      * 
      */
     public MockPerPortletMemento() {

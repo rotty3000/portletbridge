@@ -28,7 +28,9 @@ import org.portletbridge.ResourceException;
 
 public class DefaultBridgeAuthenticator implements BridgeAuthenticator, Serializable {
 
-    public Credentials getCredentials(RenderRequest request)
+	private static final long serialVersionUID = 3030446544732692267L;
+
+	public Credentials getCredentials(RenderRequest request)
             throws ResourceException {
         PortletPreferences preferences = request.getPreferences();
         String configAuthentication = preferences.getValue("authentication",
