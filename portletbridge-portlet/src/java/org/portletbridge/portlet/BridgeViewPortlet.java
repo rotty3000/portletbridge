@@ -26,7 +26,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletException;
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -57,6 +56,8 @@ public class BridgeViewPortlet extends GenericPortlet {
     private String idParamKey = "id";
     
     private BridgeAuthenticator bridgeAuthenticator = null;
+    
+    private InitUrlFactory initUrlFactory = null;
 
     /**
      * Does nothing. All requests are passed through the portlet bridge servlet
@@ -86,13 +87,12 @@ public class BridgeViewPortlet extends GenericPortlet {
         
         try {
             PortletSession session = request.getPortletSession();
-            PortletPreferences preferences = request.getPreferences();
             String portletId = response.getNamespace();
             PortletBridgeMemento tempMemento = (PortletBridgeMemento) session
                     .getAttribute(mementoSessionKey,
                             PortletSession.APPLICATION_SCOPE);
             if (tempMemento == null) {
-                tempMemento = new DefaultPortletBridgeMemento(idParamKey, bridgeAuthenticator);
+                tempMemento = new DefaultPortletBridgeMemento(idParamKey, bridgeAuthenticator, initUrlFactory);
                 session.setAttribute(mementoSessionKey, tempMemento, PortletSession.APPLICATION_SCOPE);
             }
             final PortletBridgeMemento memento = tempMemento;
@@ -186,4 +186,8 @@ public class BridgeViewPortlet extends GenericPortlet {
     public void setBridgeAuthenticator(BridgeAuthenticator bridgeAuthenticator) {
         this.bridgeAuthenticator = bridgeAuthenticator;
     }
+
+	public void setInitUrlFactory(InitUrlFactory initUrlFactory) {
+		this.initUrlFactory = initUrlFactory;
+	}
 }

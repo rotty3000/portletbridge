@@ -201,6 +201,26 @@ public class PortletBridgePortlet extends GenericPortlet {
             throw new PortletException(resourceBundle
                     .getString("error.authenticator"));
         }
+        String initUrlFactoryClassName = config.getInitParameter("initUrlFactoryClassName");
+		InitUrlFactory initUrlFactory = null;
+        if(initUrlFactoryClassName != null && initUrlFactoryClassName.trim().length() > 0) {
+	        try {
+	            Class initUrlFactoryClass = Class.forName(initUrlFactoryClassName);
+	            initUrlFactory = (InitUrlFactory) initUrlFactoryClass.newInstance();
+	        } catch (ClassNotFoundException e) {
+	            log.warn(e, e);
+	            throw new PortletException(resourceBundle
+	                    .getString("error.initUrlFactory"));
+	        } catch (InstantiationException e) {
+	            log.warn(e, e);
+	            throw new PortletException(resourceBundle
+	                    .getString("error.initUrlFactory"));
+	        } catch (IllegalAccessException e) {
+	            log.warn(e, e);
+	            throw new PortletException(resourceBundle
+	                    .getString("error.initUrlFactory"));
+	        }
+        }
         String idParamKey = config.getInitParameter("idParamKey");
         // setup parser
         BridgeTransformer transformer = null;
@@ -231,6 +251,7 @@ public class PortletBridgePortlet extends GenericPortlet {
 
         BridgeViewPortlet bridgeViewPortlet = new BridgeViewPortlet();
         
+        bridgeViewPortlet.setInitUrlFactory(initUrlFactory);
         bridgeViewPortlet.setHttpClientTemplate(new DefaultHttpClientTemplate());
         bridgeViewPortlet.setTransformer(transformer);
         bridgeViewPortlet.setMementoSessionKey(mementoSessionKey);

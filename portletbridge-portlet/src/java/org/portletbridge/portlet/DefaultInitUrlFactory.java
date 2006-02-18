@@ -1,5 +1,6 @@
 package org.portletbridge.portlet;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -8,7 +9,9 @@ import javax.portlet.RenderRequest;
 
 import org.portletbridge.ResourceException;
 
-public class DefaultInitUrlFactory implements InitUrlFactory {
+public class DefaultInitUrlFactory implements InitUrlFactory, Serializable {
+
+	private static final long serialVersionUID = 8646992143972717917L;
 
 	public URI getInitUrl(RenderRequest request) throws ResourceException {
 		PortletPreferences preferences = request.getPreferences();

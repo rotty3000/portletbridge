@@ -26,7 +26,6 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 
 import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
@@ -61,11 +60,14 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
 
     private final BridgeAuthenticator bridgeAuthenticator;
 
+	private final InitUrlFactory initUrlFactory;
+
     /**
      *  
      */
-    public DefaultPerPortletMemento(BridgeAuthenticator bridgeAuthenticator) {
+    public DefaultPerPortletMemento(BridgeAuthenticator bridgeAuthenticator, InitUrlFactory initUrlFactory) {
         this.bridgeAuthenticator = bridgeAuthenticator;
+		this.initUrlFactory = initUrlFactory;
     }
 
     /*
@@ -103,15 +105,20 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
     public void setPreferences(RenderRequest request)
             throws ResourceException {
         PortletPreferences preferences = request.getPreferences();
-        String initUrlPreference = preferences.getValue("initUrl", null);
-        if (initUrlPreference == null || initUrlPreference.trim().length() == 0) {
-            throw new ResourceException("error.initurl",
-                    "preference not defined");
-        }
-        try {
-            this.initUrl = new URI(initUrlPreference);
-        } catch (URISyntaxException e) {
-            throw new ResourceException("error.initurl", e.getMessage(), e);
+        
+        if(initUrlFactory != null) {
+        		this.initUrl = initUrlFactory.getInitUrl(request);
+        } else {
+	        String initUrlPreference = preferences.getValue("initUrl", null);
+	        if (initUrlPreference == null || initUrlPreference.trim().length() == 0) {
+	            throw new ResourceException("error.initurl",
+	                    "preference not defined");
+	        }
+	        try {
+	            this.initUrl = new URI(initUrlPreference);
+	        } catch (URISyntaxException e) {
+	            throw new ResourceException("error.initurl", e.getMessage(), e);
+	        }
         }
 
         String configProxyAuthentication = preferences.getValue(
