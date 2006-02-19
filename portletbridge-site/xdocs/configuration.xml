@@ -46,6 +46,8 @@ Init Params:
 <tr><td>editStylesheet</td><td>URL to the edit stylesheet</td><td>Yes</td></tr>
 <tr><td>helpStylesheet</td><td>URL to the help stylesheet</td><td>Yes</td></tr>
 <tr><td>errorStylesheet</td><td>URL to the error stylesheet</td><td>Yes</td></tr>
+<tr><td>cssRegex</td><td>A regular expession for rewriting css urls (capturing groups are rewritten)</td><td>Yes</td></tr>
+<tr><td>jsRegex</td><td>A regular expession for rewriting javascript urls (capturing groups are rewritten)</td><td>Yes</td></tr>
 </table>
 </p>
 <p>
