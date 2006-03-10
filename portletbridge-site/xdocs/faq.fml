@@ -91,12 +91,20 @@
   <part id="install">
     <title>Installation</title>
    
-    <faq id="how-install-pluto">
+    <faq id="how-install-pluto-1.0">
       <question>
-        How do I deploy into Pluto?
+        How do I deploy into Pluto 1.0.*?
       </question>
       <answer>
         <p><a href="http://portals.apache.org/pluto/install.html#Installing_Portlets">Installing Portlets in Pluto</a></p>
+      </answer>
+    </faq>
+    <faq id="how-install-pluto-1.1">
+      <question>
+        How do I deploy into Pluto 1.1.*?
+      </question>
+      <answer>
+        <p><a href="http://portals.apache.org/pluto/deploying.html">Deploying a Portlet to Pluto Portal</a></p>
       </answer>
     </faq>
     <faq id="how-install-jboss">
