@@ -466,10 +466,20 @@ public class PortletBridgeServlet extends HttpServlet {
         // TODO consider what happens if the host is different after a redirect...
         // Conditional cookie transfer
         try {
-            if (method.getURI().getHost().equals(request.getHeader("host"))) {
-                String cookie = request.getHeader("cookie");
-                if (cookie != null)
-                    method.setRequestHeader("cookie", cookie);
+            org.apache.commons.httpclient.URI uri = method.getURI();
+            if(uri != null) {
+				String host = uri.getHost();
+				if(host != null) {
+					if (host.equals(request.getHeader("host"))) {
+		                String cookie = request.getHeader("cookie");
+		                if (cookie != null)
+		                    method.setRequestHeader("cookie", cookie);
+		            }
+				} else {
+					log.warn("host is null for uri " + uri);
+				}
+            } else {
+            	log.warn("uri is null for method " + method);
             }
         } catch (URIException e) {
             log.warn(e, e);
