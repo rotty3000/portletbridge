@@ -107,8 +107,8 @@ public class BridgeFunctions implements LinkRewriter {
                 }
                 if (name.startsWith("/"))
                     name = name.substring(1);
-                name = request.getContextPath() + '/' + servletName + '/'
-                        + bridgeRequest.getId() + "/" + name;
+                name = response.encodeURL(request.getContextPath() + '/' + servletName + '/'
+                        + bridgeRequest.getId() + "/" + name);
                 return name;
             } else {
                 return url.toString();

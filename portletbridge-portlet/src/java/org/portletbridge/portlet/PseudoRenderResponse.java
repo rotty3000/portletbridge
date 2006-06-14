@@ -118,8 +118,8 @@ public class PseudoRenderResponse implements RenderResponse {
         throw new UnsupportedOperationException();
     }
 
-    public String encodeURL(String arg0) {
-        throw new UnsupportedOperationException();
+    public String encodeURL(String url) {
+        return url;
     }
 
     public String getEnd() {
