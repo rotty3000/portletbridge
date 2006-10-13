@@ -74,7 +74,7 @@ public class BridgeFunctions implements LinkRewriter {
     public String link(String baseUrl, String link) {
         if (link.startsWith("javascript:")) {
             return script(baseUrl, link);
-        } else if (link.equals("#")) {
+        } else if (link.startsWith("#")) {
             return link;
         } else {
             return rewrite(baseUrl, link, true);
