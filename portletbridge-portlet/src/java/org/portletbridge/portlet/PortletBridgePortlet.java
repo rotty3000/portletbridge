@@ -357,5 +357,13 @@ public class PortletBridgePortlet extends GenericPortlet {
 	public void setViewPortlet(Portlet viewPortlet) {
 		this.viewPortlet = viewPortlet;
 	}
+
+	public Templates getErrorTemplates() {
+		return errorTemplates;
+	}
+
+	public void setErrorTemplates(Templates errorTemplates) {
+		this.errorTemplates = errorTemplates;
+	}
     
 }
