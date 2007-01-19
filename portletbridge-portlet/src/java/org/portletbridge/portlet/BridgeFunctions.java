@@ -31,6 +31,8 @@ public class BridgeFunctions implements LinkRewriter {
     
     private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
     .getLog(BridgeFunctions.class);
+    
+    private final Pattern DEFAULT_PATTERN = Pattern.compile(".*");
 
     private final URI currentUrl;
 
@@ -67,7 +69,7 @@ public class BridgeFunctions implements LinkRewriter {
         if(perPortletMemento != null) {
             this.scope = perPortletMemento.getScope();
         } else {
-            this.scope = Pattern.compile(".*");
+            this.scope = DEFAULT_PATTERN;
         }
     }
 

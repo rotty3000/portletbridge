@@ -38,6 +38,8 @@ public class DefaultPortletBridgeService implements PortletBridgeService {
         int thirdIndexOfSlash = path.indexOf('/', secondIndexOfSlash + 1);
         if(secondIndexOfSlash >= 0 && thirdIndexOfSlash >= 0) {
             return path.substring(secondIndexOfSlash + 1, thirdIndexOfSlash);
+        } else if (secondIndexOfSlash >= 0) {
+        	return path.substring(secondIndexOfSlash + 1);
         }
         return null;
     }
