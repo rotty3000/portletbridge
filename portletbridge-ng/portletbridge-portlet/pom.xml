@@ -1,0 +1,27 @@
+<?xml version="1.0"?><project>
+  <parent>
+    <artifactId>portletbridge</artifactId>
+    <groupId>org.portletbrige</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.portletbridge</groupId>
+  <artifactId>portletbridge-portlet</artifactId>
+  <packaging>war</packaging>
+  <name>PortletBridge Generic Portlet</name>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.portletbridge</groupId>
+      <artifactId>portletbridge-core</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>portlet-api</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>
