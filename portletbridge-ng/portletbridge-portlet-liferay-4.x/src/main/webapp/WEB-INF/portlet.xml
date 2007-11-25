@@ -20,9 +20,8 @@ limitations under the License.
     version="1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd
-                        http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"
-                        id="portletbridge">
-	<portlet id="PortletBridge">
+                        http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+	<portlet>
         <description>PortletBridge Portlet - The Web Clipping Portlet</description>
         <portlet-name>PortletBridgePortlet</portlet-name>
         <display-name>Portlet Bridge</display-name>
