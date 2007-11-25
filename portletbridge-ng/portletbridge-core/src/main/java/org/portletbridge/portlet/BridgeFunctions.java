@@ -85,7 +85,7 @@ public class BridgeFunctions implements LinkRewriter {
 
     private String rewrite(String baseUrl, String link, boolean checkScope) {
         // replacing spaces in the url with +'s because... well, there shouldn't be spaces.
-        String trim = link.trim().replace(' ', '+');
+        String trim = link.trim().replace(" ", "%20");
         URI url = null;
         if(baseUrl != null && baseUrl.trim().length() > 0) {
             // consider caching this
