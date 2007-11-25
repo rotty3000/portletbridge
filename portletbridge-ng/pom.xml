@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       
-  http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                          http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.portletbridge</groupId>
   <artifactId>portletbridge</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>PortletBridge</name>
   <url>http://www.portletbridge.org</url>
   <dependencies>
@@ -45,6 +41,7 @@
     <url>
       http://portletbridge.cvs.sourceforge.net/portletbridge/portletbridge-ng
     </url>
+    <tag>portletbridge-1_0</tag>
   </scm>
   <build>
     <plugins>
