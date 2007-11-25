@@ -76,5 +76,7 @@
     <module>portletbridge-core</module>
     <module>portletbridge-portlet</module>
     <module>portletbridge-portlet-pluto-1.1</module>
+    <module>portletbridge-portlet-liferay-4.x</module>
+    <module>portletbridge-portlet-jboss-2.6.x</module>
   </modules>
 </project>
