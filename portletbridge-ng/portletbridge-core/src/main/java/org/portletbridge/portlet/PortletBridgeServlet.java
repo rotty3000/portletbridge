@@ -292,12 +292,9 @@ public class PortletBridgeServlet extends HttpServlet {
                                     Header header = method
                                             .getResponseHeader("Content-Type");
                                     response
-                                            .setContentType(((null == header
-                                                    .getName() ? "" : header
-                                                    .getName())
-                                                    + ": " + (null == header
+                                            .setContentType((null == header
                                                     .getValue() ? "" : header
-                                                    .getValue())));
+                                                    .getValue()));
 
                                     log.trace("fetch(): returning URL=" + url
                                             + ", as stream, content type="
