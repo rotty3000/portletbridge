@@ -3,7 +3,7 @@
   <groupId>org.portletbridge</groupId>
   <artifactId>portletbridge</artifactId>
   <packaging>pom</packaging>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
   <name>PortletBridge</name>
   <url>http://www.portletbridge.org</url>
   <properties>
