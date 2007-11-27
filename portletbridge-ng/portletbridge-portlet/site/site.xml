@@ -24,19 +24,7 @@
     </links>
 
     <menu name="PortletBridge">
-      <item name="FAQ" href="/faq.html"/>
-      <item name="Downloads" href="/downloads.html"/>
-      <item name="Configuration" href="/configuration.html"/>
-      <item name="Features" href="/features.html"/>
-      <item name="Screenshots" href="/screenshots.html"/>
-    </menu>
-    
-    <menu name="Sub Projects">
-      <item name="PortletBridge Core" href="/portletbridge-core/index.html"/>
-      <item name="PortletBridge Generic Portlet" href="/portletbridge-portlet/index.html"/>
-      <item name="PortletBridge Liferay 4.x Portlet" href="/portletbridge-portlet-liferay-4.x/index.html"/>
-      <item name="PortletBridge JBoss 2.6.x Portlet" href="/portletbridge-portlet-jboss-2.6.x/index.html"/>
-      <item name="PortletBridge Pluto 1.1 Portlet" href="/portletbridge-portlet-pluto-1.1/index.html"/>
+      <item name="PortletBridge Home" href="http://www.portlebridge.org"/>
     </menu>
         <head>
             <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
