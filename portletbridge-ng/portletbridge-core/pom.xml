@@ -36,6 +36,7 @@
     <jsp-api.version>2.0</jsp-api.version>
     <junit.version>3.8.1</junit.version>
     <commons-logging.version>1.0.3</commons-logging.version>
+    <log4j.version>1.2.9</log4j.version>
   </properties>
 
   <dependencies>
@@ -75,13 +76,13 @@
     <dependency>
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
-      <version>3.0.1</version>
+      <version>3.1</version>
     </dependency>
 
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.9</version>
+      <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
