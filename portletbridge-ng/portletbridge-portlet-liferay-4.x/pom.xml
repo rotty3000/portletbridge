@@ -20,7 +20,7 @@
     <dependency>
       <groupId>org.portletbridge</groupId>
       <artifactId>portletbridge-core</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <version>1.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>javax.portlet</groupId>
