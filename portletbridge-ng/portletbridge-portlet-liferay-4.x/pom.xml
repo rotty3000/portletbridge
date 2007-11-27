@@ -2,14 +2,14 @@
   <parent>
     <artifactId>portletbridge</artifactId>
     <groupId>org.portletbridge</groupId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.portletbridge</groupId>
   <artifactId>portletbridge-portlet-liferay-4.x</artifactId>
   <packaging>war</packaging>
   <name>PortletBridge Liferay 4.x Portlet</name>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <properties>
     <!-- Change this for a new Pluto version -->
     <portlet-api.version>1.0</portlet-api.version>
