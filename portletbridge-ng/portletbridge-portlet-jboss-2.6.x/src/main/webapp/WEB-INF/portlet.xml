@@ -97,7 +97,8 @@ limitations under the License.
             <portlet-mode>HELP</portlet-mode>
 		</supports>
 
-        <supported-locale>en</supported-locale>        
+        <supported-locale>en</supported-locale>
+        <supported-locale>fr</supported-locale>
 
 		<resource-bundle>org.portletbridge.portlet.PortletBridgePortlet</resource-bundle>
 
