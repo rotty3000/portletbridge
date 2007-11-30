@@ -73,26 +73,42 @@ public class BridgeFunctions implements LinkRewriter {
         }
     }
 
+    /**
+     * Rewrite a link
+     */
     public String link(String baseUrl, String link) {
         if (link.startsWith("javascript:")) {
+            // if's a javascript link, rewrite it using the script rewriter
             return script(baseUrl, link);
         } else if (link.startsWith("#")) {
+            // if it's a reference to somewhere in the current page leave it alone
             return link;
         } else {
+            // otherwise rewrite it
             return rewrite(baseUrl, link, true);
         }
     }
 
+    /**
+     * The rewriter
+     * 
+     * @param baseUrl the base url from the document
+     * @param link the link to rewrite
+     * @param checkScope whether scope should be checked
+     * @return the rewritten url
+     */
     private String rewrite(String baseUrl, String link, boolean checkScope) {
-        // replacing spaces in the url with +'s because... well, there shouldn't be spaces.
+        // replacing spaces in the url with %20's because... well, there shouldn't be spaces.
         String trim = link.trim().replace(" ", "%20");
         URI url = null;
+        // if we have a base url, we need to resolve it and then use the result 
+        // rather then the currentUrl
         if(baseUrl != null && baseUrl.trim().length() > 0) {
             // consider caching this
             URI baseUri = currentUrl.resolve(baseUrl);
-            url = baseUri.resolve(trim);
+            url = trim.startsWith("?") ? URI.create(baseUri.toString() + trim) : baseUri.resolve(trim);
         } else {
-            url = currentUrl.resolve(trim);
+            url = trim.startsWith("?") ? URI.create(currentUrl.toString() + trim) : currentUrl.resolve(trim);
         }
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {

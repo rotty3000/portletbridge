@@ -20,7 +20,7 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
 public class PortletBridgeXslTest extends TestCase {
-    public void testXsl() throws TransformerException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
+    public void testSlashdotXsl() throws TransformerException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
         TransformerFactory tfactory = TransformerFactory.newInstance();
         URL resource = this.getClass().getResource("/org/portletbridge/xsl/default.xsl");
         Transformer transformer = tfactory.newTransformer(new StreamSource(resource.toExternalForm()));
@@ -32,4 +32,18 @@ public class PortletBridgeXslTest extends TestCase {
         System.out.println(writer.getBuffer().toString());
         
     }
+    
+    public void testHealtheVetXsl() throws TransformerException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
+        TransformerFactory tfactory = TransformerFactory.newInstance();
+        URL resource = this.getClass().getResource("/org/portletbridge/xsl/default.xsl");
+        Transformer transformer = tfactory.newTransformer(new StreamSource(resource.toExternalForm()));
+        StringWriter writer = new StringWriter();
+        SAXParser parser = new SAXParser();
+        transformer.setParameter("bridge", new MockBridgeFunctions());
+        transformer.transform(new SAXSource(parser, new InputSource(getClass().getResourceAsStream("/org/portletbridge/portlet/myhealthevet.html"))), new StreamResult(writer));
+        writer.flush();
+        System.out.println(writer.getBuffer().toString());
+        
+    }
+    
 }
