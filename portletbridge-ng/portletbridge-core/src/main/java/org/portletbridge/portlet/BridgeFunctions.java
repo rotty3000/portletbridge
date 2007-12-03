@@ -88,6 +88,16 @@ public class BridgeFunctions implements LinkRewriter {
             return rewrite(baseUrl, link, true);
         }
     }
+    
+    private URI resolveUrl(URI base, String trim) {
+        URI url = null;
+        if(trim.startsWith("?")) {
+            return URI.create(base.getScheme( ) + "://" + base.getAuthority() + base.getPath() + trim);            
+        } else {
+            url = base.resolve(trim);
+        }
+        return url;
+    }
 
     /**
      * The rewriter
@@ -106,9 +116,9 @@ public class BridgeFunctions implements LinkRewriter {
         if(baseUrl != null && baseUrl.trim().length() > 0) {
             // consider caching this
             URI baseUri = currentUrl.resolve(baseUrl);
-            url = trim.startsWith("?") ? URI.create(baseUri.toString() + trim) : baseUri.resolve(trim);
+            url = resolveUrl(baseUri, trim);
         } else {
-            url = trim.startsWith("?") ? URI.create(currentUrl.toString() + trim) : currentUrl.resolve(trim);
+            url = resolveUrl(currentUrl, trim);
         }
         if (url.getScheme().equals("http") || url.getScheme().equals("https")) {
             if (!checkScope || shouldRewrite(url)) {
