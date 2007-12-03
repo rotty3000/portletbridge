@@ -7,6 +7,14 @@
       <instance>
          <instance-id>PortletBridgePortletInstance</instance-id>
          <portlet-ref>PortletBridgePortlet</portlet-ref>
+         <!-- this is an example of setting the initUrl preference
+         <preferences>
+            <preference>
+               <name>initUrl</name>
+               <value>http://www.google.com</value>
+            </preference>
+          </preferences>
+           -->
       </instance>
    </deployment>
 </deployments>
