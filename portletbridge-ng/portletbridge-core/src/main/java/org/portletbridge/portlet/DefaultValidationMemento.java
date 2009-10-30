@@ -16,22 +16,20 @@
 package org.portletbridge.portlet;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author jmccrindle
  */
-public class DefaultValidationMemento<K, V> implements ValidationMemento<K, V>, Serializable {
+public class DefaultValidationMemento implements ValidationMemento, Serializable {
 
     /**
      * default serial version id 
      */
     private static final long serialVersionUID = 5856458092122115180L;
 
-    private final ConcurrentMap<String, Map<K, V>> validationInfoMap =
-        new ConcurrentHashMap<String, Map<K, V>>();
+    private Map validationInfoMap = new HashMap();
     
     /**
      * Default Constructor
@@ -43,16 +41,20 @@ public class DefaultValidationMemento<K, V> implements ValidationMemento<K, V>, 
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.ValidationMemento#getValidationInfo(java.lang.String)
      */
-    public Map<K, V> remove(String id) {
-        Map<K, V> result = validationInfoMap.remove(id);
-        return result;
+    public Map remove(String id) {
+        synchronized(validationInfoMap){
+            Map result = (Map) validationInfoMap.remove(id);
+            return result;
+        }
     }
 
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.ValidationMemento#put(java.lang.String, java.util.Map)
      */
-    public void put(String id, Map<K, V> map) {
-        validationInfoMap.putIfAbsent(id, map);
+    public void put(String id, Map map) {
+        synchronized(validationInfoMap){
+            validationInfoMap.put(id, map);
+        }
     }
 
 }

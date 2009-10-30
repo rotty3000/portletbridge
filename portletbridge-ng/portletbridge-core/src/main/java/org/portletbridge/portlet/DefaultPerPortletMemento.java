@@ -18,8 +18,8 @@ package org.portletbridge.portlet;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
@@ -56,8 +56,7 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
 
     private Pattern scope = Pattern.compile(".*");
 
-    private final ConcurrentMap<String, PortletBridgeContent> bridgeContent =
-        new ConcurrentHashMap<String, PortletBridgeContent>();
+    private Map bridgeContent = new HashMap();
 
     private final BridgeAuthenticator bridgeAuthenticator;
 
@@ -211,14 +210,18 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
     }
 
     public void enqueueContent(String bridgeRequestId, PortletBridgeContent content) {
-        bridgeContent.clear();
-        bridgeContent.put(bridgeRequestId, content);
+        synchronized(bridgeContent) {
+            bridgeContent.clear();
+            bridgeContent.put(bridgeRequestId, content);
+        }
     }
 
     public PortletBridgeContent dequeueContent(String bridgeRequestId) {
-        PortletBridgeContent portletBridgeContent = (PortletBridgeContent) bridgeContent.get(bridgeRequestId);
-        bridgeContent.clear();
-        return portletBridgeContent;
+        synchronized(bridgeContent) {
+            PortletBridgeContent portletBridgeContent = (PortletBridgeContent) bridgeContent.get(bridgeRequestId);
+            bridgeContent.clear();
+            return portletBridgeContent;
+        }
     }
 
 }

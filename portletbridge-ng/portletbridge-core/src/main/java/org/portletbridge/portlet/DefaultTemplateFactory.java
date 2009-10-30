@@ -20,9 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -45,9 +46,8 @@ public class DefaultTemplateFactory implements TemplateFactory {
     private Templates defaultTemplate;
 
     private String defaultTemplateSytemId;
-
-    private final ConcurrentMap<String, Templates> templateCache =
-        new ConcurrentHashMap<String, Templates>();
+    
+    private Map templateCache = Collections.synchronizedMap(new HashMap());
 
     public DefaultTemplateFactory() {
         defaultTemplateSytemId = getClass().getResource(
@@ -85,7 +85,7 @@ public class DefaultTemplateFactory implements TemplateFactory {
         try {
             // this means that the templatecache is going to be a mix
             // of md5 checksums and urls
-            Templates templates = templateCache.get(systemId);
+            Templates templates = (Templates) templateCache.get(systemId);
             if(templates != null) {
                 return templates;
             } else {
@@ -155,7 +155,7 @@ public class DefaultTemplateFactory implements TemplateFactory {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(stylesheet.getBytes());
             String key = new String(messageDigest.digest());
-            Templates templates = templateCache.get(key);
+            Templates templates = (Templates) templateCache.get(key);
             if(templates != null) {
                 result = templates;
             } else {

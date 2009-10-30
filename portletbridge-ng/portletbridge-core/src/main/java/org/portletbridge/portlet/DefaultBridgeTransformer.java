@@ -98,7 +98,7 @@ public class DefaultBridgeTransformer implements
             PrintWriter responseWriter = response.getWriter();
             writer.setOutputCharStream(responseWriter);
             XslFilter filter = new XslFilter(templates);
-            Map<String, BridgeFunctions> context = new HashMap<String, BridgeFunctions>();
+            Map context = new HashMap();
             context.put("bridge", bridgeFunctionsFactory.createBridgeFunctions(memento, perPortletMemento, servletName,
                     currentUrl, request, response));
             filter.setContext(context);
