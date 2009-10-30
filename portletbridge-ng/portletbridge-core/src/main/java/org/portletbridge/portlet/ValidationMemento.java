@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * @author jmccrindle
  */
-public interface ValidationMemento {
-    Map remove(String id);
-    void put(String id, Map map);
+public interface ValidationMemento<K, V> {
+    Map<K, V> remove(String id);
+    void put(String id, Map<K, V> map);
 }

@@ -33,9 +33,15 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
      */
     private static final long serialVersionUID = -5751042731400361166L;
 
-    private Map idToRequests = new HashMap();
-    private Map dataToRequests = new HashMap();
-    private Map mementos = new HashMap();
+    // TODO - PECS
+    private final Map<String, BridgeRequest> idToRequests =
+        new HashMap<String, BridgeRequest>();
+    // TODO - PECS
+    private Map<String, BridgeRequest> dataToRequests =
+        new HashMap<String, BridgeRequest>();
+    // TODO - PECS
+    private Map<String, PerPortletMemento> mementos =
+        new HashMap<String, PerPortletMemento>();
     private final String idParamKey;
     private final BridgeAuthenticator bridgeAuthenticator;
     private final InitUrlFactory initUrlFactory;
@@ -50,14 +56,14 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
      * @see org.portletbridge.portlet.PortletBridgeMemento#getBridgeRequest(java.lang.String)
      */
     public BridgeRequest getBridgeRequest(String id) {
-        return (BridgeRequest) idToRequests.get(id);
+        return idToRequests.get(id);
     }
 
     /* (non-Javadoc)
      * @see org.portletbridge.portlet.PortletBridgeMemento#getPerPortletMemento(java.lang.String)
      */
     public PerPortletMemento getPerPortletMemento(String portletId) {
-        PerPortletMemento memento = (PerPortletMemento) mementos.get(portletId);
+        PerPortletMemento memento = mementos.get(portletId);
         if(memento == null) {
             memento = new DefaultPerPortletMemento(bridgeAuthenticator, initUrlFactory);
             mementos.put(portletId, memento);
@@ -69,7 +75,7 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
         PortletURL pageUrl = response.createRenderURL();
         String namespace = response.getNamespace();
         String key = namespace + pageUrl.toString() + url.toString();
-        BridgeRequest request = (BridgeRequest) dataToRequests.get(key);
+        BridgeRequest request = dataToRequests.get(key);
         if(request != null) {
             return request;
         } else {

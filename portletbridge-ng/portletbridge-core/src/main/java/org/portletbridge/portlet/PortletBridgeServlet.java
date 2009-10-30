@@ -68,9 +68,9 @@ public class PortletBridgeServlet extends HttpServlet {
 
     private BridgeFunctionsFactory bridgeFunctionsFactory;
 
-    private Set ignoreRequestHeaders;
+    private Set<String> ignoreRequestHeaders;
     
-    private Set ignorePostToGetRequestHeaders;
+    private Set<String> ignorePostToGetRequestHeaders;
 
     /**
      * Initialise the servlet. Will throw a servlet exception if the
@@ -104,10 +104,10 @@ public class PortletBridgeServlet extends HttpServlet {
                 .getInstance(), javascriptRewriter, cssRewriter);
 
         // TODO: blow up if these aren't set.
-        ignoreRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
+        ignoreRequestHeaders = new HashSet<String>(Arrays.asList(getInitParameter(
         "ignoreRequestHeaders").split(",")));
 
-        ignorePostToGetRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
+        ignorePostToGetRequestHeaders = new HashSet<String>(Arrays.asList(getInitParameter(
         "ignorePostToGetRequestHeaders").split(",")));
 
     }

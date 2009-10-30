@@ -15,10 +15,17 @@
  */
 package org.portletbridge.portlet;
 
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.NoHttpResponseException;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.portletbridge.ResourceException;
 
 /**
@@ -31,11 +38,109 @@ public class DefaultHttpClientTemplate implements HttpClientTemplate {
     
     private HttpClient httpClient = null;
 
+    private final int connectionTimeout;
+    private final int readTimeoutMillis;
+    private final int retryCount;
+
+    public static final DefaultHttpClientTemplate INSTANCE =
+            new DefaultHttpClientTemplate.Builder().connectionTimeout(5000).build();
+
+    public static class Builder {
+
+        private static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 5000;
+        private static final int DEFAULT_READ_TIMEOUT_MILLIS = 5000;
+        private static final int DEFAULT_RETRY_COUNT = 3;
+
+        private int connectionTimeout;
+        private int readTimeoutMillis;
+        private int retryCount;
+
+        public Builder() {
+            connectionTimeout = DEFAULT_CONNECTION_TIMEOUT_MILLIS;
+            readTimeoutMillis = DEFAULT_READ_TIMEOUT_MILLIS;
+            retryCount = DEFAULT_RETRY_COUNT;
+        }
+
+
+
+        public Builder connectionTimeout(int connectionTimeout) {
+            this.connectionTimeout = connectionTimeout;
+            return this;
+        }
+
+
+        public Builder readTimeoutMillis(int readTimeoutMillis) {
+            this.readTimeoutMillis = readTimeoutMillis;
+            return this;
+        }
+
+
+        public Builder retryCount(int retryCount) {
+            this.retryCount = retryCount;
+            return this;
+        }
+
+
+        public DefaultHttpClientTemplate build() {
+            return new DefaultHttpClientTemplate(this);
+        }
+        
+    };
+
+
+    public DefaultHttpClientTemplate() {
+        this(new Builder());
+    }
+
+
     /**
      * 
      */
-    public DefaultHttpClientTemplate() {
+    private DefaultHttpClientTemplate(Builder b) {
+        retryCount = b.retryCount;
+        connectionTimeout = b.connectionTimeout;
+        readTimeoutMillis = b.readTimeoutMillis;
+
         httpClient = new HttpClient(new MultiThreadedHttpConnectionManager());
+        httpClient.getHttpConnectionManager()
+                .getParams()
+                .setConnectionTimeout(connectionTimeout);
+        httpClient.getHttpConnectionManager()
+                .getParams()
+                .setSoTimeout(readTimeoutMillis);
+        HttpMethodRetryHandler retryhandler = new HttpMethodRetryHandler() {
+            public boolean retryMethod(
+                final HttpMethod method,
+                final IOException exception,
+                int executionCount) {
+                if (executionCount >= retryCount) {
+                    // Do not retry if over max retry count
+                    return false;
+    }
+                if (exception instanceof NoHttpResponseException) {
+                    // Retry if the server dropped connection on us
+                    return true;
+                }
+                if (exception instanceof SocketException) {
+                    // Retry if the server reset connection on us
+                    return true;
+                }
+                if (exception instanceof SocketTimeoutException) {
+                    // Retry if the read timed out
+                    return true;
+                }
+                if (!method.isRequestSent()) {
+                    // Retry if the request has not been sent fully or
+                    // if it's OK to retry methods that have been sent
+                    return true;
+                }
+                // otherwise do not retry
+                return false;
+            }
+        };
+    
+        httpClient.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+                retryhandler);
     }
     
     public Object service(HttpMethodBase method, HttpClientState state, HttpClientCallback callback) throws ResourceException {
