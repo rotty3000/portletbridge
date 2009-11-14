@@ -26,10 +26,33 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.portletbridge.PortletBridgeException;
 import org.portletbridge.ResourceException;
 
+
+/**
+ * Default implementation of BridgeAuthenticator.
+ * 
+ * This implementation will attempt to obtain a value for the {@code 
+ * authentication} preference.  If it has a value of "basic" or "ntlm", a set
+ * of Credentials is built based on the values of the following parameters:
+ * <ul>
+ * 	<li>{@code authenticationUsername}</li>
+ * 	<li>{@code authenticationPassword}</li>
+ * 	<li>{@code authenticationHost} (ntlm only)</li>
+ * 	<li>{@code authenticationDomain} (ntlm only)</li>
+ * </ul>
+ * 
+ */
 public class DefaultBridgeAuthenticator implements BridgeAuthenticator, Serializable {
 
+	/** The serialVersionUID */
 	private static final long serialVersionUID = 3030446544732692267L;
 
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * This implementation returns null if the {@code authentication} parameter
+	 * is not set.
+	 */
 	public Credentials getCredentials(RenderRequest request)
             throws ResourceException {
         PortletPreferences preferences = request.getPreferences();

@@ -22,15 +22,28 @@ import org.portletbridge.ResourceException;
 
 /**
  * Interface for supporting pluggable authentication. 
- * This needs to be configured as an init parameter in
- * portlet xml called "authenticatorClassName".
+ * 
+ * Implementations of this interface build a set of 
+ * {@link org.apache.commons.httpclient.Credentials Credentials} that are used 
+ * by the downstream resource (e.g. allowing access to a page behind BASIC or 
+ * NTLM authentication).
+ * 
+ * Implementations of this interface need to be specified as an init
+ * parameter in the portlet.xml file using the {@code authenticatorClassName}
+ * parameter.
+ * 
  * @author jmccrindle
  *
  */
 public interface BridgeAuthenticator {
+	
     /**
+     * Builds and returns a set of Credentials.  Implementations of this method
+     * are allowed to return null.
+     * 
      * @param request the render request.
-     * @return a subclass of Credentials for HttpClient to use
+     * @return a subclass of Credentials for HttpClient to use or null if
+     * the implementation allows for it.
      * @throws ResourceException if there was a problem getting
      *          the credentials.
      */
