@@ -131,7 +131,7 @@ public class BridgeViewPortlet extends GenericPortlet {
             } else {
                 PortletBridgeContent content = perPortletMemento.dequeueContent(bridgeRequest.getId());
                 if (content == null) {
-                    // we're rerending
+                    // we're rerendering
                     httpClientTemplate.service(new GetMethod(bridgeRequest.getUrl().toString()),
                             perPortletMemento, new HttpClientCallback() {
                                 public Object doInHttpClient(int statusCode,

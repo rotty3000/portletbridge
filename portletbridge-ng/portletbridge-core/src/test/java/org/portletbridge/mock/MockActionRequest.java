@@ -36,6 +36,8 @@ import javax.portlet.WindowState;
  */
 public class MockActionRequest implements ActionRequest {
 
+    private PortletPreferences portletPreferences;
+
     /**
      * 
      */
@@ -127,8 +129,7 @@ public class MockActionRequest implements ActionRequest {
      * @see javax.portlet.PortletRequest#getPreferences()
      */
     public PortletPreferences getPreferences() {
-        // TODO Auto-generated method stub
-        return null;
+        return portletPreferences;
     }
 
     /* (non-Javadoc)
@@ -361,6 +362,10 @@ public class MockActionRequest implements ActionRequest {
     public int getServerPort() {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    public void setupPortletPreferences(PortletPreferences portletPreferences) {
+        this.portletPreferences = portletPreferences;
     }
 
 }
