@@ -33,8 +33,14 @@ public class PseudoRenderResponse implements RenderResponse {
     private String namespace;
     private String start;
     private String end;
-
+    private String idParamKey;
+    
+    @Deprecated
     public PseudoRenderResponse(String namespace, String currentUrl, String currentId) {
+    	this(namespace, currentUrl, currentId, "id");
+    }
+    
+    public PseudoRenderResponse(String namespace, String currentUrl, String currentId, String idParamKey) {
         this.namespace = namespace;
         int indexOfCurrentId = currentUrl.indexOf(currentId);
         if(indexOfCurrentId < 0) {
@@ -44,6 +50,8 @@ public class PseudoRenderResponse implements RenderResponse {
             this.start = currentUrl.substring(0, indexOfCurrentId);
             this.end = currentUrl.substring(indexOfCurrentId + currentId.length());
         }
+        
+        this.idParamKey = idParamKey;
     }
 
     public String getContentType() {
@@ -51,7 +59,7 @@ public class PseudoRenderResponse implements RenderResponse {
     }
 
     public PortletURL createRenderURL() {
-        return new PseudoPortletURL(start, end);
+        return new PseudoPortletURL(start, end, idParamKey);
     }
 
     public PortletURL createActionURL() {

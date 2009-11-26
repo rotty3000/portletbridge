@@ -31,12 +31,19 @@ import javax.portlet.WindowStateException;
 public class PseudoPortletURL implements PortletURL {
 
     private String id;
+    private String idParamKey;
     private String start;
     private String end;
 
+    @Deprecated
     public PseudoPortletURL(String start, String end) {
-        this.start = start;
-        this.end = end;
+    	this(start, end, "id");
+    }
+    
+    public PseudoPortletURL(String start, String end, String idParamKey) {
+    	this.start = start;
+    	this.end = end;
+    	this.idParamKey = idParamKey;
     }
 
     public void setWindowState(WindowState arg0) throws WindowStateException {
@@ -48,7 +55,7 @@ public class PseudoPortletURL implements PortletURL {
     }
 
     public void setParameter(String key, String value) {
-        if("id".equals(key)) {
+        if (idParamKey.equals(key)) {
             this.id = value;
         } else {
             throw new UnsupportedOperationException();
