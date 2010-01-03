@@ -19,8 +19,22 @@ import org.apache.commons.httpclient.HttpMethodBase;
 import org.portletbridge.ResourceException;
 
 /**
+ * Implementations of this interface fetch content from a given resource.
+ *
  * @author JMcCrindle
  */
 public interface HttpClientTemplate {
-    Object service(HttpMethodBase method, HttpClientState state, HttpClientCallback callback) throws ResourceException;
+
+    /**
+     * Calls the URL specified by the given {@code method}.
+     *
+     * @param method the Http nethod used to fetch content at the given URL.
+     * @param state any credentials or cookies needed by the URL.
+     * @param callback used to manipulate the content that was fetched by
+     * the {@code method}.
+     * @return the result of the retrieval if it applies.
+     * @throws ResourceException if there is a problem fetching the content.
+     */
+    Object service(HttpMethodBase method, HttpClientState state,
+            HttpClientCallback callback) throws ResourceException;
 }
