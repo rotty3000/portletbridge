@@ -122,7 +122,11 @@ import java.security.SecureRandom;
  * </ul>
  * @author Steve Woodcock
  * @version 1.1
+ * @deprecated the JDK version 1.5 has a {@link java.util.UUID UUID} class that 
+ * does the same job as this class.  This class will be removed in a future 
+ * release as DefaultIdGenerator uses the new UUID class.
  */
+@Deprecated
 public class GUIDGenerator {
 
     /** Creates new GUIDGenerator */

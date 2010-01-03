@@ -108,7 +108,11 @@ public class BridgeViewPortlet extends GenericPortlet {
                 bridgeRequest = memento
                     .getBridgeRequest(urlId);
             } else {
-                log.debug("no bridge request found, using initUrl");
+            	
+            	if (log.isDebugEnabled()) { 
+            		log.debug("no bridge request found, using initUrl");
+            	}
+            	
                 bridgeRequest = null;
             }
 

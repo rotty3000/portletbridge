@@ -103,8 +103,8 @@ public class PortletBridgeServlet extends HttpServlet {
                 javascriptRegex);
         ContentRewriter cssRewriter = new RegexContentRewriter(cssRegex);
 
-        bridgeFunctionsFactory = new BridgeFunctionsFactory(DefaultIdGenerator
-                .getInstance(), javascriptRewriter, cssRewriter);
+        bridgeFunctionsFactory = new BridgeFunctionsFactory(new DefaultIdGenerator(), 
+        		javascriptRewriter, cssRewriter);
 
         // TODO: blow up if these aren't set.
         ignoreRequestHeaders = new HashSet(Arrays.asList(getInitParameter(
@@ -169,7 +169,7 @@ public class PortletBridgeServlet extends HttpServlet {
                 String urlAsString = url.toString();
 				url = new URI(urlAsString + ((url.getQuery() != null) ? '&' : '?') + request.getQueryString());
 	            PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
-	            bridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), url);
+	            bridgeRequest = memento.createBridgeRequest(renderResponse, new DefaultIdGenerator().nextId(), url);
             } catch (URISyntaxException e) {
                 throw new ServletException(e.getMessage() + ", doGet(): URL="
                         + url + ", id=" + id + ", request URI="
@@ -231,7 +231,7 @@ public class PortletBridgeServlet extends HttpServlet {
                             	BridgeRequest effectiveBridgeRequest = null;
                             	if(!effectiveUri.toString().equals(url.toString())) {
                     	            PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
-                    	            effectiveBridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), new URI(effectiveUri.toString()));
+                    	            effectiveBridgeRequest = memento.createBridgeRequest(renderResponse, new DefaultIdGenerator().nextId(), new URI(effectiveUri.toString()));
                             	} else {
                             		effectiveBridgeRequest = bridgeRequest;
                             	}
@@ -421,7 +421,7 @@ public class PortletBridgeServlet extends HttpServlet {
                                     URI redirectUrl = new URI(locationHeader.getValue().trim());
                                     log.debug("redirecting to [" + redirectUrl + "]");
                                     PseudoRenderResponse renderResponse = createRenderResponse(bridgeRequest);
-                                    BridgeRequest updatedBridgeRequest = memento.createBridgeRequest(renderResponse, DefaultIdGenerator.getInstance().nextId(), redirectUrl);
+                                    BridgeRequest updatedBridgeRequest = memento.createBridgeRequest(renderResponse, new DefaultIdGenerator().nextId(), redirectUrl);
                                     fetch(request, response, updatedBridgeRequest,
                                         memento, perPortletMemento, redirectUrl);
 

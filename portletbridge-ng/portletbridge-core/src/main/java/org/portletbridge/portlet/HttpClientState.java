@@ -18,10 +18,29 @@ package org.portletbridge.portlet;
 import java.io.Serializable;
 
 /**
+ * Instances of this type store the state of the backing HttpClient.
+ * 
  * @author JMcCrindle
+ * @see <a href="http://hc.apache.org/httpclient-3.x/">HttpClient</a>
  */
 public interface HttpClientState extends Serializable {
+	
+	/**
+	 * @return the SerializeableHttpState
+	 */
     public SerializeableHttpState getHttpState();
+    
+    
+    /**
+     * @return the proxy host (usually the value of the {@code proxyHost} 
+     * portlet preference)
+     */
     public String getProxyHost();
+    
+    
+    /**
+     * @return the proxy port (usually the value of the {@code proxyPort}
+     * portlet preference)
+     */
     public int getProxyPort();
 }

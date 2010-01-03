@@ -186,40 +186,40 @@ public class PortletBridgePortlet extends GenericPortlet {
         }
         BridgeAuthenticator bridgeAuthenticator = null;
         try {
-            Class authenticatorClass = Class.forName(authenticatorClassName);
-            bridgeAuthenticator = (BridgeAuthenticator) authenticatorClass.newInstance();
-        } catch (ClassNotFoundException e) {
-            log.warn(e, e);
-            throw new PortletException(resourceBundle
-                    .getString("error.authenticator"));
-        } catch (InstantiationException e) {
-            log.warn(e, e);
-            throw new PortletException(resourceBundle
-                    .getString("error.authenticator"));
-        } catch (IllegalAccessException e) {
-            log.warn(e, e);
-            throw new PortletException(resourceBundle
-                    .getString("error.authenticator"));
-        }
+			bridgeAuthenticator = PortletBridgeObjects.createInstanceOf(authenticatorClassName);
+		} catch (Exception e) {
+			if (log.isWarnEnabled()) {
+				log.warn("Problem constructing BridgeAuthenticator instance, returning instance of DefaultBridgeAuthenticator", e);
+			}
+			bridgeAuthenticator = new DefaultBridgeAuthenticator();
+		}
+//        try {
+//            Class authenticatorClass = Class.forName(authenticatorClassName);
+//            bridgeAuthenticator = (BridgeAuthenticator) authenticatorClass.newInstance();
+//        } catch (ClassNotFoundException e) {
+//            log.warn(e, e);
+//            throw new PortletException(resourceBundle
+//                    .getString("error.authenticator"));
+//        } catch (InstantiationException e) {
+//            log.warn(e, e);
+//            throw new PortletException(resourceBundle
+//                    .getString("error.authenticator"));
+//        } catch (IllegalAccessException e) {
+//            log.warn(e, e);
+//            throw new PortletException(resourceBundle
+//                    .getString("error.authenticator"));
+//        }
         String initUrlFactoryClassName = config.getInitParameter("initUrlFactoryClassName");
 		InitUrlFactory initUrlFactory = null;
         if(initUrlFactoryClassName != null && initUrlFactoryClassName.trim().length() > 0) {
-	        try {
-	            Class initUrlFactoryClass = Class.forName(initUrlFactoryClassName);
-	            initUrlFactory = (InitUrlFactory) initUrlFactoryClass.newInstance();
-	        } catch (ClassNotFoundException e) {
-	            log.warn(e, e);
-	            throw new PortletException(resourceBundle
-	                    .getString("error.initUrlFactory"));
-	        } catch (InstantiationException e) {
-	            log.warn(e, e);
-	            throw new PortletException(resourceBundle
-	                    .getString("error.initUrlFactory"));
-	        } catch (IllegalAccessException e) {
-	            log.warn(e, e);
-	            throw new PortletException(resourceBundle
-	                    .getString("error.initUrlFactory"));
-	        }
+        	try {
+				initUrlFactory = PortletBridgeObjects.createInstanceOf(initUrlFactoryClassName);
+			} catch (Exception e) {
+				if (log.isWarnEnabled()) {
+					log.warn("Problem constructing InitUrlFactory instance, returning instance of DefaultInitUrlFactory", e);
+				}
+				initUrlFactory = new DefaultInitUrlFactory();
+			}
         }
         String idParamKey = config.getInitParameter("idParamKey");
         // setup parser
@@ -236,7 +236,7 @@ public class PortletBridgePortlet extends GenericPortlet {
                     parser.setProperty(name.substring("parserProperty-".length()), config.getInitParameter(name));
                 }
             }
-            IdGenerator idGenerator = DefaultIdGenerator.getInstance();
+            IdGenerator idGenerator = new DefaultIdGenerator();
             ContentRewriter javascriptRewriter = new RegexContentRewriter(javascriptRegex);
             ContentRewriter cssRewriter = new RegexContentRewriter(cssRegex);
             BridgeFunctionsFactory bridgeFunctionsFactory = new BridgeFunctionsFactory(idGenerator, javascriptRewriter, cssRewriter); 
