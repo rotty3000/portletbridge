@@ -24,6 +24,12 @@ import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 
 /**
+ * Default implementation of PortletBridgeMemento.
+ * 
+ * This implementation returns instances of {@link DefaultBridgeRequest 
+ * DefaultBridgeRequests} and {@link DefaultPerPortletMemento
+ * DefaultPerPortletMementos}
+ * 
  * @author JMcCrindle
  */
 public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serializable {
@@ -33,31 +39,52 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
      */
     private static final long serialVersionUID = -5751042731400361166L;
 
-    private Map idToRequests = new HashMap();
-    private Map dataToRequests = new HashMap();
-    private Map mementos = new HashMap();
+    private final Map<String, BridgeRequest> idToRequests =
+        new HashMap<String, BridgeRequest>();
+    private Map<String, BridgeRequest> dataToRequests =
+        new HashMap<String, BridgeRequest>();
+    private Map<String, PerPortletMemento> mementos =
+        new HashMap<String, PerPortletMemento>();
     private final String idParamKey;
     private final BridgeAuthenticator bridgeAuthenticator;
     private final InitUrlFactory initUrlFactory;
+
     
+    /**
+     * Constructs a new instance of DefaultPortletBridgeMemento.
+     * 
+     * Implementation note:  the InitUrlFactory and BridgeAuthenticator 
+     * parameters are used when constructing the PerPortletMementos.
+     * 
+     * @param idParamKey name for the query parameter to use for referencing the
+     * id of the BridgeRequest. 
+     * @param bridgeAuthenticator the BridgeAuthenticator
+     * @param initUrlFactory the initUrlFactory
+     */
     public DefaultPortletBridgeMemento(String idParamKey, BridgeAuthenticator bridgeAuthenticator, InitUrlFactory initUrlFactory) {
         this.idParamKey = idParamKey;
         this.bridgeAuthenticator = bridgeAuthenticator;
         this.initUrlFactory = initUrlFactory;
     }
 
-    /* (non-Javadoc)
-     * @see org.portletbridge.portlet.PortletBridgeMemento#getBridgeRequest(java.lang.String)
+    
+    /**
+     * {@inheritDoc}
      */
     public BridgeRequest getBridgeRequest(String id) {
-        return (BridgeRequest) idToRequests.get(id);
+        return idToRequests.get(id);
     }
 
-    /* (non-Javadoc)
-     * @see org.portletbridge.portlet.PortletBridgeMemento#getPerPortletMemento(java.lang.String)
+
+    /**
+     * {@inheritDoc}
+     * 
+     * This implementation will return instances of DefaultPerPortletMemento.
+     * If no instance of PerPortletMemento is stored with the given portletId,
+     * a new one is created, stored with the key and returned.
      */
     public PerPortletMemento getPerPortletMemento(String portletId) {
-        PerPortletMemento memento = (PerPortletMemento) mementos.get(portletId);
+        PerPortletMemento memento = mementos.get(portletId);
         if(memento == null) {
             memento = new DefaultPerPortletMemento(bridgeAuthenticator, initUrlFactory);
             mementos.put(portletId, memento);
@@ -65,11 +92,18 @@ public class DefaultPortletBridgeMemento implements PortletBridgeMemento, Serial
         return memento;
     }
 
+    
+    /**
+     * {@inheritDoc}
+     * 
+     * This implementation will return instances of 
+     * {@link DefaultBridgeRequest}.
+     */
     public BridgeRequest createBridgeRequest(RenderResponse response, String id, URI url) {
         PortletURL pageUrl = response.createRenderURL();
         String namespace = response.getNamespace();
         String key = namespace + pageUrl.toString() + url.toString();
-        BridgeRequest request = (BridgeRequest) dataToRequests.get(key);
+        BridgeRequest request = dataToRequests.get(key);
         if(request != null) {
             return request;
         } else {
