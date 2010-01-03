@@ -18,8 +18,8 @@ package org.portletbridge.portlet;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
@@ -56,58 +56,74 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
 
     private Pattern scope = Pattern.compile(".*");
 
-    private Map bridgeContent = new HashMap();
+    private final ConcurrentMap<String, PortletBridgeContent> bridgeContent =
+        new ConcurrentHashMap<String, PortletBridgeContent>();
 
     private final BridgeAuthenticator bridgeAuthenticator;
 
 	private final InitUrlFactory initUrlFactory;
 
-    /**
-     *  
-     */
+	
+	/**
+	 * Constructs a new DefaultPerPortletMemento.
+	 * 
+	 * @param bridgeAuthenticator implementation of BridgeAuthenticator to use
+	 * when making content requests
+	 * @param initUrlFactory implementation of InitUrlFactory to use for obtaining
+	 * the initUrl
+	 */
     public DefaultPerPortletMemento(BridgeAuthenticator bridgeAuthenticator, InitUrlFactory initUrlFactory) {
         this.bridgeAuthenticator = bridgeAuthenticator;
 		this.initUrlFactory = initUrlFactory;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.portletbridge.portlet.PerPortletMemento#getHttpState()
+
+    /**
+     * {@inheritDoc}
      */
     public SerializeableHttpState getHttpState() {
         return state;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.portletbridge.portlet.PerPortletMemento#getProxyHost()
+    
+    /**
+     * {@inheritDoc}
      */
     public String getProxyHost() {
         return proxyHost;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.portletbridge.portlet.PerPortletMemento#getProxyPort()
+
+    /**
+     * {@inheritDoc}
      */
     public int getProxyPort() {
         return proxyPort;
     }
 
-    /*
-     * (non-Javadoc)
+
+    /**
+     * {@inheritDoc}
      * 
-     * @see org.portletbridge.portlet.PerPortletMemento#setPreferences(javax.portlet.PortletPreferences)
+     * This implementation will store the following portlet preferences:
+     * <ul>
+     * <li>{@code initUrl}</li>
+     * <li>{@code proxyAuthentication}</li>
+     * <li>{@code proxyAuthenticationUsername}</li>
+     * <li>{@code proxyAuthenticationPassword}</li>
+     * <li>{@code proxyAuthenticationHost}</li>
+     * <li>{@code proxyAuthenticationDomain}</li>
+     * <li>{@code proxyHost}</li>
+     * <li>{@code proxyPort}</li>
+     * <li>{@code scope}</li>
+     * </ul>
      */
     public void setPreferences(RenderRequest request)
             throws ResourceException {
         PortletPreferences preferences = request.getPreferences();
         
         if(initUrlFactory != null) {
-        		this.initUrl = initUrlFactory.getInitUrl(request);
+        	initUrl = initUrlFactory.getInitUrl(request);
         } else {
 	        String initUrlPreference = preferences.getValue("initUrl", null);
 	        if (initUrlPreference == null || initUrlPreference.trim().length() == 0) {
@@ -191,37 +207,40 @@ public class DefaultPerPortletMemento implements PerPortletMemento, Serializable
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.portletbridge.portlet.PerPortletMemento#getScope()
+
+    /**
+     * {@inheritDoc}
      */
     public Pattern getScope() {
         return scope;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.portletbridge.portlet.PerPortletMemento#getInitUrl()
+    
+    /**
+     * {@inheritDoc}
      */
     public URI getInitUrl() {
         return initUrl;
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
     public void enqueueContent(String bridgeRequestId, PortletBridgeContent content) {
-        synchronized(bridgeContent) {
-            bridgeContent.clear();
-            bridgeContent.put(bridgeRequestId, content);
-        }
+        bridgeContent.clear();
+        bridgeContent.put(bridgeRequestId, content);
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
     public PortletBridgeContent dequeueContent(String bridgeRequestId) {
-        synchronized(bridgeContent) {
-            PortletBridgeContent portletBridgeContent = (PortletBridgeContent) bridgeContent.get(bridgeRequestId);
-            bridgeContent.clear();
-            return portletBridgeContent;
-        }
+        PortletBridgeContent portletBridgeContent = 
+        	bridgeContent.get(bridgeRequestId);
+        bridgeContent.clear();
+        return portletBridgeContent;
     }
 
 }
