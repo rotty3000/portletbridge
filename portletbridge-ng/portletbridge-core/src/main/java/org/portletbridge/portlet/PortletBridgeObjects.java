@@ -46,6 +46,24 @@ public class PortletBridgeObjects {
 	private static final Log factoryLogger = 
 			LogFactory.getLog("PortletBridgeObjects");
 	
+
+    public static BridgeAuthenticator createBridgeAuthenticator(String authenticatorClassName) 
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class authenticatorClass = Class.forName(authenticatorClassName);
+        BridgeAuthenticator instance = (BridgeAuthenticator) 
+            authenticatorClass.newInstance();
+        return instance;
+    }
+
+    public static InitUrlFactory createInitUrlFactory(String initUrlFactoryClassName) 
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class initUrlFactoryClass = Class.forName(initUrlFactoryClassName);
+        InitUrlFactory instance = (InitUrlFactory)
+            initUrlFactoryClass.newInstance();
+        return instance;
+    }
+
+
 	/**
 	 * Returns an implementation of HttpClientCallback that is suitable for use
 	 * in the PortletBridgeServlet.

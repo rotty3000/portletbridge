@@ -186,7 +186,7 @@ public class PortletBridgePortlet extends GenericPortlet {
         }
         BridgeAuthenticator bridgeAuthenticator = null;
         try {
-			bridgeAuthenticator = PortletBridgeObjects.createInstanceOf(authenticatorClassName);
+			bridgeAuthenticator = PortletBridgeObjects.createBridgeAuthenticator(authenticatorClassName);
 		} catch (Exception e) {
 			if (log.isWarnEnabled()) {
 				log.warn("Problem constructing BridgeAuthenticator instance, returning instance of DefaultBridgeAuthenticator", e);
@@ -213,7 +213,7 @@ public class PortletBridgePortlet extends GenericPortlet {
 		InitUrlFactory initUrlFactory = null;
         if(initUrlFactoryClassName != null && initUrlFactoryClassName.trim().length() > 0) {
         	try {
-				initUrlFactory = PortletBridgeObjects.createInstanceOf(initUrlFactoryClassName);
+				initUrlFactory = PortletBridgeObjects.createInitUrlFactory(initUrlFactoryClassName);
 			} catch (Exception e) {
 				if (log.isWarnEnabled()) {
 					log.warn("Problem constructing InitUrlFactory instance, returning instance of DefaultInitUrlFactory", e);

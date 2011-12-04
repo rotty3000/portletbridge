@@ -15,44 +15,47 @@
  */
 package org.portletbridge.portlet;
 
-import java.util.UUID;
-
 
 /**
- * Default Id Generator. Uses the {@link java.util.UUID UUID} to generate
+ * Default Id Generator. Uses the GUIDGenerator to generate
  * url friendly id's.
  * 
  * @author jmccrindle
  */
 public class DefaultIdGenerator implements IdGenerator {
 
-	
-    /**
-     * Constructs a new DefaultIdGenerator
-     */
-    public DefaultIdGenerator() {
-    }
+    private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+    .getLog(DefaultIdGenerator.class);
+
+    private final GUIDGenerator generator;
+
+    private static IdGenerator instance = new DefaultIdGenerator();
 
     /**
-     * {@inheritDoc}
-     * 
-     * This implementation returns a random UUID as a String without "-"
-     * characters.
-     * 
-     * @see java.util.UUID#randomUUID() randomUUID
-     * @see java.util.UUID#toString() toString
+     * Unfortunate, because I can't stand singletons
      */
-    public synchronized String nextId() {
-    	UUID uuid = UUID.randomUUID();
-    	return uuid.toString().replaceAll("-", "");
+    public synchronized static IdGenerator getInstance() {
+        return instance;
     }
     
+    /**
+     * Default Constructor
+     */
+    public DefaultIdGenerator() {
+        try {
+            this.generator = new GUIDGenerator();
+        } catch (GUIDException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
-     * @return the name of this class
+     * @return the next integer
      */
-    @Override
-    public String toString() {
-    	return "DefaultIdGenerator";
+    public synchronized String nextId() {
+        log.trace("entering nextId()");
+        
+        return generator.getUUID();
     }
+
 }
