@@ -1,7 +1,0 @@
-<?xml version="1.0" standalone="yes"?>
-<instances>
-   <instance>
-      <instance-name>PortletBridgePortletInstance</instance-name>
-      <component-ref>PortletBridgePortlet</component-ref>
-   </instance>
-</instances>

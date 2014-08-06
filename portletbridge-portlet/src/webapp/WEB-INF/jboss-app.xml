@@ -1,5 +1,0 @@
-<jboss-app>
-	<app-name>portletbridge</app-name>
-	<loader-repository>portletbridge.org:loader=1portletbridge-portlet.war</loader-repository>
-	<loader-repository-config>java2ParentDelegation=false</loader-repository-config>
-</jboss-app>
